@@ -10,6 +10,9 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+    const ROL_ADMIN = 'administrador';
+    const ROL_ASISTENTE = 'asistente';
+    
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -21,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'rol',
     ];
 
     /**
@@ -41,4 +45,27 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The append logic attributes accessors.
+     *
+     * @var array<string, string>
+     */
+    protected $appends = [
+        'rol_name'
+    ];
+
+    public function getRolNameAttribute() {
+        switch ($this->rol) {
+            case self::ROL_ADMIN:
+                return 'Adminsitrador';
+                break;
+            case self::ROL_ASISTENTE:
+                return 'Asistente';
+                break;
+            default:
+                return 'No asignado';
+                break;
+        }
+    }
 }
