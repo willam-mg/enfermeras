@@ -30,3 +30,17 @@ Breadcrumbs::for('users.edit', function (BreadcrumbTrail $trail, $user) {
     $trail->parent('users');
     $trail->push('Editar '.$user->name, url('users.edit', $user));
 });
+
+// Afiliados
+Breadcrumbs::for('afiliados', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Afiliados', url('afiliados'));
+});
+Breadcrumbs::for('afiliados.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('afiliados');
+    $trail->push('Nuevo afiliado', url('afiliados.create'));
+});
+Breadcrumbs::for('afiliados.edit', function (BreadcrumbTrail $trail, $user) {
+    $trail->parent('afiliados');
+    $trail->push('Editar '.$user->name, url('afiliados.edit', $user));
+});

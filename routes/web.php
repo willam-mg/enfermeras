@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AfiliadoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,4 @@ Route::middleware('auth')->group(function() {
 });
 
 Route::resource('users', UserController::class)->middleware(['auth']);
+Route::resource('afiliados', AfiliadoController::class)->middleware(['auth']);
