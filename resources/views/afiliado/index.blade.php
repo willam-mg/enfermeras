@@ -4,6 +4,8 @@
 
 @section('content')
     {{ Breadcrumbs::render('afiliados') }}
+
+    @include('afiliado._search')
     <div class="text-end">
         <a href="{{url('/afiliados/create')}}" class="btn btn-success">
             <i class="bi bi-plus"></i>

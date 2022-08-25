@@ -12,11 +12,19 @@ class AfiliadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Afiliado::paginate(5);
+        $model = new Afiliado();
+        if ($request != null) {
+            $model->nombre_completo = $request->nombre_completo;
+            $data = Afiliado::where('nombre_completo', 'like', '%'.$model->nombre_completo.'%')->paginate(5);
+        } else {
+            $data = Afiliado::paginate(5);
+        }
+        
         return view('afiliado.index', [
-            'data'=>$data
+            'data'=>$data,
+            'model'=>$model
         ]);
     }
 
@@ -100,7 +108,7 @@ class AfiliadoController extends Controller
 
         $request->validate([
             'nombre_completo' => ['required', 'string', 'max:255'],
-            'ci' => ['required', 'string', 'unique:afiliados'],
+            'ci' => ['required', 'string'],
             'telefono' => ['string'],
             'celular' => ['string'],
             'direccion' => ['string', 'max:255'],
