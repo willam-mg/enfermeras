@@ -35,6 +35,9 @@
                         <td>{{$item->celular}}</td>
                         <td>{{$item->direccion}}</td>
                         <td>
+                            <a href="{{ route('afiliados.show', $item->id) }}" class="d-inline btn btn-outline-secondary">
+                                <i class="bi bi-eye"></i>
+                            </a>
                             <a href="{{ route('afiliados.edit', $item->id) }}" class="d-inline btn btn-outline-secondary">
                                 <i class="bi bi-pencil"></i>
                             </a>

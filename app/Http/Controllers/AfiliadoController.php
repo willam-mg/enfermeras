@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Afiliado;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AfiliadoController extends Controller
 {
@@ -134,5 +135,17 @@ class AfiliadoController extends Controller
         return redirect()
             ->route('afiliados.index')
             ->with('success','Registro eliminado');
+    }
+
+    public function imprimirCredencial($id) {
+        $model = Afiliado::find($id);
+        $pdf = Pdf::loadView('afiliado.credencial', compact('model'));
+        // $customPaper = array(0,0,360,360);
+        // $customPaper = array(0,0,5.5,3.5);
+        $customPaper = array(0,0,132.28346457, 207.87401575);
+        $pdf->setPaper($customPaper);
+
+        return $pdf->stream();
+        // return $pdf->download('disney.pdf');
     }
 }
