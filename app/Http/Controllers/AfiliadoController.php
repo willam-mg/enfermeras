@@ -139,9 +139,13 @@ class AfiliadoController extends Controller
 
     public function imprimirCredencial($id) {
         $model = Afiliado::find($id);
+        // return view('afiliado.credencial', compact('model'));
         $pdf = Pdf::loadView('afiliado.credencial', compact('model'));
         // $customPaper = array(0,0,360,360);
         // $customPaper = array(0,0,5.5,3.5);
+        $pdf->set_option('defaultFont', 'Helvetica');
+        $pdf->set_option('enable_php', true);    
+        $pdf->set_option('enable_remote', true);
         $customPaper = array(0,0,132.28346457, 207.87401575);
         $pdf->setPaper($customPaper);
 

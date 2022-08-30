@@ -30,18 +30,28 @@
     td {
         text-align: center;
     }
+    .text-uppercase {
+        text-transform: uppercase;
+    }
+    .mt-5 {
+        margin-top: 20px;
+    }
+    .pt-5 {
+        padding-top: 20px;
+    }
+
     </style>
 
-    <table class="table page-break full-width" border="1">
+    <table class="table full-width mt-5">
       <tbody>
         <tr>
             <td colspan="3">
-                
+                <img width="100" height="100" src="img/img_user_none.png" alt="imagen">
             </td>
         </tr>
         <tr>
             <td colspan="3" class="text-center">
-                <b class="text-center">
+                <b class="text-center text-uppercase pt-5">
                     {{$model->nombre_completo}}
                 </b>
             </td>
