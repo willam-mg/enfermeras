@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Afiliado;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Traits\ImageTrait;
 
 class AfiliadoController extends Controller
 {
+    use ImageTrait;
     /**
      * Display a listing of the resource.
      *
@@ -18,9 +20,12 @@ class AfiliadoController extends Controller
         $model = new Afiliado();
         if ($request != null) {
             $model->nombre_completo = $request->nombre_completo;
-            $data = Afiliado::where('nombre_completo', 'like', '%'.$model->nombre_completo.'%')->paginate(5);
+            $data = Afiliado::where('nombre_completo', 'like', '%'.$model->nombre_completo.'%')
+                    ->orderBy('id', 'DESC')
+                    ->paginate(5);
         } else {
-            $data = Afiliado::paginate(5);
+            $data = Afiliado::orderBy('id', 'DESC')
+                    ->paginate(5);
         }
         
         return view('afiliado.index', [
@@ -48,20 +53,37 @@ class AfiliadoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre_completo' => ['required', 'string', 'max:255'],
-            'ci' => ['required', 'string', 'unique:afiliados'],
-            'telefono' => ['string'],
-            'celular' => ['string'],
-            'direccion' => ['string', 'max:255'],
+            'numero_afiliado' => ['required', 'string', 'max:50'],
+            'cargo' => ['required', 'string', 'max:50'],
+            'nombre_completo' => ['required', 'string', 'max:50'],
+            'numero_matricula' => ['required', 'string', 'max:50'],
+            'ci' => ['required', 'string', 'max:50', 'unique:afiliados'],
+            'fecha_nacimiento' => ['date'],
+            'grupo_sanguineo' => ['string'],
+            'egreso' => ['string', 'max:50'],
+            'domicilio' => ['string', 'max:300'],
+            'telefono' => ['string', 'max:20'],
         ]);
 
-        $user = Afiliado::create([
-            'nombre_completo' => $request->nombre_completo,
-            'ci' => $request->ci,
-            'telefono' => $request->telefono,
-            'celular' => $request->celular,
-            'direccion' => $request->direccion,
+        $model = Afiliado::create([
+            'numero_afiliado'=> $request->numero_afiliado,
+            'cargo'=> $request->cargo,
+            'nombre_completo'=> $request->nombre_completo,
+            'numero_matricula'=> $request->numero_matricula,
+            'ci'=> $request->ci,
+            'fecha_nacimiento'=> $request->fecha_nacimiento,
+            'grupo_sanguineo'=> $request->grupo_sanguineo,
+            'egreso'=> $request->egreso,
+            'domicilio'=> $request->domicilio,
+            'telefono'=> $request->telefono,
+            'fecha_registro'=> date('Y-m-d')
         ]);
+
+        $imageName = null;
+        $image = $request->file('foto');
+        if ($image) {
+            $this->saveImage($image, $model, 'afiliado');
+        }
 
         return redirect()
             ->route('afiliados.index')
@@ -108,13 +130,23 @@ class AfiliadoController extends Controller
         $model = Afiliado::find($id);
 
         $request->validate([
-            'nombre_completo' => ['required', 'string', 'max:255'],
-            'ci' => ['required', 'string'],
-            'telefono' => ['string'],
-            'celular' => ['string'],
-            'direccion' => ['string', 'max:255'],
+            'numero_afiliado' => ['required', 'string', 'max:50'],
+            'cargo' => ['required', 'string', 'max:50'],
+            'nombre_completo' => ['required', 'string', 'max:50'],
+            'numero_matricula' => ['required', 'string', 'max:50'],
+            'ci' => ['required', 'string', 'max:50'],
+            'fecha_nacimiento' => ['date'],
+            'grupo_sanguineo' => ['string'],
+            'egreso' => ['string', 'max:50'],
+            'domicilio' => ['string', 'max:300'],
+            'telefono' => ['string', 'max:20'],
         ]);
         $model->update($request->all());
+
+        $image = $request->file('foto');
+        if ($image){
+            $this->saveImage($image, $model, 'afiliado', true);
+        }
 
         return redirect()
             ->route('afiliados.index')
