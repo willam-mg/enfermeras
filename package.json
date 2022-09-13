@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "bootstrap-icons": "^1.9.1",
-        "data-confirm-laravel": "^1.0.3"
+        "data-confirm-laravel": "^1.0.3",
+        "jquery": "^3.6.1"
     }
 }

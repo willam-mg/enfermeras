@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\Afiliado;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Traits\ImageTrait;
+use App\Models\Requisito;
+use App\Models\MisRequisitos;
+use App\Traits\ProgressTrait;
 
 class AfiliadoController extends Controller
 {
-    use ImageTrait;
+    use ImageTrait, ProgressTrait;
     /**
      * Display a listing of the resource.
      *
@@ -99,8 +102,15 @@ class AfiliadoController extends Controller
     public function show($id)
     {
         $model = Afiliado::find($id);
+        $requisitos = Requisito::where(['estado'=>1])->get();
+        $misRequisitos = $model->misRequisitos->pluck('requisito_id')->toArray();
+        $porcentaje = $this->porcentaje($misRequisitos, $requisitos);
         return view('afiliado.show', [
-            'model'=>$model
+            'model'=>$model,
+            'requisitos'=>$requisitos,
+            'misRequisitos'=>$misRequisitos,
+            'porcentaje'=>$porcentaje,
+            'porcentajeColor'=>$this->porcentajeColor($porcentaje)
         ]);
     }
 
@@ -183,5 +193,32 @@ class AfiliadoController extends Controller
 
         return $pdf->stream();
         // return $pdf->download('disney.pdf');
+    }
+
+    public function requisitos($id, Request $request) {
+        $model = Afiliado::find($id);
+        $misRequisitos = $model->misRequisitos->pluck('requisito_id')->toArray();
+
+        $requisitos = $request->requisitos?$request->requisitos:[];
+        // eliminadno los que no estan seleccionados
+        foreach ($model->misRequisitos as $key => $miRequisito) {
+            if (!in_array($miRequisito->requisito_id, $requisitos)) {
+                $miRequisito->delete();
+            }
+        }
+        // Agregando regquisitos seleccionados
+        foreach ($requisitos as $key => $item) {
+            if (!in_array($item, $misRequisitos)) {
+                $miRequisito = new MisRequisitos();
+                $miRequisito->requisito_id = $item;
+                $miRequisito->afiliado_id = $model->id;
+                $miRequisito->fecha_presentacion = date('Y-m-d');
+                $miRequisito->hora_presentacion = date('His');
+                $miRequisito->save();
+            }
+        }
+        return redirect()
+            ->route('afiliados.show', $model->id)
+            ->with('success','Guardado');
     }
 }

@@ -67,4 +67,8 @@ class Afiliado extends Model
         }
         return null;
     }
+
+    public function misRequisitos() {
+        return $this->hasMany(MisRequisitos::class, 'afiliado_id');
+    }
 }

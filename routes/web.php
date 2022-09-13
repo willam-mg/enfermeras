@@ -28,9 +28,4 @@ Route::middleware('auth')->group(function() {
 
 Route::resource('users', UserController::class)->middleware(['auth']);
 Route::resource('afiliados', AfiliadoController::class)->middleware(['auth']);
-
-Route::get('/imagen', function() {
-    $image = public_path("img/test.jpg");
-    $img = Image::make($image)->resize(50, 50);
-    return $img->response('jpg');
-});
+Route::post('afiliados/requisitos/{id}', [AfiliadoController::class, 'requisitos'])->middleware(['auth']);
