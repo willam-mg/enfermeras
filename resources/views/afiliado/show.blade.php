@@ -17,7 +17,9 @@
         <div class="col-xs-12 col-md-5">
             <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Informacion</button>
+                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
+                        Datos personales
+                    </button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link position-relative" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">
@@ -33,7 +35,9 @@
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="pills-credicial-tab" data-bs-toggle="pill" data-bs-target="#pills-credencial" type="button" role="tab" aria-controls="pills-credencial" aria-selected="false">Credencial</button>
+                    <button class="nav-link" id="pills-credicial-tab" data-bs-toggle="pill" data-bs-target="#pills-credencial" type="button" role="tab" aria-controls="pills-credencial" aria-selected="false">
+                        Credencial
+                    </button>
                 </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">

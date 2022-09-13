@@ -1,4 +1,4 @@
-<form action="{{ url('afiliados/requisitos', $model->id) }}" method="POST" class="needs-validation" novalidate>
+<form action="{{ url('afiliados/requisitos', $model->id) }}" method="POST" class="needs-validation disabled-onsubmit" novalidate>
     @csrf
     @method('POST')
     <div class="row">

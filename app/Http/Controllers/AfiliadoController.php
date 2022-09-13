@@ -23,12 +23,17 @@ class AfiliadoController extends Controller
         $model = new Afiliado();
         if ($request != null) {
             $model->nombre_completo = $request->nombre_completo;
-            $data = Afiliado::where('nombre_completo', 'like', '%'.$model->nombre_completo.'%')
+            $model->numero_afiliado = $request->numero_afiliado;
+            $model->ci = $request->ci;
+            $data = Afiliado::select('*')
+                    ->where('nombre_completo', 'like', '%'.$model->nombre_completo.'%')
+                    ->where('numero_afiliado', 'like', '%'.$model->numero_afiliado.'%')
+                    ->where('ci', 'like', '%'.$model->ci.'%')
                     ->orderBy('id', 'DESC')
                     ->paginate(5);
         } else {
-            $data = Afiliado::orderBy('id', 'DESC')
-                    ->paginate(5);
+            // $data = Afiliado::orderBy('id', 'DESC')
+            //         ->paginate(5);
         }
         
         return view('afiliado.index', [

@@ -7,7 +7,7 @@
 
     <div class="row justify-content-center">
         <div class="col-xs-12 col-md-5">
-            <form action="{{ route('users.store') }}" method="POST" class="needs-validation" novalidate>
+            <form action="{{ route('users.store') }}" method="POST" class="needs-validation disabled-onsubmit" novalidate>
                 @csrf
                 @method('POST')
                 <div class="form-floating mb-3">

@@ -11,7 +11,7 @@
                             {{ config('app.name', 'Laravel') }}
                         </h1>
                     </div>
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}" class="disabled-onsubmit">
                         @csrf
                         
                         <div class="form-floating mb-3">

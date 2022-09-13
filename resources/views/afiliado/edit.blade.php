@@ -7,7 +7,7 @@
 
     <div class="row justify-content-center">
         <div class="col-xs-12 col-md-5">
-            <form action="{{ route('afiliados.update', $model->id) }}" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
+            <form action="{{ route('afiliados.update', $model->id) }}" method="POST" class="needs-validation disabled-onsubmit" enctype="multipart/form-data" novalidate>
                 @csrf
                 @method('PUT')
                 <div class="row">

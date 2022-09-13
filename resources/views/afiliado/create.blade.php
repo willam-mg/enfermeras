@@ -7,7 +7,7 @@
 
     <div class="row justify-content-center">
         <div class="col-xs-12 col-md-5">
-            <form action="{{ route('afiliados.store') }}" method="POST" class="needs-validation"  enctype="multipart/form-data" novalidate>
+            <form action="{{ route('afiliados.store') }}" method="POST" class="needs-validation disabled-onsubmit"  enctype="multipart/form-data" novalidate>
                 @csrf
                 @method('POST')
                 <div class="row">
@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-xs-12 col-md-4">
                         <div class="form-floating mb-3">
-                            <input type="number" name="numero_matricula" class="form-control @error('numero_matricula') is-invalid @enderror" placeholder="{{__("N° matricula")}}" required>
+                            <input type="text" name="numero_matricula" class="form-control @error('numero_matricula') is-invalid @enderror" placeholder="{{__("N° matricula")}}" required>
                             <label class="form-label" for="numero_matricula">{{__("N° matricula")}}</label>
                             @error('numero_matricula')
                                 <div class="invalid-feedback"> {{ $message }} </div>

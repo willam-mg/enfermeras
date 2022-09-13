@@ -17,6 +17,7 @@
             <thead class="table-light">
                 <tr>
                     <th scope="col"></th>
+                    <th scope="col">#</th>
                     <th scope="col" class="text-nowrap">{{__("Foto")}}</th>
                     <th scope="col" class="text-nowrap">{{__("N° afiliado")}}</th>
                     <th scope="col" class="text-nowrap">{{__("Cargo")}}</th>
@@ -63,6 +64,7 @@
                                 </ul>
                             </div>
                         </td>
+                        <th scope="row">{{$key+1}}</th>
                         <td>
                             @if ($item->foto)
                                 <img src="{{$item->foto_thumbnail_sm}}" alt="foto" width="50">
