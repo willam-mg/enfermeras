@@ -6,10 +6,8 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <div class="mb-5 text-center">
-                        <h1>
-                            {{ config('app.name', 'Laravel') }}
-                        </h1>
+                    <div class="mb-3 mt-3 text-center">
+                        <img src="{{asset('img/logo.png')}}" alt="foto" width="150" height="auto">
                     </div>
                     <form method="POST" action="{{ route('login') }}" class="disabled-onsubmit">
                         @csrf

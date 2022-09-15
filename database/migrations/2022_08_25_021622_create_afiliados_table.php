@@ -26,6 +26,7 @@ class CreateAfiliadosTable extends Migration
             $table->string('domicilio', 300)->nullable();
             $table->string('telefono', 20)->nullable();
             $table->date('fecha_registro');
+            $table->string('anos_servicio', 20)->nullable();
             $table->string('src_foto', 100)->nullable();
             $table->timestamps();
             $table->softDeletes();

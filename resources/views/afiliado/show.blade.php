@@ -48,7 +48,7 @@
                     @include('afiliado._requisitos')
                 </div>
                 <div class="tab-pane fade" id="pills-credencial" role="tabpanel" aria-labelledby="pills-credencial-tab">
-                    @include('afiliado._credencial')
+                    @include('afiliado._tab-credencial')
                 </div>
             </div>
 

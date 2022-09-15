@@ -71,6 +71,7 @@ class AfiliadoController extends Controller
             'egreso' => ['string', 'max:50'],
             'domicilio' => ['string', 'max:300'],
             'telefono' => ['string', 'max:20'],
+            'anos_servicio' => ['string', 'max:20'],
         ]);
 
         $model = Afiliado::create([
@@ -84,6 +85,7 @@ class AfiliadoController extends Controller
             'egreso'=> $request->egreso,
             'domicilio'=> $request->domicilio,
             'telefono'=> $request->telefono,
+            'anos_servicio' => $request->anos_servicio,
             'fecha_registro'=> date('Y-m-d')
         ]);
 
@@ -155,6 +157,7 @@ class AfiliadoController extends Controller
             'egreso' => ['string', 'max:50'],
             'domicilio' => ['string', 'max:300'],
             'telefono' => ['string', 'max:20'],
+            'anos_servicio' => ['string', 'max:20'],
         ]);
         $model->update($request->all());
 
@@ -186,14 +189,17 @@ class AfiliadoController extends Controller
 
     public function imprimirCredencial($id) {
         $model = Afiliado::find($id);
-        // return view('afiliado.credencial', compact('model'));
-        $pdf = Pdf::loadView('afiliado.credencial', compact('model'));
+        // return view('afiliado.print-credencial', compact('model'));
+        $pdf = Pdf::loadView('afiliado.print-credencial', compact('model'));
         // $customPaper = array(0,0,360,360);
         // $customPaper = array(0,0,5.5,3.5);
         $pdf->set_option('defaultFont', 'Helvetica');
         $pdf->set_option('enable_php', true);    
         $pdf->set_option('enable_remote', true);
-        $customPaper = array(0,0,132.28346457, 207.87401575);
+        // 8.5 x 5.3 cm => 240.945 (240.944882) x 150.236 (150.23622) points => 321.25984266666666 x 200.31496 px
+        // 8.5 x 5.3 cm =>
+        // $customPaper = array(0,0, 207.87401575, 132.28346457);
+        $customPaper = array(0,0, 240.944882, 150.23622);
         $pdf->setPaper($customPaper);
 
         return $pdf->stream();

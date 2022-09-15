@@ -123,6 +123,21 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="number" name="anos_servicio" class="form-control @error('anos_servicio') is-invalid @enderror" placeholder="anos_servicio" required>
+                            <label class="form-label" for="anos_servicio">{{__('Años de servicio')}}</label>
+                            @error('anos_servicio')
+                                <div class="invalid-feedback"> {{ $message }} </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        
+                    </div>
+                </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12 text-end">
                     <button type="submit" class="btn btn-success">

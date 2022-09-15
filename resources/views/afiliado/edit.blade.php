@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-xs-12 col-md-4">
                         <div class="form-floating mb-3">
-                            <input type="number" name="numero_matricula" value="{{$model->numero_matricula}}" class="form-control @error('numero_matricula') is-invalid @enderror" placeholder="{{__("N° matricula")}}" required>
+                            <input type="text" name="numero_matricula" value="{{$model->numero_matricula}}" class="form-control @error('numero_matricula') is-invalid @enderror" placeholder="{{__("N° matricula")}}" required>
                             <label class="form-label" for="numero_matricula">{{__("N° matricula")}}</label>
                             @error('numero_matricula')
                                 <div class="invalid-feedback"> {{ $message }} </div>
@@ -109,6 +109,13 @@
                             <input type="number" name="telefono" value="{{$model->telefono}}" class="form-control @error('telefono') is-invalid @enderror" placeholder="telefono" required>
                             <label class="form-label" for="telefono">Telefono</label>
                             @error('telefono')
+                                <div class="invalid-feedback"> {{ $message }} </div>
+                            @enderror
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" name="anos_servicio" value="{{$model->anos_servicio}}" class="form-control @error('anos_servicio') is-invalid @enderror" placeholder="anos_servicio" required>
+                            <label class="form-label" for="anos_servicio">{{__('Años de servicio')}}</label>
+                            @error('anos_servicio')
                                 <div class="invalid-feedback"> {{ $message }} </div>
                             @enderror
                         </div>

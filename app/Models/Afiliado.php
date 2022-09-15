@@ -27,6 +27,7 @@ class Afiliado extends Model
         'egreso',
         'domicilio',
         'telefono',
+        'anos_servicio',
         'fecha_registro'
     ];
 

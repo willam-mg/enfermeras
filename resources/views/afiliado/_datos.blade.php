@@ -40,6 +40,10 @@
         {{$model->telefono}}
     </li>
     <li class="list-group-item">
+        <b>{{__("Años de servicio: ")}} </b>
+        {{$model->anos_servicio}}
+    </li>
+    <li class="list-group-item">
         <b>{{__("Fecha de regsitro: ")}} </b>
         {{$model->fecha_registro}}
     </li>
