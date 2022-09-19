@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AfiliadoController;
+use App\Http\Controllers\AcreditacionController;
+use App\Http\Controllers\PagoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +31,8 @@ Route::middleware('auth')->group(function() {
 Route::resource('users', UserController::class)->middleware(['auth']);
 Route::resource('afiliados', AfiliadoController::class)->middleware(['auth']);
 Route::post('afiliados/requisitos/{id}', [AfiliadoController::class, 'requisitos'])->middleware(['auth']);
+Route::resource('acreditaciones', AcreditacionController::class)->middleware(['auth']);
+Route::resource('pagos', PagoController::class)->middleware(['auth']);
+Route::get('pagos/create/{id}', [PagoController::class, 'store'])->middleware(['auth']);
+Route::get('pagos/recibo/{id}', [PagoController::class, 'recibo'])->middleware(['auth']);
+Route::get('pagos/recibopdf/{id}', [PagoController::class, 'recibopdf'])->middleware(['auth']);

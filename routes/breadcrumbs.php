@@ -40,7 +40,47 @@ Breadcrumbs::for('afiliados.create', function (BreadcrumbTrail $trail) {
     $trail->parent('afiliados');
     $trail->push('Nuevo afiliado', url('afiliados.create'));
 });
-Breadcrumbs::for('afiliados.edit', function (BreadcrumbTrail $trail, $user) {
+Breadcrumbs::for('afiliados.edit', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('afiliados');
-    $trail->push('Editar '.$user->name, url('afiliados.edit', $user));
+    $trail->push('Editar '.$model->name, url('afiliados.edit', $model));
+});
+Breadcrumbs::for('afiliados.show', function (BreadcrumbTrail $trail, $model) {
+    $trail->parent('afiliados');
+    $trail->push('Ver '.$model->name, url('afiliados.show', $model));
+});
+
+// Acreditaciones
+Breadcrumbs::for('acreditaciones', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Acreditaciones', url('acreditaciones'));
+});
+Breadcrumbs::for('acreditaciones.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('acreditaciones');
+    $trail->push('Nueva acreditacion', url('acreditaciones.create'));
+});
+Breadcrumbs::for('acreditaciones.edit', function (BreadcrumbTrail $trail, $model) {
+    $trail->parent('acreditaciones');
+    $trail->push('Editar '.$model->gestion, url('acreditaciones.edit', $model));
+});
+Breadcrumbs::for('acreditaciones.show', function (BreadcrumbTrail $trail, $model) {
+    $trail->parent('acreditaciones');
+    $trail->push('Ver '.$model->gestion, url('acreditaciones.show', $model));
+});
+
+// Acreditaciones
+Breadcrumbs::for('pagos', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Pagos', url('pagos'));
+});
+Breadcrumbs::for('pagos.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('pagos');
+    $trail->push('Nuevo pago', url('pagos.create'));
+});
+Breadcrumbs::for('pagos.edit', function (BreadcrumbTrail $trail, $model) {
+    $trail->parent('pagos');
+    $trail->push('Editar '.$model->fecha, url('pagos.edit', $model));
+});
+Breadcrumbs::for('pagos.show', function (BreadcrumbTrail $trail, $model) {
+    $trail->parent('pagos');
+    $trail->push('Ver '.$model->fecha, url('pagos.show', $model));
 });

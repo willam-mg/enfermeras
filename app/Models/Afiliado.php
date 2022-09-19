@@ -10,6 +10,8 @@ class Afiliado extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'afiliados';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -71,5 +73,9 @@ class Afiliado extends Model
 
     public function misRequisitos() {
         return $this->hasMany(MisRequisitos::class, 'afiliado_id');
+    }
+    
+    public function acreditaciones() {
+        return $this->hasMany(Acreditacion::class, 'afiliado_id');
     }
 }

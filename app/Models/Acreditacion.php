@@ -5,25 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-class MisRequisitos extends Model
+class Acreditacion extends Model
 {
     use HasFactory, SoftDeletes;
-
-    protected $fillable = [
-        'requisito_id',
-        'afiliado_id',
-        'fecha_presentacion',
-        'hora_presentacion'
-    ];
+    
+    protected $table = 'acreditaciones';
 
     /**
-     * Get the phone associated with the user.
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
      */
-    public function requisito()
-    {
-        return $this->hasOne(Requisito::class, 'id', 'requisito_id');
-    }
+    protected $fillable = [
+        'gestion',
+        'mes',
+        'monto',
+        'pendiente',
+        'afiliado_id',
+    ];
+
     /**
      * Get the phone associated with the user.
      */

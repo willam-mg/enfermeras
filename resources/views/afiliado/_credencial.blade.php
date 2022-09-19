@@ -22,7 +22,8 @@
         background-color: rgb(189, 189, 189);
     }
     .wrapper-card {
-        width: 321.25984266666666px;
+        /* width: 321.25984266666666px; */
+        /* width: 100%; */
         height: 200.31496px;
         position: relative;
         z-index: 3;
@@ -34,7 +35,7 @@
         right: -63px;
         letter-spacing: 3px;
         text-transform: uppercase;
-        background: rgb(0, 170, 113);
+        background: #2ae585;
         color: #fff;
         padding: 5px 12px 5px 12px;
         transform: rotate(90deg);
@@ -45,7 +46,10 @@
         color: white;
     }
     .text-purple {
-        color: rgb(168, 0, 132);
+        color: #006691;
+    }
+    .p-5 {
+        padding: 10px;
     }
 
 
@@ -64,7 +68,10 @@
         bottom: 0;
         width: 100%;
         height: 60px;
-        background-color: rgb(168, 0, 132);
+        /* background-color: #40cfff; */
+        /* background-color: #0979b0; */
+        /* background-color: #48dbfb; */
+        background-color: #0abde3;
         z-index: 0;
     }
 
@@ -78,6 +85,34 @@
         background-color:white;
         border-radius: 0 0 10px 10px ;
         z-index: 1;
+    }
+
+    .border-styled-back {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 60px;
+        /* background-color: #40cfff; */
+        /* background-color: #0979b0; */
+        /* background-color: #48dbfb; */
+        background-color: #0abde3;
+        z-index: 0;
+    }
+    .marca-agua {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        
+        width: 321.25984266666666px;
+        /* height: 200.31496px; */
+        background-position: center;
+        /* background-color: rgb(1, 2, 1, 0.3); */
+        /* border: 1px solid black; */
+        z-index: 2;
+        /* padding-top: 75px; */
+        text-align: center;
+        padding-bottom: 70px;
     }
 
     /* @page { 
@@ -117,11 +152,11 @@
                 </td>
             </tr>
             <tr>
-                <td class="text-end">Fecha de registro:</td>
+                <td class="text-end">C.I.:</td>
             </tr>
             <tr>
                 <td class="text-end bg-gray-1 text-purple"> 
-                    {{$model->fecha_registro}} 
+                    {{$model->ci}} 
                 </td>
             </tr>
             <tr>
@@ -165,8 +200,8 @@
 </div>
 
 {{-- back card --}}
-<div class="wrapper-card">
-    <table class="table table-light full-width"  border="1">
+<div class="wrapper-card p-5">
+    <table class="table table-light full-width" height="200.31496" border="1">
         <tbody>
             <tr>
                 <td colspan="3">
@@ -174,17 +209,19 @@
                 </td>
             </tr>
             <tr>
-                <td rowspan="2" style="padding: 0 0 0 20px ">
-                    <?=DNS2D::getBarcodeHTML('4445645656', 'QRCODE', 5, 5)?>
+                <td rowspan="2" style="padding: 10px 0 10px 25px ">
+                    <?=DNS2D::getBarcodeHTML($model->numero_afiliado, 'QRCODE', 3, 3)?>
                     
                 </td>
-                <td colspan="2">
-                    {{__('En caso de extravio de esta identificacion llamar al: ')}}
+                <td colspan="2" rowspan="2">
+                    <p>
+                        {{__('En caso de extravio de esta identificacion llamar al: ')}}
+                    </p>
+                    {{__('45645655 - 5675767 Asociacion Departamental de Enfermeras(os) Auxiliares')}}
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
-                    {{__('45645655 - 5675767 Asociacion Departamental de Enfermeras(os) Auxiliares')}}
+                <td>
                 </td>
             </tr>
             <tr>
@@ -197,4 +234,9 @@
             </tr>
         </tbody>
     </table>
+</div>
+<div class="border-styled-back">
+</div>
+<div class="marca-agua">
+    <img src="{{public_path('img/logo-marca-agua.png')}}" alt="foto" width="100" height="auto">
 </div>
