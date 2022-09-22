@@ -129,4 +129,8 @@ class AcreditacionController extends Controller
             ->route('acreditaciones.index')
             ->with('success','Registro eliminado');
     }
+
+    public function pagar(Request $request) {
+        return $request;
+    }
 }

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
+
 class Acreditacion extends Model
 {
     use HasFactory, SoftDeletes;
@@ -23,6 +25,16 @@ class Acreditacion extends Model
         'pendiente',
         'afiliado_id',
     ];
+
+    /**
+     * Get the Mes.
+     *
+     * @return string
+     */
+    public function getMesAttribute($value)
+    {
+        return Carbon::create()->month($value)->locale('es_ES')->monthName;
+    }
 
     /**
      * Get the phone associated with the user.

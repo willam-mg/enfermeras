@@ -1,8 +1,25 @@
-<table class="table table-light">
+<style>
+    .full-width {
+        width: 100%;
+    }
+    .text-center{
+        text-align: center !important;
+    }
+    .text-end {
+        text-align: right !important;
+    }
+    .text-uppercase {
+        text-transform: uppercase;
+    }
+    .pt-5 {
+        padding-top: 70pt;
+    }
+</style>
+<table class="table table-light full-width">
     <tbody>
         <tr>
             <td class="text-center">
-                <img src="{{asset('img/logo.png')}}" alt="foto" width="70" height="auto">
+                <img src="{{public_path('img/logo.png')}}" alt="foto" width="70" height="auto">
             </td>
             <td colspan="2" class="text-center">
                 <h3>

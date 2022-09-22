@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AfiliadoController;
 use App\Http\Controllers\AcreditacionController;
 use App\Http\Controllers\PagoController;
+use Illuminate\Support\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,5 @@ Route::resource('pagos', PagoController::class)->middleware(['auth']);
 Route::get('pagos/create/{id}', [PagoController::class, 'store'])->middleware(['auth']);
 Route::get('pagos/recibo/{id}', [PagoController::class, 'recibo'])->middleware(['auth']);
 Route::get('pagos/recibopdf/{id}', [PagoController::class, 'recibopdf'])->middleware(['auth']);
+
+Route::post('acreditaciones/pagar', [AcreditacionController::class, 'pagar'])->middleware(['auth']);

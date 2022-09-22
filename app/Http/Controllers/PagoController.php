@@ -30,11 +30,27 @@ class PagoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $acreditaciones = Acreditacion::all();
+        $seleccionados = $request->seleccionados;
+        $afiliado = null;
+        if ( $seleccionados != null ) {
+            $acreditacion = Acreditacion::find($seleccionados[0]);
+            $afiliado = $acreditacion->afiliado;
+        }
+        $acreditaciones = [];
+        foreach ($seleccionados as $key => $item) {
+            $acreditacion = Acreditacion::find($item);
+            array_push($acreditaciones, $acreditacion);
+        }
+        $total = 0;
+        foreach ($acreditaciones as $key => $item) {
+            $total += $item->monto;
+        }
         return view('pago.create', [
-            'acreditaciones'=>$acreditaciones
+            'acreditaciones'=>$acreditaciones,
+            'afiliado'=>$afiliado,
+            'total'=>$total,
         ]);
     }
 
@@ -44,25 +60,26 @@ class PagoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id, Request $request)
+    public function store(Request $request)
     {
         // $request->validate([
         //     'acreditacion_id' => ['required' ],
         //     'fecha' => ['required', 'string'],
         // ]);
-        $acreditacion = Acreditacion::find($id);
-
+        
         $pago = Pago::create([
             'fecha' => date('Y-m-d'),
             'hora' => date('H:i:s'),
             'user_id' => Auth::user()->id,
         ]);
-
-        $detalle = DetallePago::create([
-            'acreditacion_id' => $acreditacion->id,
-            'monto' => $acreditacion->monto,
-            'pago_id' => $pago->id,
-        ]);
+        foreach ($request->seleccionados as $key => $item) {
+            $acreditacion = Acreditacion::find($item);
+            $detalle = DetallePago::create([
+                'acreditacion_id' => $acreditacion->id,
+                'monto' => $acreditacion->monto,
+                'pago_id' => $pago->id,
+            ]);
+        }
 
         return redirect('pagos/recibo/'.$pago->id)
             ->with('success','Registro agregado');
@@ -145,13 +162,13 @@ class PagoController extends Controller
     } 
     public function recibopdf($id) {
         $model = Pago::find($id);
-        // return view('pago.recibo', [
+        // return view('pago._recibo', [
         //     'model'=>$model
         // ]);
 
 
 
-        $pdf = Pdf::loadView('pago._recibo', compact('model'));
+        $pdf = Pdf::loadView('pago._recibopdf', compact('model'));
         // $customPaper = array(0,0,360,360);
         // $customPaper = array(0,0,5.5,3.5);
         $pdf->set_option('defaultFont', 'Helvetica');
@@ -162,6 +179,9 @@ class PagoController extends Controller
         // $customPaper = array(0,0, 207.87401575, 132.28346457);
         // $customPaper = array(0,0, 240.944882, 150.23622);
         // $pdf->setPaper($customPaper);
+        
+        $customPaper = array(0,0, 612, 396);
+        $pdf->setPaper($customPaper);
 
         return $pdf->stream();
     } 

@@ -18,4 +18,24 @@ class Pago extends Model
     public function detalle() {
         return $this->hasMany(DetallePago::class, 'pago_id');
     }
+
+    /**
+     * the appends attributes for accesors.
+     */
+    protected $appends = [
+        'total', 
+        'foto_thumbnail', 
+        'foto_thumbnail_sm', 
+    ];
+
+    /**
+     * Get accesor foto thumbnail.
+     */
+    public function getTotalAttribute(){
+        $total = 0;
+        foreach ($this->detalle as $key => $item) {
+            $total += $item->monto;
+        }
+        return $total;
+    }
 }

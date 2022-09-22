@@ -9,7 +9,7 @@
         Imprimir
     </a>
     <div class="row justify-content-center">
-        <div class="col-xs-12 col-md-5">
+        <div class="col-xs-12 col-md-8">
             @include('pago._recibo')
         </div>
     </div>
