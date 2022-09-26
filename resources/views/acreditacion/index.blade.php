@@ -9,18 +9,11 @@
             <i class="bi bi-plus"></i>
             Nuevo
         </a>
-        <form action="{{ url('pagos/create') }}" method="POST" id="form_pagar" class="needs-validation disabled-onsubmit" novalidate>
-            @csrf
-            @method('GET')
-            <button class="btn btn-primary" type="button" id="btnPreparar">
-                <i class="bi bi-cash"></i>
-                Pagar
-            </button>
-            <button class="btn btn-success" type="submit" disabled id="btnGuardar">
-                <i class="bi bi-cash"></i>
-                Pagar
-            </button>
-        </form>
+        
+        <button class="btn btn-primary" type="button" id="btnPreparar" data-bs-toggle="modal" data-bs-target="#modalPago">
+            <i class="bi bi-cash"></i>
+            Pagar
+        </button>
     </div>
     <div class="table-responsive">
         <table class="table table-hover">
@@ -98,6 +91,33 @@
             </tbody>
         </table>
     </div>
+
+    {{-- Modal --}}
+    <div class="modal fade" tabindex="-1" id="modalPago">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ url('pagos/create') }}" method="POST" id="form_pagar" class="needs-validation disabled-onsubmit" novalidate>
+                @csrf
+                @method('GET')
+                    <div class="modal-header">
+                        <h5 class="modal-title">Meses seleccionados</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" disabled id="btnGuardar">
+                            <i class="bi bi-chevron-right"></i>
+                            Contiunar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function(){
             var allChecked = false;
