@@ -12,11 +12,21 @@ class AcreditacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Acreditacion::paginate(5);
+        $model = new Acreditacion();
+        
+        $afiliados = Afiliado::all();
+        if ( $request->afiliado_id ) {
+            $model->afiliado_id = $request->afiliado_id;
+            $data = Acreditacion::where('afiliado_id', '=', $model->afiliado_id)->paginate(5);
+        } else {
+            $data = Acreditacion::paginate(5);
+        }
         return view('acreditacion.index', [
-            'data'=>$data
+            'model'=>$model,
+            'data'=>$data,
+            'afiliados'=>$afiliados,
         ]);
     }
 
@@ -84,8 +94,11 @@ class AcreditacionController extends Controller
     public function edit($id)
     {
         $model = Acreditacion::find($id);
+        $afiliados = Afiliado::all();
+
         return view('acreditacion.edit', [
-            'model'=>$model
+            'model'=>$model,
+            'afiliados'=>$afiliados
         ]);
     }
 
@@ -105,10 +118,16 @@ class AcreditacionController extends Controller
             'mes' => ['required', 'integer'],
             'monto' => ['required', 'numeric'],
             'afiliado_id' => ['required'],
+            'pendiente' => ['boolean'],
         ]);
-      
-        $model->update($request->all());
-      
+        
+        $model->gestion = $request->gestion;
+        $model->mes = $request->mes;
+        $model->monto = $request->monto;
+        $model->afiliado_id = $request->afiliado_id;
+        $model->pendiente = $request->pendiente == '1'?true: false;
+        $model->save();
+
         return redirect()
             ->route('acreditaciones.index')
             ->with('success','Registro modificado');

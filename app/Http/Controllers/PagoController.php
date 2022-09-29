@@ -32,7 +32,7 @@ class PagoController extends Controller
      */
     public function create(Request $request)
     {
-        $seleccionados = $request->seleccionados;
+        $seleccionados = json_decode($request->seleccionados);
         $afiliado = null;
         if ( $seleccionados != null ) {
             $acreditacion = Acreditacion::find($seleccionados[0]);
@@ -79,6 +79,8 @@ class PagoController extends Controller
                 'monto' => $acreditacion->monto,
                 'pago_id' => $pago->id,
             ]);
+            $acreditacion->pendiente = false;
+            $acreditacion->save();
         }
 
         return redirect('pagos/recibo/'.$pago->id)

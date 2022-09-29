@@ -10,11 +10,38 @@
             Nuevo
         </a>
         
-        <button class="btn btn-primary" type="button" id="btnPreparar" data-bs-toggle="modal" data-bs-target="#modalPago">
+        <button class="btn btn-primary" type="button" id="btnPreparar">
             <i class="bi bi-cash"></i>
             Pagar
         </button>
     </div>
+    <form action="{{ url('acreditaciones') }}" method="POST" class="needs-validation disabled-onsubmit" novalidate>
+        @csrf
+        @method('GET')
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                <div class="form-floating">
+                    <select class="form-select" id="select_afiliado" name="afiliado_id" aria-label="Afiliado">
+                        <option value="">{{__('Seleccione al afiliado')}}</option>
+                        @foreach($afiliados as $key=>$item)
+                            @if ($item->id == $model->afiliado_id)
+                                <option value="{{$item->id}}" selected> {{$item->nombre_completo}} </option>
+                            @else
+                                <option value="{{$item->id}}"> {{$item->nombre_completo}} </option>
+                            @endif
+                        @endforeach
+                        <label for="select_afiliado">Seleccionar afiliado</label>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-search"></i>
+                    {{ __('Buscar') }}
+                </button>
+            </div>
+        </div>
+    </form>
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>
@@ -51,11 +78,11 @@
                                             <i class="bi bi-cash"></i> Pagar
                                         </a>
                                     </li>
-                                    {{-- <li>
+                                    <li>
                                         <a href="{{ route('acreditaciones.edit', $item->id) }}" class="dropdown-item" type="button">
                                             <i class="bi bi-pencil"></i> Editar
                                         </a>
-                                    </li> --}}
+                                    </li>
                                     <li>
                                         <form class="d-inline" action="{{ route('acreditaciones.destroy',$item->id) }}" method="POST" data-confirm="Esta seguro de eliminar este elemnto">
                                             @csrf
@@ -69,10 +96,14 @@
                                 </ul>
                             </div>
                         </td>
-                        <td class="text-center align-middle" for="flexCheck-{{$item->id}}">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="acreditaciones[]" value="{{$item->id}}" id="flexCheck-{{$item->id}}">
-                            </div>
+                        <td class="align-middle" for="flexCheck-{{$item->id}}">
+                            @if ($item->pendiente == false) 
+                                <i class="bi bi-check2-square"></i>
+                            @else
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="acreditaciones[]" value="{{$item->id}}" id="flexCheck-{{$item->id}}">
+                                </div>
+                            @endif
                         </td>
                         <td>{{
                         $item->afiliado?$item->afiliado->nombre_completo:$item->afiliado_id}}</td>
@@ -92,32 +123,6 @@
         </table>
     </div>
 
-    {{-- Modal --}}
-    <div class="modal fade" tabindex="-1" id="modalPago">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="{{ url('pagos/create') }}" method="POST" id="form_pagar" class="needs-validation disabled-onsubmit" novalidate>
-                @csrf
-                @method('GET')
-                    <div class="modal-header">
-                        <h5 class="modal-title">Meses seleccionados</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success" disabled id="btnGuardar">
-                            <i class="bi bi-chevron-right"></i>
-                            Contiunar
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <script>
         document.addEventListener("DOMContentLoaded", function(){
             var allChecked = false;
@@ -125,15 +130,16 @@
                 $('.form-check-input').prop('checked', true);
             });
             $('#btnPreparar').on('click', function(e) {
-                let html = "";
+                e.preventDefault();
+                let myArray = [];
                 $('input[name^="acreditaciones"]').each(function() {
                     if ($(this).prop("checked") === true) {
                         let id = $(this).val();
-                        html += `<input name="seleccionados[]" value="${id}">`;
+                        myArray.push(id);
                     }
                 });
-                $('#form_pagar').append(html);
-                $('#btnGuardar').removeAttr('disabled');
+                var arrStr = encodeURIComponent(JSON.stringify(myArray));
+                window.location.href = '/pagos/create?seleccionados=' + arrStr;
             });
 
             function checkAll() {
@@ -147,6 +153,12 @@
                     $('input[name^="acreditaciones"]').prop("checked", false);
                     allChecked = false;
                 }
+            });
+
+            $('#select_afiliado').select2({
+                selectionCssClass:'form-select',
+                theme: "bootstrap-5",
+                containerCssClass: "form-floating mb-3"
             });
         });
     </script>
