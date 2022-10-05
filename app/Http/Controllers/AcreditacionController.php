@@ -17,16 +17,31 @@ class AcreditacionController extends Controller
         $model = new Acreditacion();
         
         $afiliados = Afiliado::all();
-        if ( $request->afiliado_id ) {
-            $model->afiliado_id = $request->afiliado_id;
-            $data = Acreditacion::where('afiliado_id', '=', $model->afiliado_id)->paginate(5);
-        } else {
-            $data = Acreditacion::paginate(5);
-        }
+        $data = Acreditacion::select("*")
+            ->when($request->input('afiliado_id') , function ($query) use ($request, $model) {
+                $model->afiliado_id = $request->afiliado_id;
+                $query->where('afiliado_id', $request->afiliado_id);
+            })
+            ->when($request->input('gestion'), function ($query) use ($request, $model) {
+                $model->gestion = $request->gestion;
+                $query->where('gestion', $request->gestion);
+            })
+            ->when($request->input('mes'), function ($query) use ($request, $model) {
+                $model->mes = $request->mes;
+                $query->where('mes', $request->mes);
+            })
+            ->when($request->input('pendiente'), function ($query) use ($request, $model) {
+                $model->pendiente = $request->pendiente;
+                $query->where('pendiente', $request->pendiente);
+            })
+            ->paginate(5);
+
+        $selected = $request->input('afiliado_id')?true: false;
         return view('acreditacion.index', [
             'model'=>$model,
             'data'=>$data,
             'afiliados'=>$afiliados,
+            'selected'=>$selected,
         ]);
     }
 
@@ -125,7 +140,7 @@ class AcreditacionController extends Controller
         $model->mes = $request->mes;
         $model->monto = $request->monto;
         $model->afiliado_id = $request->afiliado_id;
-        $model->pendiente = $request->pendiente == '1'?true: false;
+        $model->pendiente = $request->pendiente == '1'?1: 2;
         $model->save();
 
         return redirect()

@@ -8,6 +8,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Traits\ImageTrait;
 use App\Models\Requisito;
 use App\Models\MisRequisitos;
+use App\Models\Acreditacion;
 use App\Traits\ProgressTrait;
 
 class AfiliadoController extends Controller
@@ -26,11 +27,11 @@ class AfiliadoController extends Controller
             $model->numero_afiliado = $request->numero_afiliado;
             $model->ci = $request->ci;
             $data = Afiliado::select('*')
-                    ->where('nombre_completo', 'like', '%'.$model->nombre_completo.'%')
-                    ->where('numero_afiliado', 'like', '%'.$model->numero_afiliado.'%')
-                    ->where('ci', 'like', '%'.$model->ci.'%')
-                    ->orderBy('id', 'DESC')
-                    ->paginate(5);
+                ->where('nombre_completo', 'like', '%'.$model->nombre_completo.'%')
+                ->where('numero_afiliado', 'like', '%'.$model->numero_afiliado.'%')
+                ->where('ci', 'like', '%'.$model->ci.'%')
+                ->orderBy('id', 'DESC')
+                ->paginate(5);
         } else {
             // $data = Afiliado::orderBy('id', 'DESC')
             //         ->paginate(5);
@@ -68,7 +69,7 @@ class AfiliadoController extends Controller
             'ci' => ['required', 'string', 'max:50', 'unique:afiliados'],
             'fecha_nacimiento' => ['date'],
             'grupo_sanguineo' => ['string'],
-            'egreso' => ['string', 'max:50'],
+            'egreso' => ['string', 'max:100'],
             'domicilio' => ['string', 'max:300'],
             'telefono' => ['string', 'max:20'],
             'anos_servicio' => ['string', 'max:20'],
@@ -106,18 +107,41 @@ class AfiliadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
         $model = Afiliado::find($id);
         $requisitos = Requisito::where(['estado'=>1])->get();
         $misRequisitos = $model->misRequisitos->pluck('requisito_id')->toArray();
         $porcentaje = $this->porcentaje($misRequisitos, $requisitos);
+
+        // acreditaciones
+        $acreditacionMd = new Acreditacion();
+        
+        $afiliados = Afiliado::all();
+        if ( $request->afiliado_id ) {
+            $acreditacionMd->gestion = $request->gestion;
+            // $acreditacionMd->mes = $request->mes;
+            // $acreditacionMd->pendiente = $request->pendiente == "null"?null:$request->pendiente;
+            $data = Acreditacion::where('afiliado_id', '=', $model->id)
+                ->where('gestion', 'like', '%'.$acreditacionMd->gestion)
+                // ->where('mes', '=', $acreditacionMd->mes)
+                // ->where('pendiente', '=', $acreditacionMd->pendiente)
+                ->paginate(5);
+        } else {
+            $data = Acreditacion::where('afiliado_id', '=', $model->id)->paginate(5);
+        }
+
+        $selected = true;
+
         return view('afiliado.show', [
             'model'=>$model,
             'requisitos'=>$requisitos,
             'misRequisitos'=>$misRequisitos,
             'porcentaje'=>$porcentaje,
-            'porcentajeColor'=>$this->porcentajeColor($porcentaje)
+            'porcentajeColor'=>$this->porcentajeColor($porcentaje),
+            'data'=>$data,
+            'acreditacionMd'=>$acreditacionMd,
+            'selected'=>$selected,
         ]);
     }
 
@@ -154,7 +178,7 @@ class AfiliadoController extends Controller
             'ci' => ['required', 'string', 'max:50'],
             'fecha_nacimiento' => ['date'],
             'grupo_sanguineo' => ['string'],
-            'egreso' => ['string', 'max:50'],
+            'egreso' => ['string', 'max:100'],
             'domicilio' => ['string', 'max:300'],
             'telefono' => ['string', 'max:20'],
             'anos_servicio' => ['string', 'max:20'],

@@ -50,7 +50,7 @@
         color: #015980;
     }
     .p-5 {
-        padding: 10px;
+        padding: 5px;
     }
 
 
@@ -217,7 +217,7 @@
                 <td class="text-center" style="padding: 0; height: 20px; font-size: 11pt; font-weight: bold; line-height : 7px">
                     {{$model->numero_afiliado}}
                     <br>
-                    <span style="font-size: 4pt; font-weight: normal">{{__('Numero de afiliado')}}</span>
+                    <span style="font-size: 4pt; font-weight: normal">{{__('Número de afiliado')}}</span>
                 </td>
             </tr>
             <tr>
@@ -235,7 +235,7 @@
         <tbody>
             <tr>
                 <td colspan="3">
-                    Fecha de validez:
+                    Fecha de vigencia:
                     <b>
                         {{$model->fecha_registro}} - 
                         {{$model->fecha_registro}}
@@ -243,7 +243,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="3">
+                <td colspan="3" style="height: 20px;">
                     Egreso:
                     <b class="text-uppercase">
                         {{$model->egreso}}
@@ -269,10 +269,6 @@
                     <?=DNS2D::getBarcodeHTML($model->numero_afiliado, 'QRCODE', 3.5, 3.5)?>
                 </td>
                 <td colspan="2" rowspan="2">
-                    <p>
-                        {{__('En caso de extravio de esta identificacion llamar al: ')}}
-                    </p>
-                    {{__('4317867')}}
                 </td>
             </tr>
             <tr>
@@ -280,10 +276,10 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="font-size: 6pt">
+                <td colspan="2" style="font-size: 5pt">
                     {{__('Asociacion Departamental de Enfermeras(os) Auxiliares ')}} <br>
-                    {{__('Teléfono: 4317867')}} <br>
-                    {{__('Direccion: C. Colombia entre C. 16 de julio y Av Oquendo Edif. ----- Piso --- Oficina -- ')}}
+                    {{__('Teléfono: 4317867 - 4525971')}} <br>
+                    {{__('Direccion: C. Colombia entre C. 16 de julio y Av Oquendo Edif. Rochavel Piso 1 Of. 6 ')}}
                 </td>
                 <td class="text-center">
                     <img src="{{public_path('img/logo-v2.svg')}}" alt="foto" width="70" height="auto">

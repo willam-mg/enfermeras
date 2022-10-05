@@ -61,18 +61,7 @@
                 <div class="form-floating  mb-3">
                     <select class="form-select @error('mes') is-invalid @enderror" id="mes" name="mes" aria-label="Afiliado">
                         <option selected>{{__('Seleccione el Mes')}}</option>
-                        <option value="1">{{__('Enero')}}</option>
-                        <option value="2">{{__('Febreo')}}</option>
-                        <option value="3">{{__('Marzo')}}</option>
-                        <option value="4">{{__('Abril')}}</option>
-                        <option value="5">{{__('Mayo')}}</option>
-                        <option value="6">{{__('Junio')}}</option>
-                        <option value="7">{{__('Julio')}}</option>
-                        <option value="8">{{__('Agosto')}}</option>
-                        <option value="9">{{__('Septiembre')}}</option>
-                        <option value="10">{{__('Octubre')}}</option>
-                        <option value="11">{{__('Noviembre')}}</option>
-                        <option value="12">{{__('Diciembre')}}</option>
+                        @include('acreditacion._options_meses')
                     </select>
                     <label for="mes">Mes</label>
                     @error('mes')

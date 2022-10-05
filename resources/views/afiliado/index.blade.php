@@ -79,8 +79,8 @@
                         <td>{{$item->ci}}</td>
                         <td>{{$item->fecha_nacimiento}}</td>
                         <td>{{$item->grupo_sanguineo}}</td>
-                        <td>{{$item->egreso}}</td>
-                        <td>{!! Str::limit($item->domicilio, 10, ' ...') !!}</td>
+                        <td>{!! Str::limit($item->egreso, 5, ' ...') !!}</td>
+                        <td>{!! Str::limit($item->domicilio, 5, ' ...') !!}</td>
                         <td>{{$item->telefono}}</td>
                         <td>{{$item->fecha_registro}}</td>
                     </tr>

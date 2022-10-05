@@ -79,7 +79,7 @@ class PagoController extends Controller
                 'monto' => $acreditacion->monto,
                 'pago_id' => $pago->id,
             ]);
-            $acreditacion->pendiente = false;
+            $acreditacion->pendiente = 2;
             $acreditacion->save();
         }
 

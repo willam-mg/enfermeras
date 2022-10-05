@@ -5,12 +5,12 @@
 @section('content')
     {{ Breadcrumbs::render('acreditaciones') }}
     <div class="text-end">
-        <a href="{{url('/acreditaciones/create')}}" type="button" class="btn btn-success">
+        <a href="{{url('/acreditaciones/create')}}" type="button" class="btn btn-success"  data-bs-toggle="tooltip"  data-bs-placement="top" title="Nueva acredtiacion">
             <i class="bi bi-plus"></i>
             Nuevo
         </a>
         
-        <button class="btn btn-primary" type="button" id="btnPreparar">
+        <button class="btn btn-primary" type="button" {{$selected?'':'disabled'}} id="btnPreparar">
             <i class="bi bi-cash"></i>
             Pagar
         </button>
@@ -34,7 +34,42 @@
                     </select>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-3">
+            <div class="col-xs-12 col-sm-12 col-md-2">
+                <div class="form-floating mb-3">
+                    <input type="number" name="gestion" value="{{$model->gestion}}" list="list_gestiones" class="form-control @error('gestion') is-invalid @enderror" placeholder="gestion">
+                    <label class="form-label" for="gestion">Gestion</label>
+                    @include('acreditacion._list_gestiones')
+                    @error('gestion')
+                    <div class="invalid-feedback"> {{ $message }} </div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-2">
+                <div class="form-floating mb-3">
+                    <select class="form-select @error('mes') is-invalid @enderror" id="mes" name="mes" aria-label="Afiliado">
+                        <option value="" {{$model->mes == null?'selected':''}}>{{__('Todos')}}</option>
+                        @include('acreditacion._options_meses')
+                    </select>
+                    <label for="mes">Mes</label>
+                    @error('mes')
+                        <div class="invalid-feedback"> {{ $message }} </div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-2">
+                <div class="form-floating  mb-3">
+                    <select class="form-select @error('pendiente') is-invalid @enderror" id="pendiente" name="pendiente" aria-label="Pagado">
+                        <option value="" {{$model->pendiente == null?'selected':''}}>{{__('Todos')}}</option>
+                        <option value="2" {{$model->pendiente == 2?'selected':''}}>{{__('Pagado')}}</option>
+                        <option value="1" {{$model->pendiente == 1?'selected':''}}>{{__('Pendiente')}}</option>
+                    </select>
+                    <label for="pendiente">Pendiente</label>
+                    @error('pendiente')
+                        <div class="invalid-feedback"> {{ $message }} </div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3 pt-2">
                 <button type="submit" class="btn btn-primary">
                     <i class="bi bi-search"></i>
                     {{ __('Buscar') }}
@@ -42,86 +77,8 @@
             </div>
         </div>
     </form>
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col">
-                        <a href="#" id="select_meses">
-                            <i class="bi bi-check2-square"></i>
-                        </a>
-                    </th>
-                    <th scope="col">Afiliado</th>
-                    <th scope="col">Gestion</th>
-                    <th scope="col">Mes</th>
-                    <th scope="col">Monto</th>
-                    <th scope="col">Pagado</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($data as $key => $item)
-                    <tr>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownActions" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-pencil-fill"></i>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownActions">
-                                    <li>
-                                        <a href="{{ route('acreditaciones.show', $item->id) }}" class="dropdown-item" type="button">
-                                            <i class="bi bi-eye"></i> Ver
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('pagos/create', $item->id) }}" class="dropdown-item" type="button">
-                                            <i class="bi bi-cash"></i> Pagar
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('acreditaciones.edit', $item->id) }}" class="dropdown-item" type="button">
-                                            <i class="bi bi-pencil"></i> Editar
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <form class="d-inline" action="{{ route('acreditaciones.destroy',$item->id) }}" method="POST" data-confirm="Esta seguro de eliminar este elemnto">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="dropdown-item"">
-                                                <i class="bi bi-trash"></i> Eliminar
-                                            </button>
-                                        </form>
-                                    </li>
-                                    
-                                </ul>
-                            </div>
-                        </td>
-                        <td class="align-middle" for="flexCheck-{{$item->id}}">
-                            @if ($item->pendiente == false) 
-                                <i class="bi bi-check2-square"></i>
-                            @else
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="acreditaciones[]" value="{{$item->id}}" id="flexCheck-{{$item->id}}">
-                                </div>
-                            @endif
-                        </td>
-                        <td>{{
-                        $item->afiliado?$item->afiliado->nombre_completo:$item->afiliado_id}}</td>
-                        <td>{{$item->gestion}}</td>
-                        <td class="text-capitalize">{{$item->mes}}</td>
-                        <td>{{$item->monto}}</td>
-                        <td>
-                            @if ($item->pendiente) 
-                                <span class="badge bg-danger">Pendiente</span>        
-                            @else
-                                <span class="badge bg-success">Pagado</span>        
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+    @include('acreditacion._grid_acreditaciones')
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function(){
@@ -138,8 +95,14 @@
                         myArray.push(id);
                     }
                 });
-                var arrStr = encodeURIComponent(JSON.stringify(myArray));
-                window.location.href = '/pagos/create?seleccionados=' + arrStr;
+                if ( !myArray.length == 0 )  {
+                    if ( confirm("Pagar estas mensualidades ?") ) {
+                        var arrStr = encodeURIComponent(JSON.stringify(myArray));
+                        window.location.href = '/pagos/create?seleccionados=' + arrStr;
+                    }
+                } else {
+                    alert('No hay acreditaciones seleccionadas');
+                }
             });
 
             function checkAll() {
@@ -162,5 +125,6 @@
             });
         });
     </script>
+    
 @endsection
 

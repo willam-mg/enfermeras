@@ -18,7 +18,7 @@ class CreateAcreditacionsTable extends Migration
             $table->integer('gestion');
             $table->integer('mes');
             $table->decimal('monto', 8, 2);
-            $table->boolean('pendiente');
+            $table->tinyInteger('pendiente')->default(1);
             $table->foreignId('afiliado_id')->constrained('afiliados');
             $table->timestamps();
             $table->softDeletes();

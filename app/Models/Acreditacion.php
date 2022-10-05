@@ -33,7 +33,8 @@ class Acreditacion extends Model
      */
     public function getMesAttribute($value)
     {
-        return Carbon::create()->month($value)->locale('es_ES')->monthName;
+        if ($value)
+            return Carbon::create()->month($value)->locale('es_ES')->monthName;
     }
 
     /**

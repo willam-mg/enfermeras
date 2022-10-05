@@ -27,6 +27,12 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('select2');
+
+    // initialze tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
 } catch (error) {
     console.log(error);
 }

@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="number" name="numero_afiliado" value="{{$model->numero_afiliado}}" class="form-control @error('numero_afiliado') is-invalid @enderror" placeholder="{{__("N° afiliado")}}" required>
+                            <input type="text" name="numero_afiliado" value="{{$model->numero_afiliado}}" class="form-control @error('numero_afiliado') is-invalid @enderror" placeholder="{{__("N° afiliado")}}" required>
                             <label class="form-label" for="numero_afiliado">{{__("N° afiliado")}}</label>
                             @error('numero_afiliado')
                                 <div class="invalid-feedback"> {{ $message }} </div>
