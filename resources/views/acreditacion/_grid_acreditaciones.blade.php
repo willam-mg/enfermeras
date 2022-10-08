@@ -2,7 +2,6 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col"></th>
                 <th scope="col">
                     <a href="#" id="select_meses" data-bs-toggle="tooltip" title="Seleccionar todo">
                         <i class="bi bi-check2-square"></i>
@@ -13,15 +12,37 @@
                 <th scope="col">Mes</th>
                 <th scope="col">Monto</th>
                 <th scope="col">Pagado</th>
+                <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($data as $key => $item)
                 <tr>
+                    <td class="align-middle" for="flexCheck-{{$item->id}}">
+                        @if ($item->pendiente == 2) 
+                            <i class="bi bi-check2-square"></i>
+                        @else
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" {{$selected === false?'disabled':''}} name="acreditaciones[]" value="{{$item->id}}" id="flexCheck-{{$item->id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{$model->afiliado_id === null?'Seleccione el afiliado':'Mes '.$item->mes.' '.$item->gestion}}">
+                            </div>
+                        @endif
+                    </td>
+                    <td>{{
+                    $item->afiliado?$item->afiliado->nombre_completo:$item->afiliado_id}}</td>
+                    <td>{{$item->gestion}}</td>
+                    <td class="text-capitalize">{{$item->mes}}</td>
+                    <td>{{$item->monto}}</td>
+                    <td>
+                        @if ($item->pendiente == 2) 
+                            <span class="badge rounded-pill bg-success">Pagado</span>        
+                        @else
+                            <span class="badge rounded-pill bg-danger">Pendiente</span>        
+                        @endif
+                    </td>
                     <td>
                         <div class="dropdown">
                             <button class="btn dropdown-toggle" type="button" id="dropdownActions" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-pencil-fill"></i>
+                                <i class="bi bi-three-dots-vertical"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownActions">
                                 <li>
@@ -51,27 +72,6 @@
                                 
                             </ul>
                         </div>
-                    </td>
-                    <td class="align-middle" for="flexCheck-{{$item->id}}">
-                        @if ($item->pendiente == 2) 
-                            <i class="bi bi-check2-square"></i>
-                        @else
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" {{$selected === false?'disabled':''}} name="acreditaciones[]" value="{{$item->id}}" id="flexCheck-{{$item->id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{$model->afiliado_id === null?'Seleccione el afiliado':'Mes '.$item->mes.' '.$item->gestion}}">
-                            </div>
-                        @endif
-                    </td>
-                    <td>{{
-                    $item->afiliado?$item->afiliado->nombre_completo:$item->afiliado_id}}</td>
-                    <td>{{$item->gestion}}</td>
-                    <td class="text-capitalize">{{$item->mes}}</td>
-                    <td>{{$item->monto}}</td>
-                    <td>
-                        @if ($item->pendiente == 2) 
-                            <span class="badge bg-success">Pagado</span>        
-                        @else
-                            <span class="badge bg-danger">Pendiente</span>        
-                        @endif
                     </td>
                 </tr>
             @endforeach

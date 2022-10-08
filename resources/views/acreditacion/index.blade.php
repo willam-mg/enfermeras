@@ -20,8 +20,8 @@
         @method('GET')
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-3">
-                <div class="form-floating">
-                    <select class="form-select" id="select_afiliado" name="afiliado_id" aria-label="Afiliado">
+                <div class="form-floating mb-3">
+                    <select class="form-select select-search @error('afiliado_id') is-invalid @enderror" id="select_afiliado" name="afiliado_id" aria-label="Afiliado">
                         <option value="">{{__('Seleccione al afiliado')}}</option>
                         @foreach($afiliados as $key=>$item)
                             @if ($item->id == $model->afiliado_id)
@@ -30,8 +30,11 @@
                                 <option value="{{$item->id}}"> {{$item->nombre_completo}} </option>
                             @endif
                         @endforeach
-                        <label for="select_afiliado">Seleccionar afiliado</label>
                     </select>
+                    <label for="select_afiliado">Seleccionar afiliado</label>
+                    @error('afiliado_id')
+                        <div class="invalid-feedback"> {{ $message }} </div>
+                    @enderror
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-2">
@@ -46,7 +49,7 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-2">
                 <div class="form-floating mb-3">
-                    <select class="form-select @error('mes') is-invalid @enderror" id="mes" name="mes" aria-label="Afiliado">
+                    <select class="form-select select-search @error('mes') is-invalid @enderror" id="mes" name="mes" aria-label="Afiliado">
                         <option value="" {{$model->mes == null?'selected':''}}>{{__('Todos')}}</option>
                         @include('acreditacion._options_meses')
                     </select>
@@ -79,6 +82,7 @@
     </form>
     @include('acreditacion._grid_acreditaciones')
 
+    
 
     <script>
         document.addEventListener("DOMContentLoaded", function(){
@@ -118,11 +122,28 @@
                 }
             });
 
-            $('#select_afiliado').select2({
-                selectionCssClass:'form-select',
+            $('.select-search').select2({
                 theme: "bootstrap-5",
-                containerCssClass: "form-floating mb-3"
             });
+
+            $('.select-search')
+                .parent('div')
+                .children('span')
+                .children('span')
+                .children('span')
+                .css('height', ' calc(3.5rem + 2px)');
+            $('.select-search')
+                .parent('div')
+                .children('span')
+                .children('span')
+                .children('span')
+                .children('span')
+                .css('margin-top', '18px');
+            $('.select-search')
+                .parent('div')
+                .find('label')
+                .css('z-index', '1');
+            
         });
     </script>
     

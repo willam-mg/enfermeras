@@ -16,8 +16,7 @@
         <table class="table align-middle table-bordered table-hover">
             <thead class="table-light">
                 <tr>
-                    <th scope="col"></th>
-                    <th scope="col">#</th>
+                    <th scope="col">ID</th>
                     <th scope="col" class="text-nowrap">{{__("Foto")}}</th>
                     <th scope="col" class="text-nowrap">{{__("N° afiliado")}}</th>
                     <th scope="col" class="text-nowrap">{{__("Cargo")}}</th>
@@ -30,15 +29,35 @@
                     <th scope="col" class="text-nowrap">{{__("Domicilio")}}</th>
                     <th scope="col" class="text-nowrap">{{__("Telefono")}}</th>
                     <th scope="col" class="text-nowrap">{{__("Fecha registro")}}</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($data as $key => $item)
                     <tr data-href="{{ route('afiliados.show', $item->id) }}">
+                        <th scope="row">{{$item->id}}</th>
+                        <td>
+                            @if ($item->foto)
+                                <img src="{{$item->foto_thumbnail_sm}}" alt="foto" width="50">
+                            @else
+                                <img src="/img/no-image-user.png" alt="foto" width="50">
+                            @endif
+                        </td>
+                        <td>{{$item->numero_afiliado}}</td>
+                        <td>{{$item->cargo}}</td>
+                        <td>{{$item->nombre_completo}}</td>
+                        <td>{{$item->numero_matricula}}</td>
+                        <td>{{$item->ci}}</td>
+                        <td>{{$item->fecha_nacimiento}}</td>
+                        <td>{{$item->grupo_sanguineo}}</td>
+                        <td>{!! Str::limit($item->egreso, 5, ' ...') !!}</td>
+                        <td>{!! Str::limit($item->domicilio, 5, ' ...') !!}</td>
+                        <td>{{$item->telefono}}</td>
+                        <td>{{$item->fecha_registro}}</td>
                         <td>
                             <div class="dropdown">
                                 <button class="btn dropdown-toggle" type="button" id="dropdownActions" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-pencil-fill"></i>
+                                    <i class="bi bi-three-dots-vertical"></i>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownActions">
                                     <li>
@@ -64,25 +83,6 @@
                                 </ul>
                             </div>
                         </td>
-                        <th scope="row">{{$key+1}}</th>
-                        <td>
-                            @if ($item->foto)
-                                <img src="{{$item->foto_thumbnail_sm}}" alt="foto" width="50">
-                            @else
-                                <img src="/img/no-image-user.png" alt="foto" width="50">
-                            @endif
-                        </td>
-                        <td>{{$item->numero_afiliado}}</td>
-                        <td>{{$item->cargo}}</td>
-                        <td>{{$item->nombre_completo}}</td>
-                        <td>{{$item->numero_matricula}}</td>
-                        <td>{{$item->ci}}</td>
-                        <td>{{$item->fecha_nacimiento}}</td>
-                        <td>{{$item->grupo_sanguineo}}</td>
-                        <td>{!! Str::limit($item->egreso, 5, ' ...') !!}</td>
-                        <td>{!! Str::limit($item->domicilio, 5, ' ...') !!}</td>
-                        <td>{{$item->telefono}}</td>
-                        <td>{{$item->fecha_registro}}</td>
                     </tr>
                 @endforeach
             </tbody>

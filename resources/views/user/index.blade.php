@@ -14,16 +14,20 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col"></th>
-                    <th scope="col">#</th>
+                    <th scope="col">ID</th>
                     <th scope="col">Nombre completo</th>
                     <th scope="col">Email</th>
                     <th scope="col">Rol</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($data as $key => $item)
                     <tr>
+                        <th scope="row">{{$item->id}}</th>
+                        <td>{{$item->name}}</td>
+                        <td>{{$item->email}}</td>
+                        <td>{{$item->rol_name}}</td>
                         <td>
                             <div class="dropdown">
                                 <button class="btn dropdown-toggle" type="button" id="dropdownActions" data-bs-toggle="dropdown" aria-expanded="false">
@@ -53,10 +57,6 @@
                                 </ul>
                             </div>
                         </td>
-                        <th scope="row">{{$key+1}}</th>
-                        <td>{{$item->name}}</td>
-                        <td>{{$item->email}}</td>
-                        <td>{{$item->rol_name}}</td>
                     </tr>
                 @endforeach
             </tbody>
