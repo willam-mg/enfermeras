@@ -18,7 +18,7 @@ class Afiliado extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'scr_foto',
+        'src_foto',
         'numero_afiliado',
         'cargo',
         'nombre_completo',
