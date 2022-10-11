@@ -30,6 +30,8 @@ class ListComponent extends Component
         'modelFilter.ci' => 'string|min:50',
     ];
 
+    protected $listeners = ['afiliadoAdded' => 'search'];
+
     public function mount() {
         $this->modelFilter = new Afiliado;
         $this->advancedFilter = false;

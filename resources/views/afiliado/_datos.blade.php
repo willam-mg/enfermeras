@@ -20,6 +20,10 @@
         {{$model->ci}}
     </li>
     <li class="list-group-item">
+        <b>{{__("Expedido: ")}} </b>
+        {{$model->expedido}}
+    </li>
+    <li class="list-group-item">
         <b>{{__("Fecha de nacimiento: ")}} </b>
         {{$model->fecha_nacimiento}}
     </li>

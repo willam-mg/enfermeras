@@ -157,6 +157,7 @@ class AfiliadoController extends Controller
             'nombre_completo' => ['required', 'string', 'max:50'],
             'numero_matricula' => ['required', 'string', 'max:50'],
             'ci' => ['required', 'string', 'max:50'],
+            'expedido' => ['required', 'string', 'max:50'],
             'fecha_nacimiento' => ['date'],
             'grupo_sanguineo' => ['string'],
             'egreso' => ['string', 'max:100'],
@@ -164,6 +165,7 @@ class AfiliadoController extends Controller
             'telefono' => ['string', 'max:20'],
             'anos_servicio' => ['string', 'max:20'],
         ]);
+        dd($request->all());
         $model->update($request->all());
 
         $image = $request->file('foto');

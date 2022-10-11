@@ -13,11 +13,10 @@
         </div>
         <div class="col-xs-12 col-md-5">
             <div class="mb-3 text-end">
-                
-                <a href="{{url('/afiliados/create')}}" class="btn btn-success">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-create">
                     <i class="bi bi-plus"></i>
                     Nuevo afiliado
-                </a>
+                </button>
             </div>
         </div>
     </div>
@@ -46,7 +45,7 @@
                         <th scope="row">{{$item->id}}</th>
                         <td>
                             @if ($item->src_foto)
-                                <img src="{{url('/').'/uploads/thumbnail-small/' . $item->src_foto}}" alt="foto" width="50">
+                                <img src="{{asset('storage/uploads/thumbnail-small/' . $item->src_foto)}}" alt="foto" width="50">
                             @else
                                 <img src="/img/img_user_none.svg" alt="foto" width="50">
                             @endif
@@ -152,6 +151,20 @@
                         <i class="bi bi-search"></i> 
                         Buscar
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div wire:ignore.self  class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modal-create" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nuevo Afiliado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <livewire:afiliado.create-component/>
                 </div>
             </div>
         </div>

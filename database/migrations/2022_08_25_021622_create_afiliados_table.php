@@ -20,6 +20,7 @@ class CreateAfiliadosTable extends Migration
             $table->string('nombre_completo', 50);
             $table->string('numero_matricula',50);
             $table->string('ci', 50)->unique();
+            $table->string('expedido', 50);
             $table->date('fecha_nacimiento')->nullable();
             $table->string('grupo_sanguineo', 50);
             $table->string('egreso', 100)->comment('institucion de egreso');

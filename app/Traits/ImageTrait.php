@@ -6,6 +6,8 @@ use Image;
 
 trait ImageTrait {
 
+    private $public_path = 'app/public/uploads/';
+    
     /**
      * @param Image $image
      * @param Model $model
@@ -15,20 +17,19 @@ trait ImageTrait {
      */
     public function saveImage($image, $model, $tagName, $isOld = false) {
         if ($isOld) {
-            $imageExist = public_path('uploads/'.$model->src_foto);
+            $imageExist = storage_path($this->public_path.$model->src_foto);
             if ( $model->src_foto && file_exists($imageExist) ){
                 unlink($imageExist);
-                unlink(public_path('uploads/thumbnail/'.$model->src_foto));
-                unlink(public_path('uploads/thumbnail-small/'.$model->src_foto));
+                unlink(storage_path($this->public_path.'thumbnail/'.$model->src_foto));
+                unlink(storage_path($this->public_path.'thumbnail-small/'.$model->src_foto));
             }
         }
         $imageName = $tagName.'_'.$model->id.date('ymdHis').'.'.$image->getClientOriginalExtension();
-        $image->move(public_path('uploads'), $imageName);
-
-        $img = Image::make(public_path('uploads/'.$imageName))->resize(300, 375);
-        $img->save(public_path('uploads/thumbnail/'.$imageName));
-        $imgSm = Image::make(public_path('uploads/'.$imageName))->resize(50, 50);
-        $imgSm->save(public_path('uploads/thumbnail-small/'.$imageName));
+        $resImage = $image->storePubliclyAs('public/uploads', $imageName);
+        $img = Image::make(storage_path($this->public_path.$imageName))->resize(300, 375);
+        $img->save(storage_path($this->public_path.'thumbnail/'.$imageName));
+        $imgSm = Image::make(storage_path($this->public_path.$imageName))->resize(50, 50);
+        $imgSm->save(storage_path($this->public_path.'thumbnail-small/'.$imageName));
         $model->src_foto = $imageName;    
 
         $model->save();

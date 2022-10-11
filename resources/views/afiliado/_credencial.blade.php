@@ -157,7 +157,7 @@
                 </td>
                 <td rowspan="7" class="text-center">
                     @if ($model->foto)
-                        <img src="{{public_path('uploads/'.$model->src_foto)}}" alt="foto" width="100" height="100" style="border:0.8px solid black">
+                        <img src="{{storage_path('app/public/uploads/'.$model->src_foto)}}" alt="Foto" width="100" height="100" style="border:0.8px solid black">
                     @else
                         <img src="{{public_path('img/img_user_none.png')}}" alt="foto" width="100" height="100" style="border:0.8px solid black">
                     @endif

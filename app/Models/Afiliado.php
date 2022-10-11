@@ -24,6 +24,7 @@ class Afiliado extends Model
         'nombre_completo',
         'numero_matricula',
         'ci',
+        'expedido',
         'fecha_nacimiento',
         'grupo_sanguineo',
         'egreso',
@@ -57,7 +58,7 @@ class Afiliado extends Model
      */
     public function getFotoThumbnailAttribute(){
         if ($this->src_foto){
-            return url('/').'/uploads/thumbnail/' . $this->src_foto;
+            return asset('storage/uploads/thumbnail/'.$this->src_foto);
         }
         return null;
     }

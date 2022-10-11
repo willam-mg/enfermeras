@@ -53,11 +53,31 @@
                 </div>
                 
                 <div class="row">
-                    <div class="col-xs-12 col-md-5">
+                    <div class="col-xs-12 col-md-3">
                         <div class="form-floating mb-3">
                             <input type="number" name="ci" value="{{$model->ci}}" class="form-control @error('ci') is-invalid @enderror" placeholder="CI" required>
                             <label class="form-label" for="ci">CI</label>
                             @error('ci')
+                                <div class="invalid-feedback"> {{ $message }} </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-2">
+                        <div class="form-floating  mb-3">
+                            <select  class="form-select @error('model.expedido') is-invalid @enderror" id="expedido" name="expedido" aria-label="Expedido">
+                                <option value="CBBA" title="Cochabamba" {{$model->expedido == 'CBBA'?'selected':''}}> CBBA </option>
+                                <option value="LPZ" title="La Paz" {{$model->expedido == 'LPZ'?'selected':''}}> LPZ </option>
+                                <option value="SCZ" title="Santa Cruz" {{$model->expedido == 'SCZ'?'selected':''}}> SCZ </option>
+                                <option value="ORU" title="Oruro" {{$model->expedido == 'ORU'?'selected':''}}> ORU </option>
+                                <option value="PSI" title="Potosi" {{$model->expedido == 'PSI'?'selected':''}}> PSI </option>
+                                <option value="CHQ" title="Chuquisaca" {{$model->expedido == 'CHQ'?'selected':''}}> CHQ </option>
+                                <option value="TJA" title="Tarija" {{$model->expedido == 'TJA'?'selected':''}}> TJA </option>
+                                <option value="BNI" title="Beni" {{$model->expedido == 'BNI'?'selected':''}}> BNI </option>
+                                <option value="PND" title="Pando" {{$model->expedido == 'PND'?'selected':''}}> PND </option>
+                                <option value="EXTRANJERO" {{$model->expedido == 'EXTRANJERO'?'selected':''}}> EXTRANJERO </option>
+                            </select>
+                            <label for="mes">Expedido</label>
+                            @error('model.expedido')
                                 <div class="invalid-feedback"> {{ $message }} </div>
                             @enderror
                         </div>
