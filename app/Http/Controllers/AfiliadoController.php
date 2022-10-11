@@ -10,6 +10,7 @@ use App\Models\Requisito;
 use App\Models\MisRequisitos;
 use App\Models\Acreditacion;
 use App\Traits\ProgressTrait;
+use Illuminate\Support\Carbon;
 
 class AfiliadoController extends Controller
 {
@@ -165,7 +166,6 @@ class AfiliadoController extends Controller
             'telefono' => ['string', 'max:20'],
             'anos_servicio' => ['string', 'max:20'],
         ]);
-        dd($request->all());
         $model->update($request->all());
 
         $image = $request->file('foto');
@@ -196,17 +196,22 @@ class AfiliadoController extends Controller
 
     public function imprimirCredencial($id) {
         $model = Afiliado::find($id);
+        $fecha_inicio =  Carbon::parse($model->fecha_registro);
+        $fecha_inicio = $fecha_inicio->format('d/m/Y');;
+        $fecha_fin =  Carbon::parse($model->fecha_registro);
+        $fecha_fin = $fecha_fin->format('d/m/Y');
         // return view('afiliado.print-credencial', compact('model'));
-        $pdf = Pdf::loadView('afiliado.print-credencial', compact('model'));
+        $pdf = Pdf::loadView('afiliado.print-credencial', compact('model', 'fecha_inicio', 'fecha_fin'));
         // $customPaper = array(0,0,360,360);
         // $customPaper = array(0,0,5.5,3.5);
         $pdf->set_option('defaultFont', 'Helvetica');
         $pdf->set_option('enable_php', true);    
         $pdf->set_option('enable_remote', true);
-        // 8.5 x 5.3 cm => 240.945 (240.944882) x 150.236 (150.23622) points => 321.25984266666666 x 200.31496 px
-        // 8.5 x 5.3 cm =>
-        // $customPaper = array(0,0, 207.87401575, 132.28346457);
-        $customPaper = array(0,0, 240.944882, 150.23622);
+        // // 8.5 x 5.3 cm => 240.945 (240.944882) x 150.236 (150.23622) points => 321.25984266666666 x 200.31496 px
+        // $customPaper = array(0,0, 240.944882, 150.23622); // tamano ajustado a la credencial en points
+
+        // 210 X 297 mm => 595.276 X 841.89 points
+        $customPaper = array(0,0, 595.276, 841.89); // tamano ajustado a la credencial en points
         $pdf->setPaper($customPaper);
 
         return $pdf->stream();

@@ -1,5 +1,9 @@
 
 <style>
+    body {
+        padding-top: 10.6mm;
+        padding-left: 32.2mm;
+    }
     *{ padding: 0; margin:0; font-size: 9px; font-family: Cambria;
         border: 0;
     }
@@ -23,11 +27,15 @@
     }
     .wrapper-card {
         /* width: 321.25984266666666px; */
-        /* width: 100%; */
-        height: 200.31496px;
+        width: 85.1mm;
+        /* height: 200.31496px; */
+        height: 54.1mm;
         position: relative;
         z-index: 3;
-        /* border: 0.5px solid black; */
+        border: 0.5px solid black;
+    }
+    .wrapper-card  table {
+        z-index: 3;
     }
     .aside{
         position: absolute;
@@ -49,8 +57,8 @@
         /* color: #006691; */
         color: #015980;
     }
-    .p-5 {
-        padding: 5px;
+    .space-top {
+        margin-top: 6.9mm;
     }
 
 
@@ -92,6 +100,7 @@
         display: block;
         position: absolute;
         bottom: 0;
+        left: 0;
         width: 100%;
         height: 60px;
         /* background-color: #40cfff; */
@@ -113,8 +122,9 @@
         /* border: 1px solid black; */
         z-index: 2;
         /* padding-top: 75px; */
-        text-align: center;
-        padding-bottom: 50px;
+        /* text-align: center; */
+        padding-left: 150px;
+        padding-bottom: 62px;
     }
     .marca-agua-front {
         display: block;
@@ -128,6 +138,21 @@
         /* text-align: center; */
         /* padding-left: 10px; */
     }
+    .foto-container {
+        /* width: 100px; */
+        height: 29mm; 
+    }
+    .foto-container img {
+        /* width: 100px;
+        height: 100px; */
+        position: absolute;
+        top: 8mm;
+        right: 10mm;
+        width: 30mm;
+        height: 30mm;
+        border:0.8px solid black;
+        margin: 0 auto;
+    }
 
     /* @page { 
         margin: 120px 50px 35px 50px; 
@@ -135,14 +160,9 @@
 </style>
 
 {{-- front card --}}
-<div class="border-styled">
-    <div class="border-styled-white"></div>
-</div>
-<div class="marca-agua-front">
-    <img src="{{public_path('img/isotipo-marcaagua.png')}}" alt="foto" width="265" height="auto">
-</div>
+
 <div class="wrapper-card">
-    <table class="table table-light full-width" height="200.31496" border="1">
+    <table class="table table-light full-width" height="200.31496">
         <tbody>
             <tr>
                 <td colspan="3" class="text-center" style="padding:5px">
@@ -155,11 +175,11 @@
                         {{$model->cargo}}
                     </b>
                 </td>
-                <td rowspan="7" class="text-center">
+                <td rowspan="7" class="text-center foto-container">
                     @if ($model->foto)
-                        <img src="{{storage_path('app/public/uploads/'.$model->src_foto)}}" alt="Foto" width="100" height="100" style="border:0.8px solid black">
+                        <img src="{{storage_path('app/public/uploads/'.$model->src_foto)}}" alt="Foto" >
                     @else
-                        <img src="{{public_path('img/img_user_none.png')}}" alt="foto" width="100" height="100" style="border:0.8px solid black">
+                        <img src="{{public_path('img/img_user_none.png')}}" alt="foto">
                     @endif
                 </td>
                 <td rowspan="8" style="width: 18px;">
@@ -169,7 +189,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="text-end">{{__('Fecha de registro: ')}}</td>
+                <td class="text-end">{{__('Fecha de registro ')}}</td>
             </tr>
             <tr>
                 <td class="text-end bg-gray-1 text-purple"> 
@@ -180,7 +200,7 @@
             </tr>
             <tr>
                 <td class="text-end">
-                    {{__('Numero de matricula: ')}}
+                    {{__('Numero de matricula ')}}
                 </td>
             </tr>
             <tr>
@@ -192,13 +212,13 @@
             </tr>
             <tr>
                 <td class="text-end">
-                    {{__('C.I.: ')}}
+                    {{__('C.I. ')}}
                 </td>
             </tr>
             <tr>
                 <td class="text-end bg-gray-2  text-purple">
                     <b>
-                        {{$model->ci}}
+                        {{$model->ci.' '.$model->expedido}}
                     </b>
                 </td>
             </tr>
@@ -214,36 +234,40 @@
                         {{__('Auxiliares de Cochabamba')}}
                     </div>
                 </td>
-                <td class="text-center" style="padding: 0; height: 20px; font-size: 11pt; font-weight: bold; line-height : 7px">
+                <td class="text-center" style="height: 10px; font-size: 11pt; font-weight: bold;">
                     {{$model->numero_afiliado}}
-                    <br>
-                    <span style="font-size: 4pt; font-weight: normal">{{__('Número de afiliado')}}</span>
                 </td>
             </tr>
             <tr>
-                <td colspan="2" class="text-center" style="padding:5px 2px 0 0;font-size:5pt">
-                    {{__('Personeria juridica Nro 204770 - Resolucion Prefectural Nro 135/05')}}
+                <td colspan="2" class="text-center" style="padding:2px 2px 0 0;font-size:5pt;">
+                    {{__('Personeria jurídica Nro 204770 - Resolucion Prefectural Nro 135 / 05')}}
                 </td>
             </tr>
         </tbody>
     </table>
+    <div class="border-styled">
+        <div class="border-styled-white"></div>
+    </div>
+    <div class="marca-agua-front">
+        <img src="{{public_path('img/isotipo-marcaagua.png')}}" alt="foto" width="265" height="auto">
+    </div>
 </div>
 
 {{-- back card --}}
-<div class="wrapper-card p-5">
-    <table class="table table-light full-width" height="200.31496" border="1">
+<div class="wrapper-card space-top">
+    <table class="table table-light" height="200.31496" style="width: 311.25984266666666px; margin: 5px;" border="1">
         <tbody>
             <tr>
                 <td colspan="3">
                     Fecha de vigencia:
                     <b>
-                        {{$model->fecha_registro}} - 
-                        {{$model->fecha_registro}}
+                        {{$fecha_inicio}} - 
+                        {{$fecha_fin}}
                     </b>
                 </td>
             </tr>
             <tr>
-                <td colspan="3" style="height: 20px;">
+                <td colspan="3" style="height: 25px !important">
                     Egreso:
                     <b class="text-uppercase">
                         {{$model->egreso}}
@@ -276,20 +300,21 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2" style="font-size: 5pt">
-                    {{__('Asociacion Departamental de Enfermeras(os) Auxiliares ')}} <br>
+                <td colspan="2" style="font-size: 5pt;  line-height : 8px;">
+                    {{__('Asociacion Departamental de Enfermeras(os) Auxiliares de Cochabamba')}} <br>
                     {{__('Teléfono: 4317867 - 4525971')}} <br>
-                    {{__('Direccion: C. Colombia entre C. 16 de julio y Av Oquendo Edif. Rochavel Piso 1 Of. 6 ')}}
+                    {{__('Direccion: C. Colombia entre C. 16 de julio y Av Oquendo Edif. Rochavel')}} <br>
+                    {{__('Bloque 1 Piso 1 Of. 6 ')}}
                 </td>
-                <td class="text-center">
+                <td class="text-center" style="width: 80px">
                     <img src="{{public_path('img/logo-v2.svg')}}" alt="foto" width="70" height="auto">
                 </td>
             </tr>
         </tbody>
     </table>
-</div>
-<div class="border-styled-back">
-</div>
-<div class="marca-agua">
-    <img src="{{public_path('img/logo-redondo-marcaagua.png')}}" alt="foto" width="120" height="auto">
+    <div class="border-styled-back">
+    </div>
+    <div class="marca-agua">
+        <img src="{{public_path('img/logo-redondo-marcaagua.png')}}" alt="foto" width="120" height="auto">
+    </div>
 </div>
