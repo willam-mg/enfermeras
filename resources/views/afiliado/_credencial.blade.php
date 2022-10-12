@@ -22,18 +22,11 @@
         background-color: rgb(189, 189, 189);
     }
     .wrapper-card {
-        /* width: 321.25984266666666px; */
-        /* width: 84.5mm; */
         width: 84.9322916667mm;
-        /* height: 200.31496px; */
         height: 53.9322916667mm;
         position: relative;
         z-index: 3;
         background: white;
-        /* border: 0.5px solid black; */
-        /* position: absolute;
-        top: 10.6mm;
-        left: 32.2mm; */
     }
     .wrapper-card-top {
         position: absolute;
@@ -87,9 +80,6 @@
         bottom: 0;
         width: 100%;
         height: 60px;
-        /* background-color: #40cfff; */
-        /* background-color: #0979b0; */
-        /* background-color: #48dbfb; */
         background-color: #0abde3;
         z-index: 0;
     }
@@ -113,9 +103,6 @@
         left: 0;
         width: 100%;
         height: 60px;
-        /* background-color: #40cfff; */
-        /* background-color: #0979b0; */
-        /* background-color: #48dbfb; */
         background-color: #0abde3;
         z-index: 0;
     }
@@ -123,16 +110,8 @@
         display: block;
         position: absolute;
         bottom: 0;
-        
-        /* width: 321.25984266666666px; */
         width: 100%;
-        /* height: 200.31496px; */
-        /* background-position: center; */
-        /* background-color: rgb(1, 2, 1, 0.3); */
-        /* border: 1px solid black; */
         z-index: 2;
-        /* padding-top: 75px; */
-        /* text-align: center; */
         padding-left: 150px;
         padding-bottom: 62px;
     }
@@ -143,18 +122,12 @@
         width: 100%;
         z-index: 2;
         padding-top: 2px;
-        /* padding-left: 15px; */
         padding-left: 45px;
-        /* text-align: center; */
-        /* padding-left: 10px; */
     }
     .foto-container {
-        /* width: 100px; */
         height: 28.5mm; 
     }
     .foto-container img {
-        /* width: 100px;
-        height: 100px; */
         position: absolute;
         top: 8mm;
         right: 9mm;
@@ -163,10 +136,6 @@
         border:0.8px solid black;
         margin: 0 auto;
     }
-
-    /* @page { 
-        margin: 120px 50px 35px 50px; 
-    } */
 </style>
 
 {{-- front card --}}
