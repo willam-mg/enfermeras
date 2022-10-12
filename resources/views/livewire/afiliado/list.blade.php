@@ -41,7 +41,7 @@
             </thead>
             <tbody>
                 @foreach ($data as $key => $item)
-                    <tr data-href="{{ route('afiliados.show', $item->id) }}">
+                    <tr data-href="{{ route('afiliados.show', $item->id) }}" wire:click="$emitTo('afiliado.show-component', 'display-modal', {{$item->id}})">
                         <th scope="row">{{$item->id}}</th>
                         <td>
                             @if ($item->src_foto)
@@ -66,9 +66,9 @@
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownActions">
                                     <li>
-                                        <a href="{{ route('afiliados.show', $item->id) }}" class="dropdown-item" type="button">
+                                        <button type="button" wire:click="$emitTo('afiliado.show-component', 'display-modal', {{$item->id}})" class="dropdown-item" type="button">
                                             <i class="bi bi-eye"></i> Ver
-                                        </a>
+                                        </button>
                                     </li>
                                     <li>
                                         <a href="{{ route('afiliados.edit', $item->id) }}" class="dropdown-item" type="button">
@@ -155,7 +155,7 @@
             </div>
         </div>
     </div>
-
+    {{-- create modal --}}
     <div wire:ignore.self  class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modal-create" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -170,5 +170,15 @@
         </div>
     </div>
 
+    {{-- show modal --}}
+    <livewire:afiliado.show-component/>
 </div>
 
+@section('scripts')
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
+@endsection

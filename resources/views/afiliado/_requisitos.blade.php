@@ -1,4 +1,4 @@
-<form action="{{ url('afiliados/requisitos', $model->id) }}" method="POST" class="needs-validation disabled-onsubmit" novalidate>
+<form wire:submit.prevent="saveRequisitos" class="needs-validation disabled-onsubmit" novalidate>
     @csrf
     @method('POST')
     <div class="row">
@@ -6,13 +6,9 @@
             <h4>Requisitos</h4>
         </div>
         <div class="col-xs-12 col-md-9 mb-3 text-end">
-            <button class="btn btn-link" id="btnSelectAll" type="button">
+            <button class="btn btn-link" wire:click="saveRequisitos()" type="button">
                 <i class="bi bi-check-all"></i>
                 Seleccionar todo
-            </button>
-            <button class="btn btn-primary" type="submit" id="btnGuardar">
-                <i class="bi bi-save"></i>
-                Guardar
             </button>
         </div>
     </div>
@@ -31,7 +27,7 @@
         @foreach ($requisitos as $item)
             <li class="list-group-item">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="requisitos[]" value="{{$item->id}}" id="flexCheck-{{$item->id}}" {{in_array($item->id, $misRequisitos)?'checked':''}}>
+                    <input class="form-check-input" type="checkbox" wire:click="saveRequisitos({{$item->id}})" name="requisitos[]" value="{{$item->id}}" id="flexCheck-{{$item->id}}" {{in_array($item->id, $misRequisitos)?'checked':''}}>
                     <label class="form-check-label" for="flexCheck-{{$item->id}}">
                         {{$item->numero}} .- 
                         {{$item->requisito}} 
@@ -41,11 +37,3 @@
         @endforeach
     </ul>
 </form>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function(){
-        $("#btnSelectAll").on("click", function() {
-            $('.form-check-input').prop('checked', true);
-        });
-    });
-</script>

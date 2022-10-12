@@ -2,28 +2,28 @@
 
     <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
+            <button class="nav-link active" id="pills-step1-tab" data-bs-toggle="pill" data-bs-target="#pills-step1" type="button" role="tab" aria-controls="pills-step1" aria-selected="true">
                 Paso 1
             </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link position-relative" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">
+            <button class="nav-link position-relative" id="pills-step1-tab" data-bs-toggle="pill" data-bs-target="#pills-step2" type="button" role="tab" aria-controls="pills-step2" aria-selected="false">
                 Paso 2
             </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-credicial-tab" data-bs-toggle="pill" data-bs-target="#pills-credencial" type="button" role="tab" aria-controls="pills-credencial" aria-selected="false">
+            <button class="nav-link" id="pills-step3-tab" data-bs-toggle="pill" data-bs-target="#pills-step3" type="button" role="tab" aria-controls="pills-step3" aria-selected="false">
                 Paso 3
             </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-acredtiaciones-tab" data-bs-toggle="pill" data-bs-target="#pills-acreditaciones" type="button" role="tab" aria-controls="pills-credencial" aria-selected="false">
+            <button class="nav-link" id="pills-step4-tab" data-bs-toggle="pill" data-bs-target="#pills-step4" type="button" role="tab" aria-controls="pills-step4" aria-selected="false">
                 Paso 4
             </button>
         </li>
     </ul>
     <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+        <div class="tab-pane fade show active" id="pills-step1" role="tabpanel" aria-labelledby="pills-step1-tab">
             <form wire:submit.prevent="store" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-xs-12 col-md-6">
@@ -198,14 +198,14 @@
 
 
         </div>
-        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+        <div class="tab-pane fade" id="pills-step2" role="tabpanel" aria-labelledby="pills-step2-tab">
             {{-- @include('afiliado._requisitos') --}}
             paso 2
         </div>
-        <div class="tab-pane fade" id="pills-credencial" role="tabpanel" aria-labelledby="pills-credencial-tab">
+        <div class="tab-pane fade" id="pills-step3" role="tabpanel" aria-labelledby="pills-step3-tab">
             paso 3
         </div>
-        <div class="tab-pane fade" id="pills-acreditaciones" role="tabpanel" aria-labelledby="pills-acreditaciones-tab">
+        <div class="tab-pane fade" id="pills-step4" role="tabpanel" aria-labelledby="pills-step4-tab">
             paso 4
         </div>
     </div>

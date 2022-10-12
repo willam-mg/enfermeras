@@ -80,14 +80,18 @@
 </div>
 <div class="row mb-3">
     <div class="col-xs-12 col-md-6">
-        <div>Mostrando {{($data->currentpage()-1)*$data->perpage()+1}} al {{$data->currentpage()*$data->perpage()}}
-            de  {{$data->total()}} registros
-        </div>
+        @if ($data) 
+            <div>Mostrando {{($data->currentpage()-1)*$data->perpage()+1}} al {{$data->currentpage()*$data->perpage()}}
+                de  {{$data->total()}} registros
+            </div>
+        @endif
     </div>
     <div class="col-xs-12 col-md-6">
         <div class="btn-group float-end">
             {{-- {{ $data->links() }} --}}
-            {{$data->appends(request()->query())->links() }}
+            @if ($data) 
+                {{$data->appends(request()->query())->links() }}
+            @endif
         </div>
     </div>
 </div>
