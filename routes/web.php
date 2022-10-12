@@ -25,7 +25,7 @@ Auth::routes();
 Route::middleware('auth')->group(function() {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('imprimir-credencial/{id}', [AfiliadoController::class, 'imprimirCredencial']);
+    Route::get('imprimir-credencial/{id}/{side?}', [AfiliadoController::class, 'imprimirCredencial']);
 
 });
 

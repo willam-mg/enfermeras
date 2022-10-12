@@ -33,7 +33,7 @@
     </li>
     <li class="list-group-item">
         <b>{{__("Egreso: ")}} </b>
-        {{$model->grupo_sanguineo}}
+        {{$model->egreso}}
     </li>
     <li class="list-group-item">
         <b>{{__("Domicilio: ")}} </b>

@@ -194,14 +194,14 @@ class AfiliadoController extends Controller
             ->with('success','Registro eliminado');
     }
 
-    public function imprimirCredencial($id) {
+    public function imprimirCredencial($id, $side = 'front') {
         $model = Afiliado::find($id);
         $fecha_inicio =  Carbon::parse($model->fecha_registro);
         $fecha_inicio = $fecha_inicio->format('d/m/Y');;
         $fecha_fin =  Carbon::parse($model->fecha_registro);
         $fecha_fin = $fecha_fin->format('d/m/Y');
         // return view('afiliado.print-credencial', compact('model'));
-        $pdf = Pdf::loadView('afiliado.print-credencial', compact('model', 'fecha_inicio', 'fecha_fin'));
+        $pdf = Pdf::loadView('afiliado.print-credencial', compact('model', 'fecha_inicio', 'fecha_fin', 'side'));
         // $customPaper = array(0,0,360,360);
         // $customPaper = array(0,0,5.5,3.5);
         $pdf->set_option('defaultFont', 'Helvetica');
