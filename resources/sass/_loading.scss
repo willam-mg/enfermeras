@@ -1,0 +1,8 @@
+.loading {
+    position: fixed;
+    top: 50vh;
+    left: 50%;
+    text-align: center;
+    vertical-align: middle;
+    z-index: var(--bs-modal-zindex)+1;
+}

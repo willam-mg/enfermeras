@@ -19458,3 +19458,12 @@ select + .select2-container--bootstrap-5 {
 .form-select-lg ~ .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__clear {
   right: 1rem;
 }
+
+.loading {
+  position: fixed;
+  top: 50vh;
+  left: 50%;
+  text-align: center;
+  vertical-align: middle;
+  z-index: var(--bs-modal-zindex)1;
+}

@@ -97,6 +97,9 @@
             </div>
         </main>
     </div>
+
+    
+
     @livewireScripts
     @yield('scripts')
 </body>

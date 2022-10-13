@@ -21,6 +21,23 @@
         </div>
     </div>
 
+    <div wire:loading style="display:none">
+        <div class="loading">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-grow text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-secondary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow text-success" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            Cargando ...
+        </div>
+    </div>
+
     <div class="table-responsive mb-3">
         <table class="table align-middle table-bordered table-hover">
             <thead class="table-light">
@@ -174,11 +191,3 @@
     <livewire:afiliado.show-component/>
 </div>
 
-@section('scripts')
-<script>
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-</script>
-@endsection

@@ -22,9 +22,7 @@ class ShowComponent extends Component
     public $misRequisitos;
     public $porcentaje;
     public $acreditacionMd;
-    // public $afiliados;
     public $selected;
-    // public $data;
     public $tabActive;
 
     protected $listeners = [
@@ -37,9 +35,7 @@ class ShowComponent extends Component
         $this->requisitos = [];
         $this->misRequisitos = [];
         $this->porcentaje = $this->porcentaje($this->misRequisitos, $this->requisitos);
-        // acreditaciones
         $this->acreditacionMd = new Acreditacion();
-        // $this->afiliados = Afiliado::all();
         $this->selected = true;
         $this->tabActive = 1;
     }
@@ -50,13 +46,9 @@ class ShowComponent extends Component
             $this->model = Afiliado::find($this->paramId);
             $this->requisitos = Requisito::where(['estado'=>1])->get();
             $this->misRequisitos = $this->model->misRequisitos->pluck('requisito_id')->toArray();
-            // $this->requisitosSeleccionados = $this->misRequisitos;
             $this->porcentaje = $this->porcentaje($this->misRequisitos, $this->requisitos);
-            // acreditaciones
             $this->acreditacionMd = new Acreditacion();
-            // $this->afiliados = Afiliado::all();
             $this->selected = true;
-            // $this->data = Array(Afiliado);
         }
         $data = [];
         if ($this->paramId != null) {
@@ -85,17 +77,9 @@ class ShowComponent extends Component
     }
 
     public function saveRequisitos($requisitoId = null) {
-        // $model = Afiliado::find($id);
-        // $misRequisitos = $model->misRequisitos->pluck('requisito_id')->toArray();
-
-        // $requisitos = $request->requisitos?$request->requisitos:[];
-        // eliminadno los que no estan seleccionados
-        // foreach ($model->misRequisitos as $key => $miRequisito) {
         if ($requisitoId) {
             if (in_array($requisitoId, $this->misRequisitos)) {
-                // $miRequisito = MisRequisitos::find($requisitoId);
                 $this->model->misRequisitos()->where('requisito_id', $requisitoId)->delete();
-                // $miRequisito->delete();
             } else {
                 $miRequisito = new MisRequisitos();
                 $miRequisito->requisito_id = $requisitoId;
@@ -105,15 +89,8 @@ class ShowComponent extends Component
                 $miRequisito->save();
             }
         }else {
-            // foreach ($this->misRequisitos as $key => $miRequisito) {
-            //     if (!in_array($miRequisito->requisito_id, $this->requisitosSeleccionados)) {
-            //         $miRequisito->delete();
-            //     }
-            // }
             // Agregando regquisitos seleccionados
-            // foreach ($requisitos as $key => $item) {
             foreach ($this->requisitos as $key => $item) {
-                // if (!in_array($item, $misRequisitos)) {
                 if (!in_array($item->id, $this->misRequisitos)) {
                     $miRequisito = new MisRequisitos();
                     $miRequisito->requisito_id = $item->id;
@@ -124,10 +101,5 @@ class ShowComponent extends Component
                 }
             }
         }
-        // $this->dispatchBrowserEvent('success-requisitos');
-
-        // return redirect()
-        //     ->route('afiliados.show', $model->id)
-        //     ->with('success','Guardado');
     }
 }

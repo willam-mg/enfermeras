@@ -45,7 +45,7 @@ class ListComponent extends Component
 
     public function render(Request $request)
     {
-        return view('livewire.afiliado.list', [
+        return view('livewire.afiliado.list-component', [
             'data'=>$this->search(),
         ]);
     }
