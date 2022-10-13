@@ -9,6 +9,7 @@ use App\Traits\ImageTrait;
 use App\Models\Requisito;
 use App\Models\MisRequisitos;
 use App\Models\Acreditacion;
+use App\Models\Credencial;
 use App\Traits\ProgressTrait;
 use Illuminate\Support\Carbon;
 
@@ -195,10 +196,11 @@ class AfiliadoController extends Controller
     }
 
     public function imprimirCredencial($id, $side = 'front') {
-        $model = Afiliado::find($id);
-        $fecha_inicio =  Carbon::parse($model->fecha_registro);
+        $credencial = Credencial::find($id);
+        $model = $credencial->afiliado;
+        $fecha_inicio =  Carbon::parse($credencial->fecha_registro);
         $fecha_inicio = $fecha_inicio->format('d/m/Y');;
-        $fecha_fin =  Carbon::parse($model->fecha_registro);
+        $fecha_fin =  Carbon::parse($credencial->fecha_registro);
         $fecha_fin = $fecha_fin->format('d/m/Y');
         $pdf = Pdf::loadView('afiliado.print-credencial', compact('model', 'fecha_inicio', 'fecha_fin', 'side'));
         $pdf->set_option('defaultFont', 'Helvetica');

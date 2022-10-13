@@ -2,8 +2,5 @@
     Credencial
 </h4>
 <div class="mb-3">
-    <a href="{{ url('imprimir-credencial', $model->id) }}" target="_blank" class="btn btn-info">
-        <i class="bi bi-printer"></i>
-        Imprimir credencial
-    </a>
+    <livewire:afiliado.credencial-component :afiliado="$model" wire:key="afiliado-credencial" />
 </div>

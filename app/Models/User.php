@@ -69,4 +69,11 @@ class User extends Authenticatable
                 break;
         }
     }
+
+    /**
+     * get has many credencials
+     */
+    public function credenciales() {
+        return $this->hasMany(Credencial::class, 'afiliado_id');
+    }
 }

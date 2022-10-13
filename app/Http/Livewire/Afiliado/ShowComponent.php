@@ -25,6 +25,21 @@ class ShowComponent extends Component
     public $selected;
     public $tabActive;
 
+    protected $rules = [
+        'model.numero_afiliado' => 'required|string|max:50',
+        'model.cargo' => 'required|string|max:50',
+        'model.nombre_completo' => 'required|string|max:50',
+        'model.numero_matricula' => 'required|string|max:50',
+        'model.ci' => 'required|string|max:50|unique:afiliados,ci',
+        'model.expedido' => 'required|string|max:50|',
+        'model.fecha_nacimiento' => 'date',
+        'model.grupo_sanguineo' => 'string',
+        'model.egreso' => 'string|max:100',
+        'model.domicilio' => 'string|max:300',
+        'model.telefono' => 'string|max:20',
+        'model.anos_servicio' => 'string|max:20',
+    ];
+
     protected $listeners = [
         'display-modal' => 'toggleModal',
         'abrir-modal' => 'toggleModal',
@@ -101,5 +116,10 @@ class ShowComponent extends Component
                 }
             }
         }
+    }
+
+    public function gotoListCredenciales() {
+        $this->tabActive = 3;
+        $this->emitTo('afiliado.credencial-component', 'list-credenciales', $this->model);
     }
 }

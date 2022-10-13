@@ -58,7 +58,7 @@
             </thead>
             <tbody>
                 @foreach ($data as $key => $item)
-                    <tr data-href="{{ route('afiliados.show', $item->id) }}" wire:click="$emitTo('afiliado.show-component', 'display-modal', {{$item->id}})">
+                    <tr>
                         <th scope="row">{{$item->id}}</th>
                         <td>
                             @if ($item->src_foto)

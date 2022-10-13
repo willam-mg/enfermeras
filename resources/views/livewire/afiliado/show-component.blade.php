@@ -34,7 +34,7 @@
                                     </button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="nav-link {{$tabActive == 3?'active':''}}" wire:click="$set('tabActive', 3)" data-bs-toggle="pill" data-bs-target="#pills-credencial" type="button" role="tab"  aria-selected="{{$tabActive == 2?'true':'false'}}}">
+                                    <button class="nav-link {{$tabActive == 3?'active':''}}" wire:click="gotoListCredenciales()" data-bs-toggle="pill" data-bs-target="#pills-credencial" type="button" role="tab"  aria-selected="{{$tabActive == 2?'true':'false'}}}">
                                         Credencial
                                     </button>
                                 </li>

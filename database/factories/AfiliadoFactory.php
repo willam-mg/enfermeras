@@ -23,6 +23,18 @@ class AfiliadoFactory extends Factory
             'nombre_completo' => $this->faker->name(),
             'numero_matricula' => $this->faker->postcode(),
             'ci' => $this->faker->unique()->numberBetween(),
+            'expedido' => $this->faker->randomElement([
+                'CBBA',
+                'LPZ',
+                'SCZ',
+                'ORU',
+                'PSI',
+                'CHQ',
+                'TJA',
+                'BNI',
+                'PND',
+                'EXTRANJERO',
+            ]),
             'fecha_nacimiento' => $this->faker->date(),
             'grupo_sanguineo' => $this->faker->randomElement(['RH O+' ,'RH O-', 'RH AB+', 'RH B+', 'RH A+']),
             'egreso' => $this->faker->randomElement([
