@@ -1,7 +1,7 @@
 <table class="table table-light full-width">
         <tbody>
             <tr>
-                <td colspan="3" class="text-center" style="padding:5px">
+                <td colspan="3" class="text-center" style="padding:2px">
                     <strong class="text-uppercase" style="font-size: 8pt">{{$model->nombre_completo}}</strong>
                 </td>
             </tr>
@@ -18,7 +18,7 @@
                         <img src="{{public_path('img/img_user_none.png')}}" alt="foto">
                     @endif
                 </td>
-                <td rowspan="8" style="width: 18px;">
+                <td rowspan="7" style="width: 18px;">
                     <div class="aside">
                         {{__('ENFERMERÍA')}}
                     </div>
@@ -58,32 +58,41 @@
                     </b>
                 </td>
             </tr>
-            <tr>
-                <td rowspan="2" class="text-center text-uppercase">
-                    <img src="{{public_path('img/isotipo.svg')}}" alt="foto" width="45" height="auto">
-                    <br>
-                    <b>
-                        {{__('A.D.E.A. CBBA.')}}
-                    </b>
-                    <div style="font-size: 4pt; letter-spacing: 0; word-spacing: 0; line-height : 6px; font-stretch: extra-condensed;">
-                        {{__('Asociación Departamental de Enfermeras(os)')}} <br>
-                        {{__('Auxiliares de Cochabamba')}}
-                    </div>
-                </td>
-                <td class="text-center" style="height: 10px; font-size: 11pt; font-weight: bold;">
-                    {{$model->numero_afiliado}}
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" class="text-center" style="padding:2px 2px 0 0;font-size:5pt;">
-                    {{__('Personería jurídica Nro 204770 - Resolución Prefectural Nro 135 / 05')}}
-                </td>
-            </tr>
+            
         </tbody>
     </table>
+
+    <div class="content-box">
+        <table>
+            <tbody>
+                <tr>
+                    <td rowspan="2" class="text-center text-uppercase" style="width: 150px">
+                        <img src="{{public_path('img/isotipo.svg')}}" alt="foto" width="45" height="auto">
+                        <br>
+                        <b>
+                            {{__('A.D.E.A. CBBA.')}}
+                        </b>
+                        <div style="font-size: 4pt; letter-spacing: 0; word-spacing: 0; line-height : 6px; font-stretch: extra-condensed;">
+                            {{__('Asociación Departamental de Enfermeras(os)')}} <br>
+                            {{__('Auxiliares de Cochabamba')}}
+                        </div>
+                    </td>
+                    <td class="text-center" style="height: 10px; font-size: 11pt; font-weight: bold;">
+                        {{$model->numero_afiliado}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center" style="padding:5px 2px 0 0;font-size:5pt;">
+                        {{__('Personería jurídica Nro 204770 - Resolución Prefectural Nro 135 / 05')}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="box-left"></div>
     <div class="border-styled">
         <div class="border-styled-white"></div>
     </div>
     <div class="marca-agua-front">
-        <img src="{{public_path('img/isotipo-marcaagua.png')}}" alt="foto" width="265" height="auto">
+        <img src="{{public_path('img/isotipo-marcaagua.png')}}" alt="foto" width="255" height="auto">
     </div>

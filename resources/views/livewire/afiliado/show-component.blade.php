@@ -16,7 +16,7 @@
                             @endif
                             <h4 class="mt-3">{{$model->nombre_completo}}</h4>
                             <div class="d-grid gap-2 mb-3">
-                                <a href="{{ url('afiliados/edit', $model->id) }}" class="btn btn-warning" type="button">
+                                <a href="{{ url('afiliados/'.$model->id.'/edit') }}" class="btn btn-warning" type="button">
                                     <i class="bi bi-pencil"></i> Editar
                                 </a>
                             </div>

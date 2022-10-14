@@ -5,17 +5,23 @@ namespace App\Http\Livewire\Afiliado;
 use Livewire\Component;
 use App\Models\Credencial;
 use App\Models\Afiliado;
+use Illuminate\Support\Facades\Auth;
 
 class CredencialComponent extends Component
 {
     public $model;
     public $afiliado;
     public $idCredencial;
+    public $fecha_emision;
+    public $fecha_vencimiento;
+    public $renovacion;
+    public $costo_renovacion;
+    public $estado;
 
     protected $rules = [
         'model.fecha_registro' => 'string|max:50',
-        'model.fecha_emision' => 'required|string|max:50',
-        'model.fecha_vencimiento' => 'required|string|max:50',
+        'model.fecha_emision' => 'date',
+        'model.fecha_vencimiento' => 'date',
         'model.renovacion' => 'string',
         'model.costo_renovacion' => 'number',
         'model.estado' => 'string|max:50|',
@@ -32,7 +38,7 @@ class CredencialComponent extends Component
     {
         $data = [];
         if ($this->afiliado)
-            $data = $this->afiliado->credenciales()->paginate(5);
+            $data = $this->afiliado->credenciales()->orderBy('id', 'DESC')->paginate(5);
         return view('livewire.afiliado.credencial-component', [
             'data'=>$data,
             'model'=>$this->model
@@ -52,6 +58,15 @@ class CredencialComponent extends Component
     }
 
     public function save() {
-        $this->model->save();
+        $mimodelo = new Credencial();
+        $mimodelo->fecha_registro = date('Y-m-d');
+        $mimodelo->afiliado_id = $this->afiliado->id;
+        $mimodelo->user_id = Auth::user()->id;
+        $mimodelo->fecha_emision = $this->fecha_emision;
+        $mimodelo->fecha_vencimiento = $this->fecha_vencimiento;
+        $mimodelo->renovacion = $this->renovacion;
+        $mimodelo->costo_renovacion = $this->costo_renovacion;
+        $mimodelo->estado = $this->estado;
+        $mimodelo->save();
     }
 }

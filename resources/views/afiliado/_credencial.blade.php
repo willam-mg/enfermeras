@@ -94,6 +94,7 @@
         background-color:white;
         border-radius: 0 0 10px 10px ;
         z-index: 1;
+        
     }
 
     .border-styled-back {
@@ -120,7 +121,7 @@
         position: absolute;
         top: 0;
         width: 100%;
-        z-index: 2;
+        z-index: 0;
         padding-top: 2px;
         padding-left: 45px;
     }
@@ -135,6 +136,25 @@
         height: 30mm;
         border:0.8px solid black;
         margin: 0 auto;
+    }
+
+
+    /* content blue color bottom */
+    .box-left {
+        position: absolute;
+        width:151px;
+        height:60px;
+        bottom: 10px;
+        left: 0;
+        background-color:  #0abde3;
+        z-index: 1;
+    }
+    .content-box {
+        width: 84.9322916667mm;
+        height: 60px;
+        position: absolute;
+        bottom: 0;
+        z-index: 3;
     }
 </style>
 
