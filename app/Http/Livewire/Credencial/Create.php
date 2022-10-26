@@ -66,6 +66,6 @@ class Create extends Component
         $this->model->fecha_vencimiento = Carbon::parse($dateNextYear)->format('Y-m-d');
         $this->model->renovacion = Credencial::RENOVACION_NO;
         $this->model->estado = Credencial::ESTADO_PENDIENTE;
-        $this->model->costo_renovacion = 30;
+        $this->model->costo_renovacion = 0;
     }
 }

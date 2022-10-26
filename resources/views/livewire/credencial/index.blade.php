@@ -31,7 +31,6 @@
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
-            <x-layout.loading />
             <tbody>
                 @if (count($data) > 0)
                     @foreach ($data as $key => $item)
@@ -101,6 +100,7 @@
             </div>
         </div>
     @endif
+    <x-layout.loading />
 </div>
 
 @push('scripts')

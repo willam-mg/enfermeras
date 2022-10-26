@@ -77,8 +77,13 @@
                         {{__('Auxiliares de Cochabamba')}}
                     </div>
                 </td>
-                <td class="text-center" style="height: 10px; font-size: 11pt; font-weight: bold;">
-                    {{$model->numero_afiliado}}
+                <td class="text-center" style="line-height : 6px; height: 10px;">
+                    <p style="margin-top:5px; font-size: 11pt; font-weight: bold;">
+                        {{$model->numero_afiliado}}
+                    </p>
+                    <small style="font-size:5pt;">
+                        {{__('Número de afiliado ')}}
+                    </small>
                 </td>
             </tr>
             <tr>
