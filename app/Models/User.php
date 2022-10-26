@@ -76,4 +76,11 @@ class User extends Authenticatable
     public function credenciales() {
         return $this->hasMany(Credencial::class, 'afiliado_id');
     }
+    
+    /**
+     * get has many credencials
+     */
+    public function pagoMatriculas() {
+        return $this->hasMany(PagoMatricula::class, 'afiliado_id');
+    }
 }

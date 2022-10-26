@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-xs-12 col-md-7">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" wire:model="fieldSearch" placeholder="{{__("Nombre completo, N° afiliado, C.I.")}}" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <input type="text" autofocus class="form-control" wire:model="fieldSearch" placeholder="{{__("Nombre completo, N° afiliado, C.I.")}}" aria-label="Recipient's username" aria-describedby="button-addon2">
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">
                     <i class="bi bi-search"></i>
                 </button>

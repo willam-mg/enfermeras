@@ -87,4 +87,11 @@ class Afiliado extends Model
     public function credenciales() {
         return $this->hasMany(Credencial::class, 'afiliado_id');
     }
+    
+    /**
+     * get has many pagos matricula
+     */
+    public function pagoMatriculas() {
+        return $this->hasMany(PagoMatricula::class, 'afiliado_id');
+    }
 }
