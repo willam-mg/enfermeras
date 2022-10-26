@@ -31,6 +31,7 @@
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
+            <x-layout.loading />
             <tbody>
                 @if (count($data) > 0)
                     @foreach ($data as $key => $item)
@@ -66,7 +67,7 @@
                                             </button>
                                         </li>
                                         <li>
-                                            <button type="button" wire:click="delete({{$item}})"  class="dropdown-item" title="Eliminar">
+                                            <button type="button" onclick="destroyCredencial({{$item->id}})" class="dropdown-item" title="Eliminar">
                                                 <i class="bi bi-trash"></i> Eliminar
                                             </button>
                                         </li>
@@ -75,9 +76,16 @@
                             </td>
                         </tr>
                     @endforeach
+                @else
+                    <tr>
+                        <td colspan="8" class="text-center">
+                            No hay resultados
+                        </td>
+                    </tr>
                 @endif
             </tbody>
         </table>
+        
     </div>
     @if (count($data) > 0)
         <div class="row mb-3">
@@ -104,6 +112,22 @@
                 $('tr').removeClass('table-success');
                 $(element).addClass('table-success');
             }
+        }
+
+        function destroyCredencial(id) {
+            Swal.fire({
+                title: "Credencial",
+                text: "¿ Esta seguro de eliminar este elemnto ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Si, eliminalo !'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.destroy(id);
+                }
+            })
         }
     </script>
 @endpush

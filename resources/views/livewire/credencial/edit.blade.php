@@ -51,7 +51,7 @@
                         <div class="text-end">
                             <button type="submit" class="btn btn-success" wire:loading.attr="disabled">
                                 <i class="bi bi-plus"></i>
-                                {{ __('Registrar') }}
+                                {{ __('Guardar') }}
                             </button>
                         </div>
                     </form>

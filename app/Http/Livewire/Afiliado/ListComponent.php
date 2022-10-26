@@ -36,6 +36,7 @@ class ListComponent extends Component
         $this->modelFilter = new Afiliado;
         $this->advancedFilter = false;
         $this->fieldSearch = "";
+        $this->resetPage();
     }
 
     public function updatingFieldSearch()
@@ -71,6 +72,7 @@ class ListComponent extends Component
             ->whereNull('deleted_at')
             ->orderBy('id', 'DESC')
             ->paginate(5);
+        $this->resetPage();
         return $data;
     }
 

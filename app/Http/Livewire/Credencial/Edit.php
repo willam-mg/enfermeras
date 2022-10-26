@@ -52,6 +52,11 @@ class Edit extends Component
             'component' => 'credencial-edit',
             'event' => 'hide'
         ]);
+        $this->dispatchBrowserEvent('switalert', [
+            'type' => 'success',
+            'title' => 'Credencial',
+            'message' => 'Se modifico correctamente'
+        ]);
     }
 
     public function initProperties()

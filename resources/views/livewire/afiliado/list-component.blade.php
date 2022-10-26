@@ -76,7 +76,7 @@
                                         </button>
                                     </li>
                                     <li>
-                                        <button type="button" onclick="destroy({{$item->id}})" class="dropdown-item"
+                                        <button type="button" onclick="destroyAfiliado({{$item->id}})" class="dropdown-item"
                                             type="button">
                                             <i class="bi bi-trash"></i> Eliminar
                                         </button>
@@ -169,10 +169,20 @@
             }
         }
 
-        function destroy(id) {
-            if (confirm('¿ Esta seguro de eliminar este elemnto ?')) {
-                @this.destroy(id);
-            }
+        function destroyAfiliado(id) {
+            Swal.fire({
+                title: "Afiliado",
+                text: "¿ Esta seguro de eliminar este elemnto ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Si, eliminalo !'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.destroy(id);
+                }
+            })
         }
     </script>
 @endpush

@@ -37,7 +37,8 @@ try {
 } catch (exception) {
     console.error(exception);
 }
-
+// Awal Alert 2
+window.Swal = require('sweetalert2');
 
 
 /**

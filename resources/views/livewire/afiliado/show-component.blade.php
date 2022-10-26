@@ -55,10 +55,10 @@
                                     </div>
                                 </div>
                                 <div wire:ignore.self class="tab-pane fade" id="pills-credencial" role="tabpanel" aria-labelledby="pills-credencial-tab">
-                                    <livewire:credencial.index />
-                                    <livewire:credencial.create />
-                                    <livewire:credencial.edit />
-                                    <livewire:credencial.show />
+                                    <livewire:credencial.index wire:key="credencial-index" />
+                                    <livewire:credencial.create wire:key="credencial-create" />
+                                    <livewire:credencial.edit wire:key="credencial-edit" />
+                                    <livewire:credencial.show wire:key="credencial-show" />
                                 </div>
                                 <div wire:ignore.self class="tab-pane fade" id="pills-acreditaciones" role="tabpanel" aria-labelledby="pills-acreditaciones-tab">
                                     <div class="text-end">

@@ -52,6 +52,11 @@ class Create extends Component
             'component' => 'credencial-create',
             'event' => 'hide'
         ]);
+        $this->dispatchBrowserEvent('switalert', [
+            'type' => 'success',
+            'title' => 'Credencial',
+            'message' => 'Se registro correctamente'
+        ]);
     }
 
     public function initProperties() {

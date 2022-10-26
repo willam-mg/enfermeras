@@ -29,14 +29,15 @@ class Index extends Component
         'model.estado' => 'integer',
     ];
 
-    // public function updatingFieldSearch()
-    // {
-    //     $this->resetPage();
-    // }
+    public function updatingFieldSearch()
+    {
+        $this->resetPage();
+    }
     
     public function mount() {
         $this->model = new Credencial();
         $this->afiliado = new Afiliado();
+        $this->resetPage();
     }
 
     public function render()
@@ -51,9 +52,8 @@ class Index extends Component
     }
 
     public function search() {
-        return Credencial::query()
-            ->when($this->afiliado, function ($query) {
-                $query->where('afiliado_id', $this->afiliado->id);
+        $data = Credencial::when($this->paramId, function ($query) {
+                $query->where('afiliado_id', $this->paramId);
             })
             ->when($this->model->fecha_emision, function ($query) {
                 $query->where('fecha_emsion', $this->model->fecha_emision);
@@ -69,10 +69,27 @@ class Index extends Component
             })
             ->orderBy('id', 'DESC')
             ->paginate(5);
+        return $data;
     }
 
     public function setAfiliado($id) {
         $this->paramId = $id;
         $this->idCredencial = null;
+    }
+
+    public function destroy($id)
+    {
+        $model = Credencial::find($id);
+        if ( $id = $this->idCredencial ) {
+            $this->idCredencial = null;
+        }
+        $model->delete();
+        $this->search();
+        $this->resetPage();
+        $this->dispatchBrowserEvent('switalert', [
+            'type' => 'success',
+            'title' => 'Afiliado',
+            'message' => 'Se elimino correctamente'
+        ]);
     }
 }
