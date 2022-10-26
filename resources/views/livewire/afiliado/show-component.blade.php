@@ -1,5 +1,6 @@
 <div>
-    <div  wire:ignore.self  class="modal fade" id="modal-show" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <x-layout.loading />
+    <div  wire:ignore.self  class="modal fade" id="modal-afiliado-show" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -24,37 +25,42 @@
                         <div class="col-xs-12 col-md-9">
                             <ul class="nav nav-tabs mb-3">
                                 <li class="nav-item">
-                                    <button class="nav-link {{$tabActive == 1?'active':''}}" wire:click="$set('tabActive', 1)" data-bs-toggle="pill" data-bs-target="#pills-info-afiliado" type="button" role="tab"  aria-selected="{{$tabActive == 1?'true':'false'}}">
+                                    <button wire:ignore.self class="nav-link active" data-bs-toggle="pill" data-bs-target="#pills-info-afiliado" type="button" role="tab"  aria-selected="true">
                                         Datos personales
                                     </button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="nav-link {{$tabActive == 2?'active':''}}" wire:click="$set('tabActive', 2)" data-bs-toggle="pill" data-bs-target="#pills-requisitos" type="button" role="tab" aria-selected="{{$tabActive == 2?'true':'false'}}">
+                                    <button wire:ignore.self class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-requisitos" type="button" role="tab" aria-selected="false">
                                         Requisitos
                                     </button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="nav-link {{$tabActive == 3?'active':''}}" wire:click="gotoListCredenciales()" data-bs-toggle="pill" data-bs-target="#pills-credencial" type="button" role="tab"  aria-selected="{{$tabActive == 2?'true':'false'}}}">
+                                    <button wire:ignore.self class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-credencial" type="button" role="tab"  aria-selected="false">
                                         Credencial
                                     </button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="nav-link {{$tabActive == 4?'active':''}}" wire:click="$set('tabActive', 4)" data-bs-toggle="pill" data-bs-target="#pills-acreditaciones" type="button" role="tab"  aria-selected="{{$tabActive == 2?'true':'false'}}}">
+                                    <button wire:ignore.self class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-acreditaciones" type="button" role="tab"  aria-selected="false">
                                         Acreditaciones
                                     </button>
                                 </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent-afiliado">
-                                <div class="tab-pane fade {{$tabActive == 1?'show active':''}}" id="pills-info-afiliado" role="tabpanel" aria-labelledby="pills-info-afiliado-tab">
+                                <div wire:ignore.self class="tab-pane fade show active" id="pills-info-afiliado" role="tabpanel" aria-labelledby="pills-info-afiliado-tab">
                                     @include('afiliado._datos')
                                 </div>
-                                <div class="tab-pane fade {{$tabActive == 2?'show active':''}}" id="pills-requisitos" role="tabpanel" aria-labelledby="pills-requisitos-tab">
-                                    @include('afiliado._requisitos')
+                                <div wire:ignore.self class="tab-pane fade" id="pills-requisitos" role="tabpanel" aria-labelledby="pills-requisitos-tab">
+                                    <div>
+                                        @include('afiliado._requisitos')
+                                    </div>
                                 </div>
-                                <div class="tab-pane fade {{$tabActive == 3?'show active':''}}" id="pills-credencial" role="tabpanel" aria-labelledby="pills-credencial-tab">
-                                    @include('afiliado._tab-credencial')
+                                <div wire:ignore.self class="tab-pane fade" id="pills-credencial" role="tabpanel" aria-labelledby="pills-credencial-tab">
+                                    <livewire:credencial.index />
+                                    <livewire:credencial.create />
+                                    <livewire:credencial.edit />
+                                    <livewire:credencial.show />
                                 </div>
-                                <div class="tab-pane fade {{$tabActive == 4?'show active':''}}" id="pills-acreditaciones" role="tabpanel" aria-labelledby="pills-acreditaciones-tab">
+                                <div wire:ignore.self class="tab-pane fade" id="pills-acreditaciones" role="tabpanel" aria-labelledby="pills-acreditaciones-tab">
                                     <div class="text-end">
                                         <button class="btn btn-primary" type="button" id="btnPreparar">
                                             <i class="bi bi-cash"></i>
@@ -94,51 +100,42 @@
             </div>
         </div>
     </div>
-    @section('scripts')
-        <script>
-            document.addEventListener("DOMContentLoaded", function(){
-                var allChecked = false;
-                $("#btnSelectAll").on("click", function() {
-                    $('.form-check-input').prop('checked', true);
-                });
-                $('#btnPreparar').on('click', function(e) {
-                    e.preventDefault();
-                    if ( confirm("Pagar estas mensualidades ?") ) {
-                        let myArray = [];
-                        $('input[name^="acreditaciones"]').each(function() {
-                            if ($(this).prop("checked") === true) {
-                                let id = $(this).val();
-                                myArray.push(id);
-                            }
-                        });
-                        var arrStr = encodeURIComponent(JSON.stringify(myArray));
-                        window.location.href = '/pagos/create?seleccionados=' + arrStr;
-                    }
-                });
-    
-                function checkAll() {
-                    $('input[name^="acreditaciones"]').prop("checked", true);
-                }
-                $('#select_meses').on('click', function() {
-                    if (!allChecked) {
-                        checkAll();
-                        allChecked = true;
-                    } else {
-                        $('input[name^="acreditaciones"]').prop("checked", false);
-                        allChecked = false;
-                    }
-                });
-                window.addEventListener('show-modal', () => {
-                    console.log('lisenting');
-                    $('#modal-show').modal('show');
-                    // alert('Name updated to: ' + event.detail.newName);
-                })
-                window.addEventListener('success-requisitos', () => {
-
-                    // alert('guardado');
-                    console.log('guradado correctamente');
-                })
-            });
-        </script>
-    @endsection
 </div>
+
+@push('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            var allChecked = false;
+            $("#btnSelectAll").on("click", function() {
+                $('.form-check-input').prop('checked', true);
+            });
+            $('#btnPreparar').on('click', function(e) {
+                e.preventDefault();
+                if ( confirm("Pagar estas mensualidades ?") ) {
+                    let myArray = [];
+                    $('input[name^="acreditaciones"]').each(function() {
+                        if ($(this).prop("checked") === true) {
+                            let id = $(this).val();
+                            myArray.push(id);
+                        }
+                    });
+                    var arrStr = encodeURIComponent(JSON.stringify(myArray));
+                    window.location.href = '/pagos/create?seleccionados=' + arrStr;
+                }
+            });
+
+            function checkAll() {
+                $('input[name^="acreditaciones"]').prop("checked", true);
+            }
+            $('#select_meses').on('click', function() {
+                if (!allChecked) {
+                    checkAll();
+                    allChecked = true;
+                } else {
+                    $('input[name^="acreditaciones"]').prop("checked", false);
+                    allChecked = false;
+                }
+            });
+        });
+    </script>
+@endpush

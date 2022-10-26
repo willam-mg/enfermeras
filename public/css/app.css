@@ -19467,3 +19467,7 @@ select + .select2-container--bootstrap-5 {
   vertical-align: middle;
   z-index: var(--bs-modal-zindex)1;
 }
+
+.table-row-pointer tbody tr {
+  cursor: pointer;
+}

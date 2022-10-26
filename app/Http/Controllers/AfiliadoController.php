@@ -198,11 +198,11 @@ class AfiliadoController extends Controller
     public function imprimirCredencial($id, $side = 'front') {
         $credencial = Credencial::find($id);
         $model = $credencial->afiliado;
-        $fecha_inicio =  Carbon::parse($credencial->fecha_registro);
-        $fecha_inicio = $fecha_inicio->format('d/m/Y');;
-        $fecha_fin =  Carbon::parse($credencial->fecha_registro);
-        $fecha_fin = $fecha_fin->format('d/m/Y');
-        $pdf = Pdf::loadView('afiliado.print-credencial', compact('model', 'fecha_inicio', 'fecha_fin', 'side'));
+        $fechaInicio =  Carbon::parse($credencial->fecha_emision);
+        $fechaInicio = $fechaInicio->format('d/m/Y');;
+        $fechaFin =  Carbon::parse($credencial->fecha_vencimiento);
+        $fechaFin = $fechaFin->format('d/m/Y');
+        $pdf = Pdf::loadView('afiliado.print-credencial', compact('model', 'fechaInicio', 'fechaFin', 'side'));
         $pdf->set_option('defaultFont', 'Helvetica');
         $pdf->set_option('enable_php', true);    
         $pdf->set_option('enable_remote', true);

@@ -4,11 +4,11 @@
                 <td colspan="3">
                     {{__('Emisión: ')}}
                     <b>
-                        {{$fecha_inicio}}
+                        {{$fechaInicio}}
                     </b>
                     {{__('Vencimiento: ')}}
                     <b>
-                        {{$fecha_fin}}
+                        {{$fechaFin}}
                     </b>
                 </td>
             </tr>

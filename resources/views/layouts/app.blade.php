@@ -101,6 +101,16 @@
     
 
     @livewireScripts
-    @yield('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            window.addEventListener('modal', (event) => {
+                $(`#modal-${event.detail.component}`).modal(event.detail.event);
+            });
+            window.addEventListener('switalert', (event) => {
+                alert(event.detail.type+event.detail.title+event.detail.message);
+            });
+        });
+    </script>
+    @stack('scripts')
 </body>
 </html>

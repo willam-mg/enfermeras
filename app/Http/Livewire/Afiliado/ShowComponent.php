@@ -16,16 +16,17 @@ class ShowComponent extends Component
 {
     use ProgressTrait;
 
-    public $paramId;
     public $model;
     public $requisitos;
     public $misRequisitos;
     public $porcentaje;
     public $acreditacionMd;
     public $selected;
-    public $tabActive;
+    public $porcentajeColor;
+    public $paramId;
 
     protected $rules = [
+        'model.id' => 'integer',
         'model.numero_afiliado' => 'required|string|max:50',
         'model.cargo' => 'required|string|max:50',
         'model.nombre_completo' => 'required|string|max:50',
@@ -41,32 +42,28 @@ class ShowComponent extends Component
     ];
 
     protected $listeners = [
-        'display-modal' => 'toggleModal',
-        'abrir-modal' => 'toggleModal',
+        'display-show' => 'setAfiliadoId',
     ];
 
     public function mount() {
         $this->model = new Afiliado();
-        $this->requisitos = [];
+        $this->requisitos = Requisito::where(['estado' => 1])->get();
         $this->misRequisitos = [];
-        $this->porcentaje = $this->porcentaje($this->misRequisitos, $this->requisitos);
+        $this->porcentaje = 0;
+        $this->porcentajeColor = "";
         $this->acreditacionMd = new Acreditacion();
         $this->selected = true;
-        $this->tabActive = 1;
     }
 
     public function render()
     {
-        if ($this->paramId != null) {
+        $data = [];
+        if (!empty($this->paramId)) {
             $this->model = Afiliado::find($this->paramId);
-            $this->requisitos = Requisito::where(['estado'=>1])->get();
             $this->misRequisitos = $this->model->misRequisitos->pluck('requisito_id')->toArray();
             $this->porcentaje = $this->porcentaje($this->misRequisitos, $this->requisitos);
-            $this->acreditacionMd = new Acreditacion();
-            $this->selected = true;
-        }
-        $data = [];
-        if ($this->paramId != null) {
+            $this->porcentajeColor = $this->porcentajeColor($this->porcentaje);    
+        
             $data = Acreditacion::where('afiliado_id', '=', $this->model->id)
                 ->when($this->acreditacionMd->gestion, function($query) {
                     $query->where('gestion', 'like', '%'.$this->acreditacionMd->gestion);
@@ -75,20 +72,17 @@ class ShowComponent extends Component
         }
     
         return view('livewire.afiliado.show-component', [
-            'model'=>$this->model,
-            'requisitos'=>$this->requisitos,
-            'misRequisitos'=>$this->misRequisitos,
-            'porcentaje'=>$this->porcentaje,
-            'porcentajeColor'=>$this->porcentajeColor($this->porcentaje),
-            'data'=>$data,
-            'acreditacionMd'=>$this->acreditacionMd,
-            'selected'=>$this->selected,
+            'data'=>$data
         ]);
     }
 
-    public function toggleModal($id = null) {
+    public function setAfiliadoId($id = null) {
         $this->paramId = $id;
-        $this->dispatchBrowserEvent('show-modal');
+        $this->emitTo('credencial.index', 'setAfiliado', $this->paramId);
+        $this->dispatchBrowserEvent('modal', [
+            'component' => 'afiliado-show',
+            'event' => 'show'
+        ]);
     }
 
     public function saveRequisitos($requisitoId = null) {
@@ -116,10 +110,5 @@ class ShowComponent extends Component
                 }
             }
         }
-    }
-
-    public function gotoListCredenciales() {
-        $this->tabActive = 3;
-        $this->emitTo('afiliado.credencial-component', 'list-credenciales', $this->model);
     }
 }

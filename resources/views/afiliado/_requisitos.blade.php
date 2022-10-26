@@ -1,9 +1,11 @@
-<form wire:submit.prevent="saveRequisitos" class="needs-validation disabled-onsubmit" novalidate>
-    @csrf
-    @method('POST')
     <div class="row">
         <div class="col-xs-12 col-md-3">
-            <h4>Requisitos</h4>
+            <h4>
+                Requisitos
+                <div wire:loading wire:target="saveRequisitos" style="display: none" class="spinner-border spinner-border-sm" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </h4>
         </div>
         <div class="col-xs-12 col-md-9 mb-3 text-end">
             <button class="btn btn-link" wire:click="saveRequisitos()" type="button">
@@ -27,7 +29,7 @@
         @foreach ($requisitos as $item)
             <li class="list-group-item">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" wire:click="saveRequisitos({{$item->id}})" name="requisitos[]" value="{{$item->id}}" id="flexCheck-{{$item->id}}" {{in_array($item->id, $misRequisitos)?'checked':''}}>
+                    <input class="form-check-input" type="checkbox" wire:click="saveRequisitos({{$item->id}})" name="requisitos[]" value="{{$item->id}}" id="flexCheck-{{$item->id}}" {{in_array($item->id, $misRequisitos)?'checked':''}} wire:loading.attr="disabled">
                     <label class="form-check-label" for="flexCheck-{{$item->id}}">
                         {{$item->numero}} .- 
                         {{$item->requisito}} 
@@ -36,4 +38,3 @@
             </li>
         @endforeach
     </ul>
-</form>

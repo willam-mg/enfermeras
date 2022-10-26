@@ -10,6 +10,11 @@ class Credencial extends Model
 {
     use HasFactory, SoftDeletes;
 
+    const RENOVACION_SI = 1;
+    const RENOVACION_NO = 2;
+    const ESTADO_PENDIENTE = 2;
+    const ESTADO_ENTREGADO = 1;
+
     protected $fillable = [
         'fecha_registro',
         'fecha_emision',

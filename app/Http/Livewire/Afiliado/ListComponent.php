@@ -77,4 +77,16 @@ class ListComponent extends Component
     public function setFilterAdvaced() {
         $this->advancedFilter = $this->advancedFilter?false:true;
     }
+
+    public function destroy($id)
+    {
+        $model = Afiliado::find($id);
+        $model->delete();
+        $this->search();
+        $this->dispatchBrowserEvent('switalert', [
+            'type' => 'success',
+            'title' => 'Afiliado',
+            'message' => 'Se elimino correctamente'
+        ]);
+    }
 }

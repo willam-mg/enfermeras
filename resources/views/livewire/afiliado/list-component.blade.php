@@ -6,9 +6,9 @@
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">
                     <i class="bi bi-search"></i>
                 </button>
-                <button type="button" class="btn btn-outline-primary" wire:click="$set('advancedFilter', true)" data-bs-toggle="modal" data-bs-target="#modal-search">
+                {{-- <button type="button" class="btn btn-outline-primary" wire:click="$set('advancedFilter', true)" data-bs-toggle="modal" data-bs-target="#modal-search">
                     Busqueda avanzada
-                </button>
+                </button> --}}
             </div>
         </div>
         <div class="col-xs-12 col-md-5">
@@ -21,25 +21,8 @@
         </div>
     </div>
 
-    <div wire:loading style="display:none">
-        <div class="loading">
-            <div class="d-flex justify-content-center">
-                <div class="spinner-grow text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-                <div class="spinner-grow text-secondary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-                <div class="spinner-grow text-success" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-            </div>
-            Cargando ...
-        </div>
-    </div>
-
     <div class="table-responsive mb-3">
-        <table class="table align-middle table-bordered table-hover">
+        <table class="table align-middle table-bordered table-hover table-row-pointer">
             <thead class="table-light">
                 <tr>
                     <th scope="col">ID</th>
@@ -58,7 +41,7 @@
             </thead>
             <tbody>
                 @foreach ($data as $key => $item)
-                    <tr>
+                    <tr onclick="onSelectAfiliado({{$item->id}}, this, event)" title="Seleccionar Afiliado" >
                         <th scope="row">{{$item->id}}</th>
                         <td>
                             @if ($item->src_foto)
@@ -83,25 +66,21 @@
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownActions">
                                     <li>
-                                        <button type="button" wire:click="$emitTo('afiliado.show-component', 'display-modal', {{$item->id}})" class="dropdown-item" type="button">
+                                        <button type="button" wire:click="$emitTo('afiliado.show-component', 'display-show', {{$item->id}})" class="dropdown-item" type="button">
                                             <i class="bi bi-eye"></i> Ver
                                         </button>
                                     </li>
                                     <li>
-                                        <a href="{{ route('afiliados.edit', $item->id) }}" class="dropdown-item" type="button">
+                                        <button type="button" wire:click="$emitTo('afiliado.edit', 'display-edit', {{$item->id}})" class="dropdown-item" type="button">
                                             <i class="bi bi-pencil"></i> Editar
-                                        </a>
+                                        </button>
                                     </li>
                                     <li>
-                                        <form class="d-inline" action="{{ route('afiliados.destroy',$item->id) }}" method="POST" data-confirm="Esta seguro de eliminar este elemnto">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="dropdown-item"">
-                                                <i class="bi bi-trash"></i> Eliminar
-                                            </button>
-                                        </form>
-                                    </li>
-                                    
+                                        <button type="button" onclick="destroy({{$item->id}})" class="dropdown-item"
+                                            type="button">
+                                            <i class="bi bi-trash"></i> Eliminar
+                                        </button>
+                                    </li>                                    
                                 </ul>
                             </div>
                         </td>
@@ -123,6 +102,8 @@
             </div>
         </div>
     </div>
+
+    <x-layout.loading/>
     
     {{-- modal --}}
     <div wire:ignore.self  class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modal-search" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -172,22 +153,26 @@
             </div>
         </div>
     </div>
+    
     {{-- create modal --}}
-    <div wire:ignore.self  class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modal-create" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Nuevo Afiliado</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <livewire:afiliado.create-component/>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <livewire:afiliado.create-component />
     {{-- show modal --}}
     <livewire:afiliado.show-component/>
 </div>
+@push('scripts')
+    <script>
+        function onSelectAfiliado(idAfiliado, element, event) {
+            if($(event.target).is('td, th, span')){
+                @this.emitTo('afiliado.show-component', 'display-show', idAfiliado)
+                $('tr').removeClass('table-secondary');
+                $(element).addClass('table-secondary');
+            }
+        }
 
+        function destroy(id) {
+            if (confirm('¿ Esta seguro de eliminar este elemnto ?')) {
+                @this.destroy(id);
+            }
+        }
+    </script>
+@endpush

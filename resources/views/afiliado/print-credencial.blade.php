@@ -6,6 +6,6 @@
   </head>
 
   <body>
-    @include('afiliado._credencial')
+    <x-credencial.printpdf :side="$side" :model="$model" :fechaInicio="$fechaInicio" :fechaFin="$fechaFin" />
   </body>
 </html>

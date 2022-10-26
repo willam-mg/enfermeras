@@ -162,9 +162,11 @@
 
 <div class="wrapper-card wrapper-card-top">
     @if($side == 'front')
-        @include('afiliado.credencial._front')
+        <x-credencial.front :model="$model"/>
+        {{-- @include('afiliado.credencial._front') --}}
     @else
-        @include('afiliado.credencial._back')
+        <x-credencial.back :model="$model" :fechaInicio="$fechaInicio" :fechaFin="$fechaFin"/>
+        {{-- @include('afiliado.credencial._back') --}}
     @endif
 </div>
 
