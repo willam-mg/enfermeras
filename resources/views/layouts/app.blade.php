@@ -43,7 +43,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="true" href="{{ url('acreditaciones') }}">
-                                    Acreditaciones
+                                    Aportes
                                 </a>
                             </li>
                         </ul>

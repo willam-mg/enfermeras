@@ -29,7 +29,7 @@ class CreateAfiliadosTable extends Migration
             $table->date('fecha_registro');
             $table->string('anos_servicio', 20)->nullable();
             $table->string('src_foto', 100)->nullable();
-            $table->decimal('costo_matricula', 11, 2);
+            $table->decimal('costo_matricula', 11, 2)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

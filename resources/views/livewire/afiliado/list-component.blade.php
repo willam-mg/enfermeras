@@ -71,9 +71,12 @@
                                         </button>
                                     </li>
                                     <li>
-                                        <button type="button" wire:click="$emitTo('afiliado.edit', 'display-edit', {{$item->id}})" class="dropdown-item" type="button">
+                                        <a href="{{ route('afiliados.edit', $item->id) }}" class="dropdown-item" type="button">
                                             <i class="bi bi-pencil"></i> Editar
-                                        </button>
+                                        </a>
+                                        {{-- <button type="button" wire:click="$emitTo('afiliado.edit', 'display-edit', {{$item->id}})" class="dropdown-item" type="button">
+                                            <i class="bi bi-pencil"></i> Editar
+                                        </button> --}}
                                     </li>
                                     <li>
                                         <button type="button" onclick="destroyAfiliado({{$item->id}})" class="dropdown-item"

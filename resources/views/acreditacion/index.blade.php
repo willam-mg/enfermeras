@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Acreditaciones')
+@section('title', 'Aportes')
 
 @section('content')
     {{ Breadcrumbs::render('acreditaciones') }}

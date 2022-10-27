@@ -32,7 +32,8 @@ class Afiliado extends Model
         'domicilio',
         'telefono',
         'anos_servicio',
-        'fecha_registro'
+        'fecha_registro',
+        'costo_matricula'
     ];
 
     /**

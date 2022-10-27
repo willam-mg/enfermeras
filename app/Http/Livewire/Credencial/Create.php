@@ -17,7 +17,7 @@ class Create extends Component
         'model.fecha_emision' => 'date',
         'model.fecha_vencimiento' => 'date',
         'model.renovacion' => 'integer',
-        'model.costo_renovacion' => 'number',
+        'model.costo_renovacion' => 'numeric',
         'model.estado' => 'integer',
     ];
 

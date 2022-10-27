@@ -52,9 +52,11 @@ class AcreditacionController extends Controller
      */
     public function create()
     {
+        $model = new Acreditacion();
         $afiliados = Afiliado::all();
         return view('acreditacion.create', [
-            'afiliados'=>$afiliados
+            'afiliados'=>$afiliados,
+            'model'=>$model,
         ]);
     }
 

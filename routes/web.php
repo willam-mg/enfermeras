@@ -6,6 +6,7 @@ use App\Http\Controllers\AfiliadoController;
 use App\Http\Controllers\AcreditacionController;
 use App\Http\Controllers\PagoController;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
