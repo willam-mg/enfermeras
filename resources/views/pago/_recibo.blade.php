@@ -12,9 +12,9 @@
             </td>
             <td class="text-center">
                 <small>
-                    Telf.:  4567476 <br>
-                    Direccion: Av. <br>
-                    principal entre C. junin
+                    {{__('Teléfono: 4317867 - 4525971')}} <br>
+                    {{__('Dirección: C. Colombia entre C. 16 de julio y Av. Oquendo Edificio')}} <br>
+                    {{__('Rochavel Bloque 1 Piso 1 Oficina 6 ')}}
                 </small>
             </td>
         </tr>
@@ -50,6 +50,11 @@
                 Entregue conforme
             </td>
             <td colspan="2" class="pt-5 text-center">Recibi conforme</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="text-center">
+                {{__('Asociación Departamental de Enfermeras(os) Auxiliares de Cochabamba')}} <br>
+            </td>
         </tr>
     </tbody>
 </table>

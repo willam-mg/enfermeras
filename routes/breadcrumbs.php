@@ -84,3 +84,21 @@ Breadcrumbs::for('pagos.show', function (BreadcrumbTrail $trail, $model) {
     $trail->parent('pagos');
     $trail->push('Ver '.$model->fecha, url('pagos.show', $model));
 });
+
+// Acreditaciones
+Breadcrumbs::for('obsequios', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Obsequios', url('obsequios'));
+});
+Breadcrumbs::for('obsequios.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('obsequios');
+    $trail->push('Nuevo obsequio', url('obsequios.create'));
+});
+Breadcrumbs::for('obsequios.edit', function (BreadcrumbTrail $trail, $model) {
+    $trail->parent('obsequios');
+    $trail->push('Editar '.$model->fecha, url('obsequios.edit', $model));
+});
+Breadcrumbs::for('obsequios.show', function (BreadcrumbTrail $trail, $model) {
+    $trail->parent('obsequios');
+    $trail->push('Ver '.$model->fecha, url('obsequios.show', $model));
+});

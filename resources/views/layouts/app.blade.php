@@ -46,6 +46,11 @@
                                     Aportes
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="true" href="{{ url('obsequios') }}">
+                                    Obsequios
+                                </a>
+                            </li>
                         </ul>
 
                         <!-- Right Side Of Navbar -->

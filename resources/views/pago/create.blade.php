@@ -10,7 +10,7 @@
             <form action="{{ route('pagos.store') }}" method="POST" class="needs-validation disabled-onsubmit" novalidate>
                 @csrf
                 @method('POST')
-
+                <input type="hidden" name="afiliado_id" value="{{$afiliado->id}}">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <input type="hidden" value="{{$afiliado->id}}">

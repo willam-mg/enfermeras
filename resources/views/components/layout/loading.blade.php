@@ -1,5 +1,6 @@
 {{-- style="display:none" --}}
-<div wire:loading @if ($target) wire:target="{{$target}}" @endif style="display:none">
+{{-- <div wire:loading @if ($target) wire:target="{{$target}}" @endif style="display:none"> --}}
+<div wire:loading style="display:none">
     <div class="loading">
         <div class="d-flex justify-content-center">
             <div class="spinner-grow text-primary" role="status">

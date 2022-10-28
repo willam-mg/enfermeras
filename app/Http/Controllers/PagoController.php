@@ -71,6 +71,7 @@ class PagoController extends Controller
             'fecha' => date('Y-m-d'),
             'hora' => date('H:i:s'),
             'user_id' => Auth::user()->id,
+            'afiliado_id' => $request->afiliado_id,
         ]);
         foreach ($request->seleccionados as $key => $item) {
             $acreditacion = Acreditacion::find($item);
@@ -182,7 +183,8 @@ class PagoController extends Controller
         // $customPaper = array(0,0, 240.944882, 150.23622);
         // $pdf->setPaper($customPaper);
         
-        $customPaper = array(0,0, 612, 396);
+        // $customPaper = array(0,0, 612, 396);
+        $customPaper = array(0,0, 595.276, 420.94488);
         $pdf->setPaper($customPaper);
 
         return $pdf->stream();

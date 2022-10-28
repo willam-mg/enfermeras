@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AfiliadoController;
 use App\Http\Controllers\AcreditacionController;
 use App\Http\Controllers\PagoController;
+use App\Http\Livewire\Obsequio\Index;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,3 +41,7 @@ Route::get('pagos/recibo/{id}', [PagoController::class, 'recibo'])->middleware([
 Route::get('pagos/recibopdf/{id}', [PagoController::class, 'recibopdf'])->middleware(['auth']);
 
 Route::post('acreditaciones/pagar', [AcreditacionController::class, 'pagar'])->middleware(['auth']);
+
+Route::get('/obsequios', function(){
+    return view('obsequio.index');
+});

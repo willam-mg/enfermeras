@@ -13,6 +13,7 @@ class Pago extends Model
         'fecha',
         'hora',
         'user_id',
+        'afiliado_id',
     ];
 
     public function detalle() {
