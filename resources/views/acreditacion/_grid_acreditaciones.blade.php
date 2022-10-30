@@ -27,8 +27,13 @@
                             </div>
                         @endif
                     </td>
-                    <td>{{
-                    $item->afiliado?$item->afiliado->nombre_completo:$item->afiliado_id}}</td>
+                    <td>
+                        @if ( $item->afiliado )
+                            {{$item->afiliado->nombre_completo}}
+                        @else
+                            <span class="text-danger"> No existe ( {{$item->afiliado_id}} ) </span>
+                        @endif
+                    </td>
                     <td>{{$item->gestion}}</td>
                     <td class="text-capitalize">{{$item->mes}}</td>
                     <td>{{$item->monto}}</td>

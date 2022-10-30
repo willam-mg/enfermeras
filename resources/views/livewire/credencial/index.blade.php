@@ -100,7 +100,7 @@
             </div>
         </div>
     @endif
-    <x-layout.loading />
+    <x-page.loading />
 </div>
 
 @push('scripts')

@@ -1,5 +1,5 @@
 <div>
-    <x-layout.loading />
+    <x-page.loading />
     <div  wire:ignore.self  class="modal fade" id="modal-afiliado-show" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">

@@ -45,6 +45,28 @@ class Afiliado extends Model
         'foto_thumbnail_sm', 
     ];
 
+    // /**
+    //  * Validation rules
+    //  *
+    //  * @var array
+    //  */
+    // public static $rules = [
+    //     'model.numero_afiliado' => 'required|string|max:50',
+    //     'model.cargo' => 'required|string|max:50',
+    //     'model.nombre_completo' => 'required|string|max:50',
+    //     'model.numero_matricula' => 'required|string|max:50',
+    //     'model.ci' => 'required|string|max:50|unique:afiliados,ci,id',
+    //     'model.expedido' => 'required|string|max:50|',
+    //     'model.fecha_nacimiento' => 'date',
+    //     'model.grupo_sanguineo' => 'string',
+    //     'model.egreso' => 'string|max:100',
+    //     'model.domicilio' => 'string|max:300',
+    //     'model.telefono' => 'string|max:20',
+    //     'model.anos_servicio' => 'string|max:20',
+    //     'model.costo_matricula' => 'numeric',
+    //     'file' => 'image|mimes:jpeg,png,jpg,gif,svg',
+    // ];
+
     /**
      * Get accesor foto attribute.
      */

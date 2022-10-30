@@ -4,30 +4,27 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Nuevo Afiliado</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form wire:submit.prevent="store" enctype="multipart/form-data">
-                        <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
+                    <h5 class="modal-title text-center">Nuevo Afiliado</h5>
+                    <div class="text-center" style="width: 70%; height: 100px; position: absolute; top:5px; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%)">
+                        <ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="pills-step1-tab" data-bs-toggle="pill" data-bs-target="#pills-step1"
                                     type="button" role="tab" aria-controls="pills-step1" aria-selected="true">
-                                    Paso 1 <br>
+                                    <span class="badge rounded-pill bg-primary">1</span>
                                     <small>Datos personales</small>
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link position-relative" id="pills-step2-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-step2" type="button" role="tab" aria-controls="pills-step2" aria-selected="false">
-                                    Paso 2<br>
+                                    <span class="badge rounded-pill bg-primary">2</span>
                                     <small>Requisitos</small>
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-step3-tab" data-bs-toggle="pill" data-bs-target="#pills-step3" type="button"
                                     role="tab" aria-controls="pills-step3" aria-selected="false">
-                                    Paso 3<br>
+                                    <span class="badge rounded-pill bg-primary">3</span>
                                     <small>Matricula y aporte mensual</small>
                                 </button>
                             </li>
@@ -39,6 +36,14 @@
                                 </button>
                             </li> --}}
                         </ul>
+                    </div>
+                    
+                    
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form wire:submit.prevent="store" enctype="multipart/form-data">
+
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-step1" role="tabpanel" aria-labelledby="pills-step1-tab">
                                 <div class="row justify-content-center">
@@ -222,31 +227,25 @@
                                             
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 text-end">
-                                        <button class="btn btn-primary" type="button" onclick="goToStep(2)">
-                                            <i class="bi bi-chevron-right"></i>
-                                            Siguiente
-                                        </button>
-                                    </div>
+                                </div>
+                                
+                                <div class="col-xs-12 col-sm-12 col-md-12 text-end">
+                                    <button class="btn btn-primary" type="button" onclick="goToStep(2)">
+                                        <i class="bi bi-chevron-right"></i>
+                                        Siguiente
+                                    </button>
                                 </div>
                             </div>
+
                             <div class="tab-pane fade" id="pills-step2" role="tabpanel" aria-labelledby="pills-step2-tab">
                                 <div class="row justify-content-center">
                                     <div class="col-xs-12 col-sm-9 col-md-9">
-                                        <div class="row">
-                                            <div class="col-xs-12 col-md-12 mb-3 text-end">
-                                                <button class="btn btn-link" onclick="selectAllRequisitos()" type="button">
-                                                    <i class="bi bi-check-all"></i>
-                                                    Seleccionar todo
-                                                </button>
-                                            </div>
-                                        </div>
                                         <ul class="list-group mb-3">
                                             @foreach ($requisitos as $item)
                                                 <li class="list-group-item">
                                                     <div class="form-check">
-                                                        <input class="form-check-input-create" type="checkbox" name="seleccionados[]" wire:model.defer="misRequisitos.{{$item->id}}" value="{{$item->id}}" id="flexCheck-{{$item->id}}">
-                                                        <label class="form-check-label" for="flexCheck-{{$item->id}}">
+                                                        <input class="form-check-input-create" type="checkbox" name="seleccionados[]" wire:model.defer="misRequisitos.{{$item->id}}" value="{{$item->id}}" id="afiliado-create-requisitos-{{$item->id}}">
+                                                        <label class="form-check-label" for="afiliado-create-requisitos-{{$item->id}}">
                                                             {{$item->numero}} .-
                                                             {{$item->requisito}}
                                                         </label>
@@ -256,9 +255,13 @@
                                         </ul>
                                     </div>
                                 </div>
-
+                                
                                 <div class="col-xs-12 col-sm-12 col-md-12 text-end">
-                                    <button class="btn btn-primary" type="button" onclick="goToStep(1)">
+                                    <button class="btn btn-link" onclick="selectAllRequisitos()" type="button">
+                                        <i class="bi bi-check-all"></i>
+                                        Seleccionar todo
+                                    </button>
+                                    <button class="btn btn-secondary" type="button" onclick="goToStep(1)">
                                         <i class="bi bi-chevron-left"></i>
                                         Atras
                                     </button>
@@ -268,6 +271,7 @@
                                     </button>
                                 </div>
                             </div>
+
                             <div class="tab-pane fade" id="pills-step3" role="tabpanel" aria-labelledby="pills-step3-tab">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -353,9 +357,9 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                
                                 <div class="col-xs-12 col-sm-12 col-md-12 text-end">
-                                    <button class="btn btn-primary" type="button" onclick="goToStep(2)">
+                                    <button class="btn btn-secondary" type="button" onclick="goToStep(2)">
                                         <i class="bi bi-chevron-left"></i>
                                         Atras
                                     </button>

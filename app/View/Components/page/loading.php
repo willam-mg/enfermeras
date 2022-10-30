@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\layout;
+namespace App\View\Components\page;
 
 use Illuminate\View\Component;
 
@@ -25,6 +25,6 @@ class loading extends Component
      */
     public function render()
     {
-        return view('components.layout.loading');
+        return view('components.page.loading');
     }
 }

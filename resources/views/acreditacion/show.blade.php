@@ -10,7 +10,11 @@
             <ul class="list-group mb-3">
                 <li class="list-group-item">
                     <b>{{__("Afiliado: ")}} </b>
-                    {{$model->afiliado->nombre_completo}}
+                    @if ( $model->afiliado )
+                        {{$model->afiliado->nombre_completo}}
+                    @else
+                        <span class="text-danger"> No existe ( {{$model->afiliado_id}} ) </span>
+                    @endif
                 </li>
                 <li class="list-group-item">
                     <b>{{__("Gestion: ")}} </b>

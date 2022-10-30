@@ -40,15 +40,30 @@
                 <tr title="Seleccionar Afiliado">
                     <th scope="row">{{$item->id}}</th>
                     <td>
-                        @if ($item->afiliado->src_foto)
-                        <img src="{{asset('storage/uploads/thumbnail-small/' . $item->afiliado->src_foto)}}" alt="foto" width="50">
+                        @if ($item->afiliado)
+                            @if ($item->afiliado->src_foto)
+                            <img src="{{asset('storage/uploads/thumbnail-small/' . $item->afiliado->src_foto)}}" alt="foto" width="50">
+                            @else
+                            <img src="/img/img_user_none.svg" alt="foto" width="50">
+                            @endif
                         @else
-                        <img src="/img/img_user_none.svg" alt="foto" width="50">
+                            <x-page.noexists :value="$item->afiliado_id" />
                         @endif
                     </td>
-                    <td>{{$item->afiliado->numero_afiliado}}</td>
-                    <td>{{$item->afiliado->nombre_completo}}</td>
-
+                    <td>
+                        @if ($item->afiliado)
+                            {{$item->afiliado->numero_afiliado}}
+                        @else
+                            <x-page.noexists :value="$item->afiliado_id" />
+                        @endif
+                    </td>
+                    <td>
+                        @if ($item->afiliado)
+                            {{$item->afiliado->nombre_completo}}
+                        @else
+                            <x-page.noexists :value="$item->afiliado_id" /> 
+                        @endif
+                    </td>
                     <td>{{$item->fecha_entrega}}</td>
                     <td>{{$item->hora_entrega}}</td>
                     <td>{{$item->user->name}}</td>
@@ -79,6 +94,6 @@
         </div>
     </div>
     
-    <x-layout.loading />
+    <x-page.loading />
 </div>
 

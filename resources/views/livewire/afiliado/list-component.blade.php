@@ -71,12 +71,9 @@
                                         </button>
                                     </li>
                                     <li>
-                                        <a href="{{ route('afiliados.edit', $item->id) }}" class="dropdown-item" type="button">
+                                        <button type="button" wire:click="$emitTo('afiliado.edit', 'display-edit', {{$item->id}})" class="dropdown-item" type="button">
                                             <i class="bi bi-pencil"></i> Editar
-                                        </a>
-                                        {{-- <button type="button" wire:click="$emitTo('afiliado.edit', 'display-edit', {{$item->id}})" class="dropdown-item" type="button">
-                                            <i class="bi bi-pencil"></i> Editar
-                                        </button> --}}
+                                        </button>
                                     </li>
                                     <li>
                                         <button type="button" onclick="destroyAfiliado({{$item->id}})" class="dropdown-item"
@@ -106,7 +103,7 @@
         </div>
     </div>
 
-    <x-layout.loading/>
+    <x-page.loading/>
     
     {{-- modal --}}
     <div wire:ignore.self  class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modal-search" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -157,10 +154,12 @@
         </div>
     </div>
     
-    {{-- create modal --}}
+    {{-- create afiliado modal --}}
     <livewire:afiliado.create-component />
-    {{-- show modal --}}
+    {{-- show afiliado modal --}}
     <livewire:afiliado.show-component/>
+    {{-- edit afiliado modal --}}
+    <livewire:afiliado.edit/>
 </div>
 @push('scripts')
     <script>
