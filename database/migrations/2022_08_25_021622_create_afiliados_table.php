@@ -15,14 +15,14 @@ class CreateAfiliadosTable extends Migration
     {
         Schema::create('afiliados', function (Blueprint $table) {
             $table->id();
-            $table->string('numero_afiliado', 50);
+            $table->string('numero_afiliado', 50)->unique();
             $table->string('cargo', 50);
             $table->string('nombre_completo', 50);
             $table->string('numero_matricula',50);
             $table->string('ci', 50)->unique();
             $table->string('expedido', 50);
             $table->date('fecha_nacimiento')->nullable();
-            $table->string('grupo_sanguineo', 50);
+            $table->string('grupo_sanguineo', 50)->nullable();
             $table->string('egreso', 100)->comment('institucion de egreso');
             $table->string('domicilio', 300)->nullable();
             $table->string('telefono', 20)->nullable();

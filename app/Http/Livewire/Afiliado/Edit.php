@@ -27,7 +27,7 @@ class Edit extends Component
             'model.expedido' => 'required|string|max:50|',
             'model.fecha_nacimiento' => 'nullable|date',
             'model.grupo_sanguineo' => 'nullable|string',
-            'model.egreso' => 'nullable|string|max:100',
+            'model.egreso' => 'required|string|max:100',
             'model.domicilio' => 'nullable|string|max:300',
             'model.telefono' => 'nullable|string|max:20',
             'model.anos_servicio' => 'nullable|string|max:20',

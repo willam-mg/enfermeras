@@ -31,24 +31,23 @@ class CreateComponent extends Component
     public $mesSeleccionado;
 
     protected $rules = [
-        'model.numero_afiliado' => 'required|string|max:50',
+        'model.numero_afiliado' => 'required|string|max:50|unique:afiliados,numero_afiliado',
         'model.cargo' => 'required|string|max:50',
         'model.nombre_completo' => 'required|string|max:50',
         'model.numero_matricula' => 'required|string|max:50',
         'model.ci' => 'required|string|max:50|unique:afiliados,ci',
         'model.expedido' => 'required|string|max:50|',
-        'model.fecha_nacimiento' => 'date',
-        'model.grupo_sanguineo' => 'string',
-        'model.egreso' => 'string|max:100',
-        'model.domicilio' => 'string|max:300',
-        'model.telefono' => 'string|max:20',
-        'model.anos_servicio' => 'string|max:20',
-        'model.costo_matricula' => 'numeric',
-        'file' => 'image|mimes:jpeg,png,jpg,gif,svg',
+        'model.fecha_nacimiento' => 'nullable|date',
+        'model.grupo_sanguineo' => 'nullable|string',
+        'model.egreso' => 'required|string|max:100',
+        'model.domicilio' => 'nullable|string|max:300',
+        'model.telefono' => 'nullable|string|max:20',
+        'model.anos_servicio' => 'nullable|string|max:20',
+        'model.costo_matricula' => 'nullable|numeric',
+        'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         'acreditacion.gestion' => 'numeric',
         'mesSeleccionado' => 'required',
         'acreditacion.monto' => 'numeric',
-
     ];
 
     public function mount() {
@@ -71,9 +70,9 @@ class CreateComponent extends Component
     }
 
     public function store(Request $request) {
+        $this->validate();
         try {
             DB::beginTransaction();
-            $this->validate();
             // step 1 regsitrando afiliado
             $afiliado = Afiliado::create([
                 'numero_afiliado'=> $this->model->numero_afiliado,
