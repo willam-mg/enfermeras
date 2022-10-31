@@ -5,7 +5,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AfiliadoController;
 use App\Http\Controllers\AcreditacionController;
 use App\Http\Controllers\PagoController;
-use App\Http\Livewire\Obsequio\Index;
+use App\Http\Livewire\Afiliado\Index as AfiliadoIndex;
+use App\Http\Livewire\Dashboard\Index as DashboardIndex;
+// use App\Http\Livewire\Obsequio\Index;
+use App\Models\Afiliado;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,14 +28,13 @@ Auth::routes();
 
 
 Route::middleware('auth')->group(function() {
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/', DashboardIndex::class);
+    Route::get('/home', DashboardIndex::class)->name('home');
     Route::get('imprimir-credencial/{id}/{side?}', [AfiliadoController::class, 'imprimirCredencial']);
-
+    Route::get('afiliados', AfiliadoIndex::class);
 });
 
 Route::resource('users', UserController::class)->middleware(['auth']);
-Route::resource('afiliados', AfiliadoController::class)->middleware(['auth']);
 Route::post('afiliados/requisitos/{id}', [AfiliadoController::class, 'requisitos'])->middleware(['auth']);
 Route::resource('acreditaciones', AcreditacionController::class)->middleware(['auth']);
 Route::resource('pagos', PagoController::class)->middleware(['auth']);
