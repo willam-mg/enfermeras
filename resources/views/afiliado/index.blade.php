@@ -4,7 +4,7 @@
 
 @section('content')
     {{ Breadcrumbs::render('afiliados') }}
-    <livewire:afiliado.list-component />
+    <livewire:afiliado.index />
     <script>
         document.addEventListener("DOMContentLoaded", function(){
             document.addEventListener('livewire:load', function () {

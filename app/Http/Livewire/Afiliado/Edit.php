@@ -71,7 +71,7 @@ class Edit extends Component
             }
 
             DB::commit();
-            $this->emitTo('afiliado.list-component', 'afiliadoAdded');
+            $this->emitTo('afiliado.index', 'afiliadoAdded');
             $this->dispatchBrowserEvent('modal', [
                 'component' => 'afiliado-edit',
                 'event' => 'hide'

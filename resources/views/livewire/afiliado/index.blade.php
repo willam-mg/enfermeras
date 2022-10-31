@@ -66,7 +66,7 @@
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownActions">
                                     <li>
-                                        <button type="button" wire:click="$emitTo('afiliado.show-component', 'display-show', {{$item->id}})" class="dropdown-item" type="button">
+                                        <button type="button" wire:click="$emitTo('afiliado.show', 'display-show', {{$item->id}})" class="dropdown-item" type="button">
                                             <i class="bi bi-eye"></i> Ver
                                         </button>
                                     </li>
@@ -155,9 +155,9 @@
     </div>
     
     {{-- create afiliado modal --}}
-    <livewire:afiliado.create-component />
+    <livewire:afiliado.create />
     {{-- show afiliado modal --}}
-    <livewire:afiliado.show-component/>
+    <livewire:afiliado.show/>
     {{-- edit afiliado modal --}}
     <livewire:afiliado.edit/>
 </div>
@@ -165,7 +165,7 @@
     <script>
         function onSelectAfiliado(idAfiliado, element, event) {
             if($(event.target).is('td, th, span')){
-                @this.emitTo('afiliado.show-component', 'display-show', idAfiliado)
+                @this.emitTo('afiliado.show', 'display-show', idAfiliado)
                 $('tr').removeClass('table-secondary');
                 $(element).addClass('table-secondary');
             }

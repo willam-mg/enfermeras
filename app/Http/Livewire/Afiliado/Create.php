@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class CreateComponent extends Component
+class Create extends Component
 {
     use WithFileUploads, ImageTrait, ProgressTrait;
     public Afiliado $model;
@@ -66,7 +66,7 @@ class CreateComponent extends Component
     
     public function render()
     {
-        return view('livewire.afiliado.create-component');
+        return view('livewire.afiliado.create');
     }
 
     public function store(Request $request) {

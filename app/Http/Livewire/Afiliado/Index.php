@@ -14,7 +14,7 @@ use App\Traits\ProgressTrait;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 
-class ListComponent extends Component
+class Index extends Component
 {
     use WithPagination;
 
@@ -49,7 +49,7 @@ class ListComponent extends Component
 
     public function render(Request $request)
     {
-        return view('livewire.afiliado.list-component', [
+        return view('livewire.afiliado.index', [
             'data'=>$this->search(),
         ]);
     }

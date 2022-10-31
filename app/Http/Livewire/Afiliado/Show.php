@@ -12,7 +12,7 @@ use App\Models\Acreditacion;
 use App\Traits\ProgressTrait;
 use Illuminate\Support\Carbon;
 
-class ShowComponent extends Component
+class Show extends Component
 {
     use ProgressTrait;
 
@@ -71,7 +71,7 @@ class ShowComponent extends Component
                 ->paginate(5);
         }
     
-        return view('livewire.afiliado.show-component', [
+        return view('livewire.afiliado.show', [
             'data'=>$data
         ]);
     }
