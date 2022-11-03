@@ -30,11 +30,11 @@ class AcreditacionController extends Controller
                 $model->mes = $request->mes;
                 $query->where('mes', $request->mes);
             })
-            ->when($request->input('pendiente'), function ($query) use ($request, $model) {
-                $model->pendiente = $request->pendiente;
-                $query->where('pendiente', $request->pendiente);
+            ->when($request->input('estado'), function ($query) use ($request, $model) {
+                $model->estado = $request->estado;
+                $query->where('estado', $request->estado);
             })
-            ->paginate(5);
+            ->paginate(12);
 
         $selected = $request->input('afiliado_id')?true: false;
         return view('acreditacion.index', [
@@ -80,7 +80,7 @@ class AcreditacionController extends Controller
             'mes' => $request->mes,
             'monto' => $request->monto,
             'afiliado_id' => $request->afiliado_id,
-            'pendiente' => true,
+            'estado' => Acreditacion::PENDIENTE,
         ]);
 
         return redirect()
@@ -135,14 +135,14 @@ class AcreditacionController extends Controller
             'mes' => ['required', 'integer'],
             'monto' => ['required', 'numeric'],
             'afiliado_id' => ['required'],
-            'pendiente' => ['boolean'],
+            'estado' => ['integer'],
         ]);
         
         $model->gestion = $request->gestion;
         $model->mes = $request->mes;
         $model->monto = $request->monto;
         $model->afiliado_id = $request->afiliado_id;
-        $model->pendiente = $request->pendiente == '1'?1: 2;
+        $model->estado = $request->estado == Acreditacion::PENDIENTE?2: 3;
         $model->save();
 
         return redirect()

@@ -15,11 +15,11 @@ class CreateObsequiosTable extends Migration
     {
         Schema::create('obsequios', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha_entrega');
-            $table->time('hora_entrega');
+            $table->date('fecha_entrega')->nullable();
+            $table->time('hora_entrega')->nullable();
             $table->foreignId('user_id')->constrained('users')->nullable();
-            $table->foreignId('afiliado_id')->constrained('afiliados')->nullable();
-            $table->string('observacion', 300);
+            $table->foreignId('afiliado_id')->constrained('afiliados');
+            $table->string('observacion', 300)->nullable();
             $table->tinyInteger('estado')->default(2)->comment('2 = pendiente, 1 = entregado');
             $table->timestamps();
             $table->softDeletes();

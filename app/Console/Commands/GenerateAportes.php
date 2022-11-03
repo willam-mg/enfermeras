@@ -4,12 +4,14 @@ namespace App\Console\Commands;
 
 use App\Models\Acreditacion;
 use App\Models\Afiliado;
+use App\Traits\AporteTrait;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
 class GenerateAportes extends Command
 {
+    use AporteTrait;
     /**
      * The name and signature of the console command.
      *
@@ -49,37 +51,7 @@ class GenerateAportes extends Command
         $afiliados = DB::table('afiliados')->whereNull('deleted_at')->pluck('id')->toArray();
         $aportesGenerados = 0;
         foreach ($afiliados as $key => $idAfiliado) {
-            $firstAcreditacion  = DB::table('acreditaciones')
-            ->select('afiliado_id', DB::raw('min(gestion) as gestion'), DB::raw('min(mes) as mes'))
-            ->where('afiliado_id', $idAfiliado)
-            ->whereNull('deleted_at')
-            ->groupBy('afiliado_id')
-            ->first();
-
-            $mes = 1;
-            while ($mes <= 12) {
-                $fechaFirstAporte = Carbon::parse($firstAcreditacion->gestion . '-' . $firstAcreditacion->mes . '-1');
-                $fechaActual = Carbon::parse($gestion . '-' . $mes . '-1');
-                if ( $fechaFirstAporte->lessThan($fechaActual) ) {
-                    $exists = DB::table('acreditaciones')
-                        ->where([
-                            'afiliado_id' => $idAfiliado,
-                            'mes' => $mes,
-                            'gestion' => $gestion,
-                        ])->whereNull('deleted_at')
-                        ->exists();
-                    if (!$exists)  {
-                        Acreditacion::create([
-                            'afiliado_id' => $idAfiliado,
-                            'mes' => $mes,
-                            'gestion' => $gestion,
-                            'monto' => $gestion,
-                        ]);
-                        $aportesGenerados++;
-                    }
-                }
-                $mes++;
-            }
+            $aportesGenerados += $this->createAportes($idAfiliado, $gestion);
         }
         $this->line($aportesGenerados.' Aportes generados');
     }

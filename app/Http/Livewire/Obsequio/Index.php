@@ -45,4 +45,14 @@ class Index extends Component
             $this->search();
         }
     }
+
+    public function entregar($id) {
+        $obsequio = Obsequio::find($id);
+        $obsequio->estado = 1;
+        $obsequio->fecha_entrega = date('Y-m-d');
+        $obsequio->hora_entrega = date("H:i:s");
+        $obsequio->user_id =  Auth::user()->id;
+        $obsequio->save();
+        $this->search();
+    }
 }

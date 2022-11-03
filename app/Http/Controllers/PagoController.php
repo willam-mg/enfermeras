@@ -7,8 +7,10 @@ use App\Models\Pago;
 use App\Models\Afiliado;
 use App\Models\DetallePago;
 use App\Models\Acreditacion;
+use App\Models\Obsequio;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 
 class PagoController extends Controller
 {
@@ -62,30 +64,46 @@ class PagoController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'acreditacion_id' => ['required' ],
-        //     'fecha' => ['required', 'string'],
-        // ]);
-        
-        $pago = Pago::create([
-            'fecha' => date('Y-m-d'),
-            'hora' => date('H:i:s'),
-            'user_id' => Auth::user()->id,
-            'afiliado_id' => $request->afiliado_id,
-        ]);
-        foreach ($request->seleccionados as $key => $item) {
-            $acreditacion = Acreditacion::find($item);
-            $detalle = DetallePago::create([
-                'acreditacion_id' => $acreditacion->id,
-                'monto' => $acreditacion->monto,
-                'pago_id' => $pago->id,
+        try {
+            DB::beginTransaction();
+            $pago = Pago::create([
+                'fecha' => date('Y-m-d'),
+                'hora' => date('H:i:s'),
+                'user_id' => Auth::user()->id,
+                'afiliado_id' => $request->afiliado_id,
             ]);
-            $acreditacion->pendiente = 2;
-            $acreditacion->save();
-        }
+            $gestion = date("Y");
+            foreach ($request->seleccionados as $key => $item) {
+                $acreditacion = Acreditacion::find($item);
+                $detalle = DetallePago::create([
+                    'acreditacion_id' => $acreditacion->id,
+                    'monto' => $acreditacion->monto,
+                    'pago_id' => $pago->id,
+                ]);
+                $acreditacion->estado = Acreditacion::PAGADO;
+                $acreditacion->save();
+                $gestion = $acreditacion->gestion;
+            }
+            
+            // verificar si teine la gestion completa
+            $numeroAportesPagados = Acreditacion::where('afiliado_id', $request->afiliado_id)
+                ->where('gestion', $gestion)
+                ->where('estado','=', Acreditacion::PAGADO)->count();
+            if ($numeroAportesPagados >= 12) {
+                $obsequio = new Obsequio();
+                $obsequio->user_id = Auth::user()->id;
+                $obsequio->afiliado_id = $request->afiliado_id;
+                $obsequio->save();
+            }
 
-        return redirect('pagos/recibo/'.$pago->id)
-            ->with('success','Registro agregado');
+            DB::commit();
+
+            return redirect('pagos/recibo/' . $pago->id)
+            ->with('success', 'Registro agregado');
+        } catch (\Throwable $th) {
+            dd($th);
+            DB::rollBack();
+        }
     }
 
     /**

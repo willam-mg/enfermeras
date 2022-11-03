@@ -9,6 +9,7 @@ use App\Models\DetallePago;
 use App\Models\MisRequisitos;
 use App\Models\Pago;
 use App\Models\Requisito;
+use App\Traits\AporteTrait;
 use Livewire\WithFileUploads;
 use App\Traits\ImageTrait;
 use App\Traits\ProgressTrait;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 
 class Create extends Component
 {
-    use WithFileUploads, ImageTrait, ProgressTrait;
+    use WithFileUploads, ImageTrait, ProgressTrait, AporteTrait;
     public Afiliado $model;
     public $file;
     public $requisitos;
@@ -109,26 +110,34 @@ class Create extends Component
                 'mes' => $this->mesSeleccionado,
                 'monto' => $this->acreditacion->monto,
                 'afiliado_id' => $afiliado->id,
-                'pendiente' => 1,
+                'estado' => Acreditacion::PAGADO,
             ]);
             
             $pago = Pago::create([
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s'),
                 'user_id' => Auth::user()->id,
+                'afiliado_id' => $afiliado->id,
             ]);
             $detalle = DetallePago::create([
                 'acreditacion_id' => $acreditacion->id,
                 'monto' => $acreditacion->monto,
                 'pago_id' => $pago->id,
             ]);
-            $acreditacion->pendiente = 2;
+            $acreditacion->estado = Acreditacion::PAGADO;
             $acreditacion->save();
+
+            // crear acreditaciones restantes
+            $this->createAportes($afiliado->id, $this->acreditacion->gestion);
             
             DB::commit();
             // $this->emit('afiliadoAdded',$this->model->id);
             $this->emit('afiliadoAdded',$pago->id);
             $this->resetData();
+            $this->dispatchBrowserEvent('modal', [
+                'component' => 'afiliado-create',
+                'event' => 'hide'
+            ]);
             $this->dispatchBrowserEvent('switalert', [
                 'type' => 'success',
                 'title' => 'Afiliado',

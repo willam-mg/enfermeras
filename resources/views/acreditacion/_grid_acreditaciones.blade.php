@@ -19,12 +19,12 @@
             @foreach ($data as $key => $item)
                 <tr>
                     <td class="align-middle" for="flexCheck-{{$item->id}}">
-                        @if ($item->pendiente == 2) 
-                            <i class="bi bi-check2-square"></i>
-                        @else
+                        @if ($item->estado == \App\Models\Acreditacion::PENDIENTE) 
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" {{$selected === false?'disabled':''}} name="acreditaciones[]" value="{{$item->id}}" id="flexCheck-{{$item->id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{$model->afiliado_id === null?'Seleccione el afiliado':'Mes '.$item->mes.' '.$item->gestion}}">
                             </div>
+                        @else
+                            <i class="bi bi-check2-square"></i>
                         @endif
                     </td>
                     <td>
@@ -38,10 +38,10 @@
                     <td class="text-capitalize">{{$item->mes}}</td>
                     <td>{{$item->monto}}</td>
                     <td>
-                        @if ($item->pendiente == 2) 
-                            <span class="badge rounded-pill bg-success">Pagado</span>        
-                        @else
+                        @if ($item->estado == \App\Models\Acreditacion::PENDIENTE)
                             <span class="badge rounded-pill bg-danger">Pendiente</span>        
+                        @else
+                            <span class="badge rounded-pill bg-success">Pagado</span>        
                         @endif
                     </td>
                     <td>

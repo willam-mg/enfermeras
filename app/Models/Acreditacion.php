@@ -10,6 +10,9 @@ use Illuminate\Support\Carbon;
 class Acreditacion extends Model
 {
     use HasFactory, SoftDeletes;
+
+    const PENDIENTE = 2;
+    const PAGADO = 3;
     
     protected $table = 'acreditaciones';
 
@@ -22,7 +25,7 @@ class Acreditacion extends Model
         'gestion',
         'mes',
         'monto',
-        'pendiente',
+        'estado',
         'afiliado_id',
     ];
 

@@ -12,10 +12,10 @@
         </div>
         <div class="col-xs-12 col-md-5">
             <div class="mb-3 text-end">
-                <button type="button" class="btn btn-success" wire:click="agregar()">
+                {{-- <button type="button" class="btn btn-success" wire:click="agregar()">
                     <i class="bi bi-plus"></i>
                     Agregar
-                </button>
+                </button> --}}
             </div>
         </div>
     </div>
@@ -28,11 +28,12 @@
                     <th scope="col" class="text-nowrap">{{__("Foto")}}</th>
                     <th scope="col" class="text-nowrap">{{__("N° afiliado")}}</th>
                     <th scope="col" class="text-nowrap">{{__("Nombre completo")}}</th>
-                    <th scope="col" class="text-nowrap">{{__("fecha_entrega")}}</th>
-                    <th scope="col" class="text-nowrap">{{__("hora_entrega")}}</th>
-                    <th scope="col" class="text-nowrap">{{__("user_id")}}</th>
-                    <th scope="col" class="text-nowrap">{{__("observacion")}}</th>
-                    <th scope="col" class="text-nowrap">{{__("estado")}}</th>
+                    <th scope="col" class="text-nowrap">{{__("Fecha_entrega")}}</th>
+                    <th scope="col" class="text-nowrap">{{__("Hora entrega")}}</th>
+                    <th scope="col" class="text-nowrap">{{__("usuario")}}</th>
+                    <th scope="col" class="text-nowrap">{{__("Observacion")}}</th>
+                    <th scope="col" class="text-nowrap">{{__("Estado")}}</th>
+                    <th scope="col" class="text-nowrap">{{__("Acciones")}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -74,6 +75,12 @@
                         @else
                             <span class="badge rounded-pill bg-primary">Pendiente</span>
                         @endif
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" @if($item->estado==1) {{'disabled'}} @endif wire:click="entregar({{$item->id}})">
+                            <i class="bi bi-check"></i>
+                            Entregar
+                        </button>
                     </td>
                 </tr>
                 @endforeach

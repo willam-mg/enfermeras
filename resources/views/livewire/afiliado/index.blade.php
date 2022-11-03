@@ -1,4 +1,5 @@
 <div>
+    @section('title', 'Afiliados')
     {{ Breadcrumbs::render('afiliados') }}
 
     <div class="row">

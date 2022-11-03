@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('title', 'Nuevo pago')
 
@@ -29,6 +29,7 @@
                                     <th>Gestion</th>
                                     <th>Mes</th>
                                     <th>Monto</th>
+                                    <th>Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,6 +44,13 @@
                                         </td>
                                         <td>
                                             {{$item->monto}}
+                                        </td>
+                                        <td>
+                                            @if ($item->pendiente == \App\Models\Acreditacion::PENDIENTE)
+                                                <span class="badge rounded-pill bg-danger">Pendiente</span>
+                                            @else
+                                                <span class="badge rounded-pill bg-success">Pagado</span>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
