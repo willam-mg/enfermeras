@@ -1,4 +1,5 @@
 <div>
+    <x-page.loading />
     <div wire:ignore.self class="modal" id="modal-user-create" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -27,8 +28,7 @@
                             @enderror
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" name="password" wire:model.defer="password" class="form-control @error('password') is-invalid @enderror"
-                                placeholder="{{__('Contraseña')}}" required>
+                            <input type="password" name="password" wire:model.defer="password" class="form-control @error('password') is-invalid @enderror" placeholder="{{__('Contraseña')}}" required>
                             <label class="form-label" for="password">{{__('Contraseña')}}</label>
                             @error('password')
                             <div class="invalid-feedback"> {{ $message }} </div>

@@ -27,33 +27,23 @@
                     <td>{{$item->rol_name}}</td>
                     <td>
                         <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="dropdownActions" data-bs-toggle="dropdown"
+                            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 <i class="bi bi-pencil-fill"></i>
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownActions">
-                                {{-- <li>
-                                    <a href="{{ route('users.show', $item->id) }}" class="dropdown-item" type="button">
+                            <ul class="dropdown-menu">
+                                    <button type="button" wire:click="$emitTo('user.show', 'setUser', {{$item->id}})" class="dropdown-item" type="button">
                                         <i class="bi bi-eye"></i> Ver
-                                    </a>
-                                </li> --}}
+                                    </button>
                                 <li>
-                                    <a href="{{ route('users.edit', $item->id) }}" class="dropdown-item" type="button">
+                                    <button type="button" wire:click="$emitTo('user.edit', 'setUser', {{$item->id}})" class="dropdown-item" type="button">
                                         <i class="bi bi-pencil"></i> Editar
-                                    </a>
-                                    {{-- <button type="button" wire:click="$emitTo('user.edit', 'setUser', {{$item->id}})" class="dropdown-item" type="button">
-                                        <i class="bi bi-pencil"></i> Editar
-                                    </button> --}}
+                                    </button>
                                 </li>
                                 <li>
-                                    <form class="d-inline" action="{{ url('users.destroy',$item->id) }}" method="POST"
-                                        data-confirm="Esta seguro de eliminar este elemnto">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="dropdown-item"">
-                                                    <i class=" bi bi-trash"></i> Eliminar
-                                        </button>
-                                    </form>
+                                    <button type="button" onclick="destroyUser({{$item->id}})" class="dropdown-item" type="button">
+                                        <i class="bi bi-trash"></i> Eliminar
+                                    </button>
                                 </li>
     
                             </ul>
@@ -81,4 +71,25 @@
     <x-page.loading />
     <livewire:user.create wire:key="user-create">
     <livewire:user.edit wire:key="user-edit">
+    <livewire:user.show wire:key="user-show">
 </div>
+
+@push('scripts')
+    <script>
+        function destroyUser(id) {
+            Swal.fire({
+                title: "Usuario",
+                text: "¿ Esta seguro de eliminar este elemnto ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Si, eliminalo !'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                @this.destroy(id);
+                }
+            })
+        }
+    </script>
+@endpush

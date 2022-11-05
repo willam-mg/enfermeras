@@ -27,8 +27,6 @@ use App\Http\Livewire\User\Index as UserIndex;
 
 Auth::routes();
 
-
-Route::resource('users', UserController::class)->middleware(['auth']);
 Route::middleware('auth')->group(function() {
     Route::get('/', DashboardIndex::class);
     Route::get('/home', DashboardIndex::class)->name('home');

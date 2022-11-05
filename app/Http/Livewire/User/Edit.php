@@ -13,8 +13,19 @@ class Edit extends Component
 
     protected $listeners = ['setUser'];
 
+    protected $rules = [];
+
+    public function rules() {
+        return [
+            'model.name' => 'required|string|max:255',
+            'model.email' => 'required|string|email|max:255|unique:users,email,'.$this->model->id,
+            'model.rol' => 'required|string',
+        ];
+    }
+
     public function mount() {
-        $this->model = new User();
+        $this->initProperties();
+        $this->rules = $this->rules();
     }
 
     public function render()
@@ -49,8 +60,13 @@ class Edit extends Component
             ]);
             $this->emitTo('user.index', 'search');
         } catch (\Throwable $th) {
-            dd($th);
             DB::rollBack();
+            dd($th);
         }
+    }
+
+    public function initProperties() {
+        $this->model = new User();
+        $this->paramId = null;
     }
 }
