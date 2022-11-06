@@ -1,6 +1,6 @@
 <div>
     <x-page.loading />
-    <div  wire:ignore.self  class="modal fade" id="modal-afiliado-show" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div  wire:ignore.self  class="modal fade" id="modal-afiliado-show" tabindex="-1">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -17,9 +17,9 @@
                             @endif
                             <h4 class="mt-3">{{$model->nombre_completo}}</h4>
                             <div class="d-grid gap-2 mb-3">
-                                <a href="{{ url('afiliados/'.$model->id.'/edit') }}" class="btn btn-warning" type="button">
+                                <button wire:click="$emitTo('afiliado.edit', 'display-edit', {{$model->id}})" class="btn btn-warning" type="button">
                                     <i class="bi bi-pencil"></i> Editar
-                                </a>
+                                </button>
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-9">
@@ -92,8 +92,6 @@
                                     @include('acreditacion._grid_acreditaciones')
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
