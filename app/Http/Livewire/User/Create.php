@@ -24,6 +24,7 @@ class Create extends Component
     protected $listeners = ['openModal'];
 
     public function mount() {
+        $this->password = "";
         $this->model = new User();
     }
 
@@ -47,7 +48,7 @@ class Create extends Component
                 'name' => $this->model->name,
                 'email' => $this->model->email,
                 'rol' => $this->model->rol,
-                'password' => Hash::make($this->model->password),
+                'password' => Hash::make($this->password),
             ]);
             DB::commit();
             $this->initProperties();
