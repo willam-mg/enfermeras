@@ -29,7 +29,7 @@
                         <div class="dropdown">
                             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                <i class="bi bi-pencil-fill"></i>
+                                <i class="bi bi-three-dots-vertical"></i>
                             </button>
                             <ul class="dropdown-menu">
                                     <button type="button" wire:click="$emitTo('user.show', 'setUser', {{$item->id}})" class="dropdown-item" type="button">

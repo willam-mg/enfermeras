@@ -56,10 +56,10 @@
                             </td>
                             <td>
                                 <div class="dropdown">
-                                    <button class="btn dropdown-toggle" type="button" id="dropdownActions" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn dropdown-toggle" type="button" id="credencial_dropdownActions" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="bi bi-three-dots-vertical"></i>
                                     </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownActions">
+                                    <ul class="dropdown-menu" aria-labelledby="credencial_dropdownActions">
                                         <li>
                                             <button wire:click="$emitTo('credencial.edit', 'setCredencial', {{$item->id}})"  class="dropdown-item" type="button" title="Editar">
                                                 <i class="bi bi-pencil"></i> Editar

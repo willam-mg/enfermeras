@@ -32,3 +32,10 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>    
 </div>
 @endif
+
+@if (session()->has('message'))
+    <div wire:poll.4s class="alert alert-danger alert-dismissible fade show">
+        {{ session('message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif

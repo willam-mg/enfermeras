@@ -8,6 +8,7 @@ use App\Models\Afiliado;
 use App\Models\DetallePago;
 use App\Models\MisRequisitos;
 use App\Models\Pago;
+use App\Models\PagoMatricula;
 use App\Models\Requisito;
 use App\Traits\AporteTrait;
 use Livewire\WithFileUploads;
@@ -17,6 +18,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class Create extends Component
 {
@@ -76,7 +78,7 @@ class Create extends Component
             DB::beginTransaction();
             // step 1 regsitrando afiliado
             $afiliado = Afiliado::create([
-                'numero_afiliado'=> $this->model->numero_afiliado,
+                'numero_afiliado'=> Str::lower($this->model->numero_afiliado),
                 'cargo'=> $this->model->cargo,
                 'nombre_completo'=> $this->model->nombre_completo,
                 'numero_matricula'=> $this->model->numero_matricula,
@@ -88,7 +90,7 @@ class Create extends Component
                 'domicilio'=> $this->model->domicilio,
                 'telefono'=> $this->model->telefono,
                 'anos_servicio' => $this->model->anos_servicio,
-                'anos_servicio' => $this->model->costo_matricula,
+                'costo_matricula' => $this->model->costo_matricula,
                 'fecha_registro'=> date('Y-m-d')
             ]);
             if ($this->file) {
@@ -103,7 +105,15 @@ class Create extends Component
                 $miRequisito->hora_presentacion = date('His');
                 $miRequisito->save();
             }
-            
+            // registrando matricula
+            $pagoMatricula = new PagoMatricula();
+            $pagoMatricula->fecha = date("Y-m-d");
+            $pagoMatricula->hora = date("H:i:s");
+            $pagoMatricula->user_id = Auth::user()->id;
+            $pagoMatricula->monto = $afiliado->costo_matricula;
+            $pagoMatricula->afiliado_id = $afiliado->id;
+            $pagoMatricula->save();
+
             // step3 registrando acreditaciones
             $acreditacion = Acreditacion::create([
                 'gestion' => $this->acreditacion->gestion,

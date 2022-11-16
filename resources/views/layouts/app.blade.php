@@ -98,7 +98,6 @@
         <main class="container">
             <div class="container-luid pt-3">
                 <h3 class="text-uppercase">@yield('title')</h3>
-                {{-- @yield('content') --}}
                 {{ $slot }}
             </div>
         </main>

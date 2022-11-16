@@ -40,8 +40,13 @@
                                     </button>
                                 </li>
                                 <li class="nav-item">
+                                    <button wire:ignore.self class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-matricula" type="button" role="tab"  aria-selected="false">
+                                        Matricula
+                                    </button>
+                                </li>
+                                <li class="nav-item">
                                     <button wire:ignore.self class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-acreditaciones" type="button" role="tab"  aria-selected="false">
-                                        Acreditaciones
+                                        Aportes
                                     </button>
                                 </li>
                             </ul>
@@ -90,6 +95,9 @@
                                         </div>
                                     </form>
                                     @include('acreditacion._grid_acreditaciones')
+                                </div>
+                                <div wire:ignore.self class="tab-pane fade" id="pills-matricula" role="tabpanel" aria-labelledby="pills-matricula-tab">
+                                    <livewire:pago-matriculas />
                                 </div>
                             </div>
                         </div>
