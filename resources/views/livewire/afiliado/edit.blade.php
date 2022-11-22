@@ -74,8 +74,7 @@
                             <div class="col-xs-12 col-md-3">
                                 <div class="form-floating  mb-3">
                                     <select wire:model.defer="model.expedido" value="{{$model->expedido}}"
-                                        class="form-select @error('model.expedido') is-invalid @enderror" id="mes" name="mes"
-                                        aria-label="Afiliado">
+                                        class="form-select @error('model.expedido') is-invalid @enderror">
                                         <option value="CBBA" title="Cochabamba"> CBBA </option>
                                         <option value="LPZ" title="La Paz"> LPZ </option>
                                         <option value="SCZ" title="Santa Cruz"> SCZ </option>

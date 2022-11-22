@@ -19471,3 +19471,18 @@ select + .select2-container--bootstrap-5 {
 .table-row-pointer tbody tr {
   cursor: pointer;
 }
+
+.calendar-aporte {
+  display: block;
+  padding-top: 45px;
+  width: 100px;
+  height: 100px;
+  background-image: url(/images/calendar.svg?84471c0a90fae8ad0f380c56f657f4ba);
+  background-size: 100%;
+  cursor: pointer;
+}
+
+.calendar-aporte-checked {
+  color: white;
+  background-image: url(/images/calendar-success.svg?965940758203385370b38467278b30ac);
+}

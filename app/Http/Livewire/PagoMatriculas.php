@@ -174,11 +174,4 @@ class PagoMatriculas extends Component
             $record->delete();
         }
     }
-
-    public function create() {
-        $this->dispatchBrowserEvent('modal', [
-            'component' => 'pagomatricula-create',
-            'event' => 'show'
-        ]);
-    }
 }

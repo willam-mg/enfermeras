@@ -1,5 +1,5 @@
 <div>
-    <div wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modal-create"
+    <div wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modal-afiliado-create"
         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -111,8 +111,7 @@
                                             <div class="col-xs-12 col-md-3">
                                                 <div class="form-floating  mb-3">
                                                     <select wire:model.defer="model.expedido"
-                                                        class="form-select @error('model.expedido') is-invalid @enderror" id="mes" name="mes"
-                                                        aria-label="Afiliado">
+                                                        class="form-select @error('model.expedido') is-invalid @enderror">
                                                         <option value="CBBA" title="Cochabamba"> CBBA </option>
                                                         <option value="LPZ" title="La Paz"> LPZ </option>
                                                         <option value="SCZ" title="Santa Cruz"> SCZ </option>
@@ -132,11 +131,10 @@
                                             </div>
                                             <div class="col-xs-12 col-md-6">
                                                 <div class="form-floating mb-3">
-                                                    <input type="date" name="fecha_nacimiento" wire:model.defer="model.fecha_nacimiento"
-                                                        class="form-control @error('model.fecha_nacimiento') is-invalid @enderror"
-                                                        placeholder="Fecha nacimiento">
-                                                    <label class="form-label" for="fecha_nacimiento">Fecha nacimiento</label>
-                                                    @error('model.fecha_nacimiento')
+                                                    <input type="number" name="anos_servicio" wire:model.defer="model.anos_servicio"
+                                                        class="form-control @error('model.anos_servicio') is-invalid @enderror" placeholder="anos_servicio">
+                                                    <label class="form-label" for="anos_servicio">{{__('Años de servicio')}}</label>
+                                                    @error('model.anos_servicio')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                     @enderror
                                                 </div>
@@ -215,11 +213,10 @@
                                         <div class="row">
                                             <div class="col-xs-12 col-md-6">
                                                 <div class="form-floating mb-3">
-                                                    <input type="number" name="anos_servicio" wire:model.defer="model.anos_servicio"
-                                                        class="form-control @error('model.anos_servicio') is-invalid @enderror"
-                                                        placeholder="anos_servicio">
-                                                    <label class="form-label" for="anos_servicio">{{__('Años de servicio')}}</label>
-                                                    @error('model.anos_servicio')
+                                                    <input type="date" name="fecha_nacimiento" wire:model.defer="model.fecha_nacimiento"
+                                                        class="form-control @error('model.fecha_nacimiento') is-invalid @enderror" placeholder="Fecha nacimiento">
+                                                    <label class="form-label" for="fecha_nacimiento">Fecha nacimiento</label>
+                                                    @error('model.fecha_nacimiento')
                                                     <div class="invalid-feedback"> {{ $message }} </div>
                                                     @enderror
                                                 </div>
@@ -273,8 +270,8 @@
                             </div>
 
                             <div class="tab-pane fade" id="pills-step3" role="tabpanel" aria-labelledby="pills-step3-tab">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="row mb-1">
+                                    <div class="col-xs-12 col-sm-6 col-md-3">
                                         <h5>Matricula</h5>
                                         {{-- costo de matricula model afiliado --}}
                                         <div class="form-floating mb-3">
@@ -286,75 +283,149 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <div class="col-xs-12 col-sm-6 col-md-9" style="border-left:0.5px solid #a6a6a6">
+                                        <h5>Aportes</h5>
                                         {{-- costo de acreditacion model acreditacion --}}
-                                        <h5>Mensualidad</h5>
-                                        <div class="form-floating mb-3">
-                                            <input type="number" name="gestion" list="list_gestiones" wire:model.defer="acreditacion.gestion"
-                                                class="form-control @error('gestion') is-invalid @enderror" placeholder="Gestion" required>
-                                            <label class="form-label" for="gestion">Gestion</label>
-                                            <datalist id="list_gestiones">
-                                                <option value="2020">
-                                                <option value="2021">
-                                                <option value="2022">
-                                                <option value="2023">
-                                                <option value="2024">
-                                                <option value="2025">
-                                                <option value="2026">
-                                                <option value="2027">
-                                                <option value="2028">
-                                                <option value="2029">
-                                                <option value="2030">
-                                                <option value="2031">
-                                                <option value="2032">
-                                                <option value="2033">
-                                                <option value="2034">
-                                                <option value="2035">
-                                                <option value="2036">
-                                                <option value="2037">
-                                                <option value="2038">
-                                                <option value="2039">
-                                                <option value="2040">
-                                                <option value="2041">
-                                                <option value="2042">
-                                                <option value="2043">
-                                                <option value="2044">
-                                                <option value="2045">
-                                            </datalist>
-                                            @error('gestion')
-                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                            @enderror
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-4">
+                                                <div class="form-floating mb-3">
+                                                    <input type="number" name="monto" wire:model.defer="acreditacion.monto"
+                                                        class="form-control @error('monto') is-invalid @enderror" placeholder="Monto" required>
+                                                    <label class="form-label" for="monto">Costo por mes</label>
+                                                    @error('monto')
+                                                        <div class="invalid-feedback"> {{ $message }} </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-md-8">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-md-3">
+                                                                Total matricula: <br>
+                                                                <h4>
+                                                                    <span id="afiliado-total-matricula">0</span>
+                                                                    Bs.
+                                                                </h4>
+                                                            </div>
+                                                            <div class="col-xs-12 col-md-1 text-center align-middle">
+                                                                <i class="bi bi-plus-lg"></i>
+                                                            </div>
+                                                            <div class="col-xs-12 col-md-3">
+                                                                Total Aportes: 
+                                                                <h4>
+                                                                    <span id="afiliado-total-aportes">0</span>
+                                                                    Bs.
+                                                                </h4>
+                                                            </div>
+                                                            <div class="col-xs-12 col-md-1 text-center align-middle">
+                                                                =
+                                                            </div>
+                                                            <div class="col-xs-12 col-md-4">
+                                                                Total: <br>
+                                                                <h4>
+                                                                    <span id="afiliado-total">0</span>
+                                                                    Bs.
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-floating  mb-3">
-                                            <select class="form-select @error('mesSeleccionado') is-invalid @enderror" wire:model.defer="mesSeleccionado" id="mes"
-                                                name="mes" aria-label="Afiliado">
-                                                <option>{{__('Seleccione el Mes')}}</option>
-                                                <option value="1" {{strtolower($mesActual) == 'enero'?'selected':''}}> {{__('Enero')}} </option>
-                                                <option value="2" {{strtolower($mesActual) == 'febrero'?'selected':''}}> {{__('Febreo')}} </option>
-                                                <option value="3" {{strtolower($mesActual) == 'marzo'?'selected':''}}> {{__('Marzo')}} </option>
-                                                <option value="4" {{strtolower($mesActual) == 'abril'?'selected':''}}> {{__('Abril')}} </option>
-                                                <option value="5" {{strtolower($mesActual) == 'mayo'?'selected':''}}> {{__('Mayo')}} </option>
-                                                <option value="6" {{strtolower($mesActual) == 'junio'?'selected':''}}> {{__('Junio')}} </option>
-                                                <option value="7" {{strtolower($mesActual) == 'julio'?'selected':''}}> {{__('Julio')}} </option>
-                                                <option value="8" {{strtolower($mesActual) == 'agosto'?'selected':''}}> {{__('Agosto')}} </option>
-                                                <option value="9" {{strtolower($mesActual) == 'septiembre'?'selected':''}}> {{__('Septiembre')}} </option>
-                                                <option value="10" {{strtolower($mesActual) == 'octubre'?'selected':''}}> {{__('Octubre')}} </option>
-                                                <option value="11" {{strtolower($mesActual) == 'noviembre'?'selected':''}}> {{__('Noviembre')}} </option>
-                                                <option value="12" {{strtolower($mesActual) == 'diciembre'?'selected':''}}> {{__('Diciembre')}} </option>
-                                            </select>
-                                            <label for="mes">Mes</label>
-                                            @error('mesSeleccionado')
-                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                            @enderror
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <input type="number" name="monto" wire:model.defer="acreditacion.monto"
-                                                class="form-control @error('monto') is-invalid @enderror" placeholder="Monto" required>
-                                            <label class="form-label" for="monto">Monto</label>
-                                            @error('monto')
-                                            <div class="invalid-feedback"> {{ $message }} </div>
-                                            @enderror
-                                        </div>
+
+                                        {{-- Aportes --}}
+                                        <nav class="mb-3">
+                                            <input class="visually-hidden" type="checkbox" id="checkbox-years-modo" wire:model.defer="yearsModo" value="1">
+                                            <div class="nav nav-tabs" id="afiliado-aporte-nav-tab" role="tablist">
+                                                <button class="nav-link {{!$yearsModo?'active':''}}" id="afiliado-aporte-months-tab" data-bs-toggle="tab" data-bs-target="#afiliado-aporte-nav-months" type="button"
+                                                    role="tab" aria-controls="afiliado-aporte-nav-months" aria-selected="true">
+                                                    {{__('Por meses')}}
+                                                </button>
+                                                <button class="nav-link {{$yearsModo?'active':''}}" id="afiliado-aporte-years-tab" data-bs-toggle="tab" data-bs-target="#afiliado-aporte-nav-years" type="button"
+                                                    role="tab" aria-controls="afiliado-aporte-nav-years" aria-selected="false">
+                                                    {{__('Por años')}}
+                                                </button>
+                                            </div>
+                                        </nav>
+                                        <div class="tab-content" id="nav-tabContent">
+                                            <div class="tab-pane fade  {{!$yearsModo?'show active':''}}" id="afiliado-aporte-nav-months" role="tabpanel" aria-labelledby="afiliado-aporte-months-tab">
+                                                <ul class="nav nav-pills nav-fill mb-3" id="afiliado-aportes-pills-tab" role="tablist">
+                                                    @foreach ($years as $item)
+                                                        <li class="nav-item" role="presentation">
+                                                            <button class="nav-link {{$item == $actualYear?'active':''}}" id="afiliado-aportes-pills-tab-{{$item}}"
+                                                                data-bs-toggle="pill" data-bs-target="#afiliado-aportes-pills-year-{{$item}}" type="button" role="tab"
+                                                                aria-controls="pills-step1" aria-selected="true">
+                                                                <span class="span-text-year-{{$item}}">
+                                                                    {{$item}}
+                                                                    <i class="bi bi-check2-square icon-year-checked-{{$item}}" style="display:none"></i>
+                                                                </span>
+                                                            </button>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                                <div class="tab-content" id="pills-tabContent">
+                                                    @foreach ($years as $item)
+                                                        <div class="tab-pane fade show {{$item == $actualYear?'active':''}}" id="afiliado-aportes-pills-year-{{$item}}" role="tabpanel" aria-labelledby="afiliado-aportes-pills-tab-{{$item}}">
+                                                            <div class="row">
+                                                                @for ($i = 1; $i <= 12; $i++) 
+                                                                    <div class="col-xs-2 col-md-2 mb-3">
+                                                                        <div class="form-check text-center">
+                                                                            <label class="form-check-label calendar-aporte label-month" data-year="{{$item}}" data-value="{{$item.$i}}"
+                                                                                for="afiliado-create-requisitos-{{$item.$i}}">
+                                                                                <b class="text-capitalize">
+                                                                                    {{\Carbon\Carbon::create()->month($i)->locale('es_ES')->monthName}}
+                                                                                </b> <br>
+                                                                                <input class="form-check-input-create" style="visibility: hidden" name="monthsselected-{{$item}}[]" type="checkbox"
+                                                                                    wire:model.defer="misAportes.{{$item.$i}}" value="{{$item.'-'.$i}}"
+                                                                                    id="afiliado-create-requisitos-{{$item.$i}}">
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                @endfor
+                                                            </div>
+                                                            <div class="text-center mb-2">
+                                                                <button class="btn btn-outline-secondary" onclick="checkAllMonths({{$item}}, true)" type="button">
+                                                                    <i class="bi bi-x"></i>
+                                                                    Ningun mes
+                                                                </button>
+                                                                <button class="btn btn-outline-success" onclick="checkAllMonths({{$item}})" type="button">
+                                                                    <i class="bi bi-check-all"></i>
+                                                                    Todos los meses
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade {{$yearsModo?'show active':''}}" id="afiliado-aporte-nav-years" role="tabpanel" aria-labelledby="afiliado-aporte-years-tab">
+                                                <div class="text-center">
+                                                    <h4>{{__("Pagar por un rango de años")}}</h4>
+                                                </div>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-xs-12 col-md-4">
+                                                        <div class="form-floating mb-3">
+                                                            <input type="number" name="yearStart" wire:model.defer="yearStart" min="1000" step="1" max="3000"
+                                                                class="form-control @error('yearStart') is-invalid @enderror" placeholder="{{__("Desde")}}">
+                                                            <label class="form-label" for="yearStart">{{__("Desde")}}</label>
+                                                            @error('yearStart')
+                                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-4">
+                                                        <div class="form-floating mb-3">
+                                                            <input type="number" name="yearEnd" wire:model.defer="yearEnd" min="1000" step="1" max="3000"
+                                                                class="form-control @error('yearEnd') is-invalid @enderror" placeholder="{{__("Hasta")}}">
+                                                            <label class="form-label" for="yearEnd">{{__("Hasta")}}</label>
+                                                            @error('yearEnd')
+                                                            <div class="invalid-feedback"> {{ $message }} </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
                                     </div>
                                 </div>
                                 
@@ -394,8 +465,59 @@
         }
         function selectAllRequisitos() {
             $("input[name='seleccionados[]']").each(function() {
-                this.click();
+                if (!$(this).is(':checked')) {
+                    this.click();
+                }
             }).get();
         }
+        function checkAllMonths(year, unchecked = false) {
+            $(`input[name='monthsselected-${year}[]']`).each(function() {
+                if ($(this).is(':checked') == unchecked) {
+                    this.click();
+                }
+            });
+            isAllSelectedMonths(year);
+        }
+
+        function isAllSelectedMonths(year) {
+            let count = 0;
+            $(`input[name='monthsselected-${year}[]']`).each(function() {
+                if ($(this).is(':checked')) {
+                    count++;
+                }
+            });
+            if (count > 0) {
+                $(`.icon-year-checked-${year}`).attr('style', 'display:inline');
+                $(`.span-text-year-${year}`).addClass('text-success');
+                $(`.span-text-year-${year}`).addClass('fw-bold');
+            } else {
+                $(`.icon-year-checked-${year}`).attr('style', 'display:none');
+                $(`.span-text-year-${year}`).removeClass('text-success');
+                $(`.span-text-year-${year}`).removeClass('fw-bold');
+            }
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            $(".label-month").on('click', function() {
+                let yearMonth = $(this).attr('data-value');
+                let year = $(this).attr('data-year');
+                if ($('#afiliado-create-requisitos-'+yearMonth).is(':checked')) {
+                    $(this).addClass('calendar-aporte-checked');
+                }else {
+                    $(this).removeClass('calendar-aporte-checked');
+                }
+                
+                isAllSelectedMonths(year);
+            });
+            $("#afiliado-aporte-months-tab").on('click', function() {
+                if ($("#checkbox-years-modo").is(':checked')) {
+                    $("#checkbox-years-modo").click();
+                }
+            });
+            $("#afiliado-aporte-years-tab").on('click', function() {
+                if (!$("#checkbox-years-modo").is(':checked')) {
+                    $("#checkbox-years-modo").click();
+                }
+            });
+        });
     </script>
 @endpush

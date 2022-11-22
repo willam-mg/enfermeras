@@ -7,15 +7,15 @@
 					<div class="row">
 						<div class="col-xs-12 col-md-3">
 							<label>Total</label>
-							<h4>{{$total}}</h4>
+							<h4>{{$total}} Bs.</h4>
 						</div>
 						<div class="col-xs-12 col-md-3">
 							<label>Total pagos</label>
-							<h4>{{$totalPagos}}</h4>
+							<h4>{{$totalPagos}} Bs.</h4>
 						</div>
 						<div class="col-xs-12 col-md-3">
 							<label>Saldo</label>
-							<h4>{{$saldo}}</h4>
+							<h4>{{$saldo}} Bs.</h4>
 						</div>
 						<div class="col-xs-12 col-md-3 pt-3">
 							@if ($saldo > 0)
@@ -34,7 +34,7 @@
 						<div class="float-right">
 							<b>Pagos</b>
 						</div>
-						<button type="button" class="btn btn-success" wire:click="create('create')" {{$saldo  == 0?'disabled':''}}>
+						<button type="button" class="btn btn-success" onclick="$('#modal-pagomatricula-create').modal('show')" {{$saldo  == 0?'disabled':''}}>
 							<i class="bi bi-plus"></i>  Nuevo pago
 						</button>
 						
@@ -57,7 +57,11 @@
 								@foreach($pagoMatriculas as $row)
 								<tr>
 									<td>{{ $row->id }}</td> 
-									<td>{{ $row->monto }}</td>
+									<td>
+										<b>
+											{{ $row->monto }}
+										</b>
+									</td>
 									<td>
 										@if ($row->user)
 											{{$row->user->name}}
@@ -67,13 +71,6 @@
 									</td>
 									<td>{{ $row->fecha }}</td>
 									<td>{{ $row->hora }}</td>
-									{{-- <td>
-										@if ($row->afiliado)
-											{{$row->afiliado->nombre_completo}}
-										@else
-											<x-page.noexists :value="$row->afiliado_id" />
-										@endif
-									</td> --}}
 									<td>
 										<div class="dropstart">
 											<button class="btn dropdown-toggle" type="button" id="pago_dropdownActions" data-bs-toggle="dropdown"

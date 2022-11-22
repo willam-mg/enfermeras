@@ -68,7 +68,7 @@ class Show extends Component
                 ->when($this->acreditacionMd->gestion, function($query) {
                     $query->where('gestion', 'like', '%'.$this->acreditacionMd->gestion);
                 })
-                ->paginate(5);
+                ->paginate(12);
         }
     
         return view('livewire.afiliado.show', [

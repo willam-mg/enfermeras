@@ -16,7 +16,7 @@
         </div>
         <div class="col-xs-12 col-md-5">
             <div class="mb-3 text-end">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-create">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-afiliado-create">
                     <i class="bi bi-plus"></i>
                     Nuevo afiliado
                 </button>

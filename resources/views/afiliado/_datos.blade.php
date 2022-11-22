@@ -51,4 +51,8 @@
         <b>{{__("Fecha de regsitro: ")}} </b>
         {{$model->fecha_registro}}
     </li>
+    <li class="list-group-item">
+        <b>{{__("Costo de matricula: ")}} </b>
+        {{$model->costo_matricula}}
+    </li>
 </ul>
