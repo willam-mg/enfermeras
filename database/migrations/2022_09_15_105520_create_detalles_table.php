@@ -16,7 +16,7 @@ class CreateDetallesTable extends Migration
         Schema::create('detalle_pagos', function (Blueprint $table) {
             $table->id();
             $table->decimal('monto', 8, 2);
-            $table->foreignId('acreditacion_id')->constrained('acreditaciones');
+            $table->foreignId('aporte_id')->constrained('aportes');
             $table->foreignId('pago_id')->constrained('pagos');
             $table->timestamps();
             $table->softDeletes();

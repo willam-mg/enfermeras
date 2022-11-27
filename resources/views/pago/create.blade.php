@@ -33,7 +33,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($acreditaciones as $item)
+                                @foreach ($aportes as $item)
                                     <tr>
                                         <td>
                                             <input type="hidden" name="seleccionados[]" value="{{$item->id}}">
@@ -46,7 +46,7 @@
                                             {{$item->monto}}
                                         </td>
                                         <td>
-                                            @if ($item->pendiente == \App\Models\Acreditacion::PENDIENTE)
+                                            @if ($item->pendiente == \App\Models\Aporte::PENDIENTE)
                                                 <span class="badge rounded-pill bg-danger">Pendiente</span>
                                             @else
                                                 <span class="badge rounded-pill bg-success">Pagado</span>

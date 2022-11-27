@@ -49,25 +49,25 @@ Breadcrumbs::for('afiliados.show', function (BreadcrumbTrail $trail, $model) {
     $trail->push('Ver '.$model->name, url('afiliados.show', $model));
 });
 
-// Acreditaciones
-Breadcrumbs::for('acreditaciones', function (BreadcrumbTrail $trail) {
+// Aportes
+Breadcrumbs::for('aportes', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push('Acreditaciones', url('acreditaciones'));
+    $trail->push('Aportes', url('aportes'));
 });
-Breadcrumbs::for('acreditaciones.create', function (BreadcrumbTrail $trail) {
-    $trail->parent('acreditaciones');
-    $trail->push('Nueva acreditacion', url('acreditaciones.create'));
+Breadcrumbs::for('aportes.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('aportes');
+    $trail->push('Nuevo aporte', url('aportes.create'));
 });
-Breadcrumbs::for('acreditaciones.edit', function (BreadcrumbTrail $trail, $model) {
-    $trail->parent('acreditaciones');
-    $trail->push('Editar '.$model->gestion, url('acreditaciones.edit', $model));
+Breadcrumbs::for('aportes.edit', function (BreadcrumbTrail $trail, $model) {
+    $trail->parent('aportes');
+    $trail->push('Editar '.$model->gestion, url('aportes.edit', $model));
 });
-Breadcrumbs::for('acreditaciones.show', function (BreadcrumbTrail $trail, $model) {
-    $trail->parent('acreditaciones');
-    $trail->push('Ver '.$model->gestion, url('acreditaciones.show', $model));
+Breadcrumbs::for('aportes.show', function (BreadcrumbTrail $trail, $model) {
+    $trail->parent('aportes');
+    $trail->push('Ver '.$model->gestion, url('aportes.show', $model));
 });
 
-// Acreditaciones
+// Pagos
 Breadcrumbs::for('pagos', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push('Pagos', url('pagos'));
@@ -85,7 +85,7 @@ Breadcrumbs::for('pagos.show', function (BreadcrumbTrail $trail, $model) {
     $trail->push('Ver '.$model->fecha, url('pagos.show', $model));
 });
 
-// Acreditaciones
+// Obsequios
 Breadcrumbs::for('obsequios', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push('Obsequios', url('obsequios'));

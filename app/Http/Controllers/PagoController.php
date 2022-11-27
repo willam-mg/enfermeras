@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Pago;
 use App\Models\Afiliado;
 use App\Models\DetallePago;
-use App\Models\Acreditacion;
+use App\Models\Aporte;
 use App\Models\Obsequio;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -37,20 +37,20 @@ class PagoController extends Controller
         $seleccionados = json_decode($request->seleccionados);
         $afiliado = null;
         if ( $seleccionados != null ) {
-            $acreditacion = Acreditacion::find($seleccionados[0]);
-            $afiliado = $acreditacion->afiliado;
+            $aporte = Aporte::find($seleccionados[0]);
+            $afiliado = $aporte->afiliado;
         }
-        $acreditaciones = [];
+        $aportes = [];
         foreach ($seleccionados as $key => $item) {
-            $acreditacion = Acreditacion::find($item);
-            array_push($acreditaciones, $acreditacion);
+            $aporte = Aporte::find($item);
+            array_push($aportes, $aporte);
         }
         $total = 0;
-        foreach ($acreditaciones as $key => $item) {
+        foreach ($aportes as $key => $item) {
             $total += $item->monto;
         }
         return view('pago.create', [
-            'acreditaciones'=>$acreditaciones,
+            'aportes'=>$aportes,
             'afiliado'=>$afiliado,
             'total'=>$total,
         ]);
@@ -74,21 +74,21 @@ class PagoController extends Controller
             ]);
             $gestion = date("Y");
             foreach ($request->seleccionados as $key => $item) {
-                $acreditacion = Acreditacion::find($item);
+                $aporte = Aporte::find($item);
                 $detalle = DetallePago::create([
-                    'acreditacion_id' => $acreditacion->id,
-                    'monto' => $acreditacion->monto,
+                    'aporte_id' => $aporte->id,
+                    'monto' => $aporte->monto,
                     'pago_id' => $pago->id,
                 ]);
-                $acreditacion->estado = Acreditacion::PAGADO;
-                $acreditacion->save();
-                $gestion = $acreditacion->gestion;
+                $aporte->estado = Aporte::PAGADO;
+                $aporte->save();
+                $gestion = $aporte->gestion;
             }
             
             // verificar si teine la gestion completa
-            $numeroAportesPagados = Acreditacion::where('afiliado_id', $request->afiliado_id)
+            $numeroAportesPagados = Aporte::where('afiliado_id', $request->afiliado_id)
                 ->where('gestion', $gestion)
-                ->where('estado','=', Acreditacion::PAGADO)->count();
+                ->where('estado','=', Aporte::PAGADO)->count();
             if ($numeroAportesPagados >= 12) {
                 $obsequio = new Obsequio();
                 $obsequio->user_id = Auth::user()->id;

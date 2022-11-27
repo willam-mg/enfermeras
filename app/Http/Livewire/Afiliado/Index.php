@@ -9,7 +9,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Traits\ImageTrait;
 use App\Models\Requisito;
 use App\Models\MisRequisitos;
-use App\Models\Acreditacion;
+use App\Models\Aporte;
 use App\Traits\ProgressTrait;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;

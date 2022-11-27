@@ -2,10 +2,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Acreditacion;
+use App\Models\Aporte;
 use App\Models\Afiliado;
 
-class AcreditacionController extends Controller
+class AporteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,10 @@ class AcreditacionController extends Controller
      */
     public function index(Request $request)
     {
-        $model = new Acreditacion();
+        $model = new Aporte();
         
         $afiliados = Afiliado::all();
-        $data = Acreditacion::select("*")
+        $data = Aporte::select("*")
             ->when($request->input('afiliado_id') , function ($query) use ($request, $model) {
                 $model->afiliado_id = $request->afiliado_id;
                 $query->where('afiliado_id', $request->afiliado_id);
@@ -37,7 +37,7 @@ class AcreditacionController extends Controller
             ->paginate(12);
 
         $selected = $request->input('afiliado_id')?true: false;
-        return view('acreditacion.index', [
+        return view('aporte.index', [
             'model'=>$model,
             'data'=>$data,
             'afiliados'=>$afiliados,
@@ -52,9 +52,9 @@ class AcreditacionController extends Controller
      */
     public function create()
     {
-        $model = new Acreditacion();
+        $model = new Aporte();
         $afiliados = Afiliado::all();
-        return view('acreditacion.create', [
+        return view('aporte.create', [
             'afiliados'=>$afiliados,
             'model'=>$model,
         ]);
@@ -75,16 +75,16 @@ class AcreditacionController extends Controller
             'afiliado_id' => ['required'],
         ]);
 
-        $user = Acreditacion::create([
+        $user = Aporte::create([
             'gestion' => $request->gestion,
             'mes' => $request->mes,
             'monto' => $request->monto,
             'afiliado_id' => $request->afiliado_id,
-            'estado' => Acreditacion::PENDIENTE,
+            'estado' => Aporte::PENDIENTE,
         ]);
 
         return redirect()
-            ->route('acreditaciones.index')
+            ->route('aportes.index')
             ->with('success','Registro agregado');
     }
 
@@ -96,8 +96,8 @@ class AcreditacionController extends Controller
      */
     public function show($id)
     {
-        $model = Acreditacion::find($id);
-        return view('acreditacion.show', [
+        $model = Aporte::find($id);
+        return view('aporte.show', [
             'model'=>$model
         ]);
     }
@@ -110,10 +110,10 @@ class AcreditacionController extends Controller
      */
     public function edit($id)
     {
-        $model = Acreditacion::find($id);
+        $model = Aporte::find($id);
         $afiliados = Afiliado::all();
 
-        return view('acreditacion.edit', [
+        return view('aporte.edit', [
             'model'=>$model,
             'afiliados'=>$afiliados
         ]);
@@ -128,7 +128,7 @@ class AcreditacionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $model = Acreditacion::find($id);
+        $model = Aporte::find($id);
         $lastRol = $model->rol;
         $request->validate([
             'gestion' => ['required', 'integer'],
@@ -142,11 +142,11 @@ class AcreditacionController extends Controller
         $model->mes = $request->mes;
         $model->monto = $request->monto;
         $model->afiliado_id = $request->afiliado_id;
-        $model->estado = $request->estado == Acreditacion::PENDIENTE?2: 3;
+        $model->estado = $request->estado == Aporte::PENDIENTE?2: 3;
         $model->save();
 
         return redirect()
-            ->route('acreditaciones.index')
+            ->route('aportes.index')
             ->with('success','Registro modificado');
     }
 
@@ -158,11 +158,11 @@ class AcreditacionController extends Controller
      */
     public function destroy($id)
     {
-        $model = Acreditacion::find($id);
+        $model = Aporte::find($id);
         $model->delete();
         
         return redirect()
-            ->route('acreditaciones.index')
+            ->route('aportes.index')
             ->with('success','Registro eliminado');
     }
 

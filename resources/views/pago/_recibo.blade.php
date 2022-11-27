@@ -21,7 +21,7 @@
         <tr>
             <td>Recibido de: </td>
             <td colspan="3">
-                {{$model->detalle[0]->acreditacion->afiliado->nombre_completo}}
+                {{$model->detalle[0]->aporte->afiliado->nombre_completo}}
             </td>
         </tr>
         <tr>
@@ -34,8 +34,8 @@
             <td>Por concepto de : </td>
             <td colspan="3">
                 @foreach ($model->detalle as $item)
-                    {{$item->acreditacion->gestion}}
-                    {{$item->acreditacion->mes}}, 
+                    {{$item->aporte->gestion}}
+                    {{$item->aporte->mes}}, 
                 @endforeach
             </td>
         </tr>

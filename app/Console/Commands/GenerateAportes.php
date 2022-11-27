@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Acreditacion;
+use App\Models\Aporte;
 use App\Models\Afiliado;
 use App\Traits\AporteTrait;
 use Carbon\Carbon;

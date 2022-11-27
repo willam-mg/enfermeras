@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Afiliado;
 
-use App\Models\Acreditacion;
+use App\Models\Aporte;
 use Livewire\Component;
 use App\Models\Afiliado;
 use App\Models\DetallePago;
@@ -29,7 +29,7 @@ class Create extends Component
     public $misRequisitos;
     public $porcentaje;
     public $porcentajeColor;
-    public $acreditacion;
+    public $aporte;
     public $mesActual;
     public $mesSeleccionado;
     public $years;
@@ -54,9 +54,9 @@ class Create extends Component
         'model.anos_servicio' => 'nullable|string|max:20',
         'model.costo_matricula' => 'nullable|numeric',
         'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
-        'acreditacion.gestion' => 'numeric',
+        'aporte.gestion' => 'numeric',
         'mesSeleccionado' => 'nullable|numeric',
-        'acreditacion.monto' => 'numeric',
+        'aporte.monto' => 'numeric',
         'yearStart' => 'nullable|numeric',
         'yearEnd' => 'nullable|numeric',
         'yearsModo' => 'nullable|boolean',
@@ -117,7 +117,7 @@ class Create extends Component
             $pagoMatricula->afiliado_id = $afiliado->id;
             $pagoMatricula->save();
 
-            // step3 registrando acreditaciones
+            // step3 registrando aportes
             $pago = Pago::create([
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s'),
@@ -133,17 +133,17 @@ class Create extends Component
                 }
                 for ($year = $this->yearStart; $year <= $this->yearEnd; $year++) {
                     for ($month = 1; $month <= 12; $month++) {
-                        $acreditacion = Acreditacion::create([
+                        $aporte = Aporte::create([
                             'gestion' => $year,
                             'mes' => $month,
-                            'monto' => $this->acreditacion->monto,
+                            'monto' => $this->aporte->monto,
                             'afiliado_id' => $afiliado->id,
-                            'estado' => Acreditacion::PAGADO,
+                            'estado' => Aporte::PAGADO,
                         ]);
 
                         $detalle = DetallePago::create([
-                            'acreditacion_id' => $acreditacion->id,
-                            'monto' => $acreditacion->monto,
+                            'aporte_id' => $aporte->id,
+                            'monto' => $aporte->monto,
                             'pago_id' => $pago->id,
                         ]);
                     }
@@ -154,17 +154,17 @@ class Create extends Component
                         $explodeValue = explode("-", $value);
                         $year = $explodeValue[0];
                         $month = $explodeValue[1];
-                        $acreditacion = Acreditacion::create([
+                        $aporte = Aporte::create([
                             'gestion' => $year,
                             'mes' => $month,
-                            'monto' => $this->acreditacion->monto,
+                            'monto' => $this->aporte->monto,
                             'afiliado_id' => $afiliado->id,
-                            'estado' => Acreditacion::PAGADO,
+                            'estado' => Aporte::PAGADO,
                         ]);
 
                         $detalle = DetallePago::create([
-                            'acreditacion_id' => $acreditacion->id,
-                            'monto' => $acreditacion->monto,
+                            'aporte_id' => $aporte->id,
+                            'monto' => $aporte->monto,
                             'pago_id' => $pago->id,
                         ]);
                     }
@@ -195,15 +195,15 @@ class Create extends Component
 
     public function initProperties() {
         $this->model = new Afiliado();
-        $this->acreditacion = new Acreditacion();
+        $this->aporte = new Aporte();
         $this->requisitos = Requisito::where(['estado' => 1])->get();
         $this->misRequisitos = [];
         $this->porcentaje = 0;
         $this->porcentajeColor = "";
-        $this->acreditacion->gestion = date("Y");
+        $this->aporte->gestion = date("Y");
         $this->mesActual = Carbon::create()->month(date("m"))->locale('es_ES')->monthName;
         $this->model->costo_matricula = 100;
-        $this->acreditacion->monto = 30;
+        $this->aporte->monto = 30;
         $this->model->expedido = "CBBA";
         // generate years for aportes in type meses
         $this->years = [];

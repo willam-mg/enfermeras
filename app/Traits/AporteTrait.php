@@ -1,7 +1,7 @@
 <?php
 namespace App\Traits;
 
-use App\Models\Acreditacion;
+use App\Models\Aporte;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +17,7 @@ trait AporteTrait
      * @param boolean $integer numero de aportes generados
      */
     public function createAportes($idAfiliado, $gestion) {
-        $firstAcreditacion  = DB::table('acreditaciones')
+        $firstAporte  = DB::table('aportes')
         ->select('afiliado_id', DB::raw('min(gestion) as gestion'), DB::raw('min(mes) as mes'))
         ->where('afiliado_id', $idAfiliado)
             ->whereNull('deleted_at')
@@ -27,10 +27,10 @@ trait AporteTrait
         $mes = 1;
         $aportesGenerados = 0;
         while ($mes <= 12) {
-            $fechaFirstAporte = Carbon::parse($firstAcreditacion->gestion . '-' . $firstAcreditacion->mes . '-1');
+            $fechaFirstAporte = Carbon::parse($firstAporte->gestion . '-' . $firstAporte->mes . '-1');
             $fechaActual = Carbon::parse($gestion . '-' . $mes . '-1');
             if ($fechaFirstAporte->lessThan($fechaActual)) {
-                $exists = DB::table('acreditaciones')
+                $exists = DB::table('aportes')
                 ->where([
                     'afiliado_id' => $idAfiliado,
                     'mes' => $mes,
@@ -38,7 +38,7 @@ trait AporteTrait
                 ])->whereNull('deleted_at')
                 ->exists();
                 if (!$exists) {
-                    Acreditacion::create([
+                    Aporte::create([
                         'afiliado_id' => $idAfiliado,
                         'mes' => $mes,
                         'gestion' => $gestion,

@@ -3,9 +3,9 @@
 @section('title', 'Aportes')
 
 @section('content')
-    {{ Breadcrumbs::render('acreditaciones') }}
+    {{ Breadcrumbs::render('aportes') }}
     <div class="text-end">
-        <a href="{{url('/acreditaciones/create')}}" type="button" class="btn btn-success"  data-bs-toggle="tooltip"  data-bs-placement="top" title="Nueva acredtiacion">
+        <a href="{{url('/aportes/create')}}" type="button" class="btn btn-success"  data-bs-toggle="tooltip"  data-bs-placement="top" title="Nuevo aporte">
             <i class="bi bi-plus"></i>
             Nuevo
         </a>
@@ -15,7 +15,7 @@
             Pagar
         </button>
     </div>
-    <form action="{{ url('acreditaciones') }}" method="POST" class="needs-validation disabled-onsubmit" novalidate>
+    <form action="{{ url('aportes') }}" method="POST" class="needs-validation disabled-onsubmit" novalidate>
         @csrf
         @method('GET')
         <div class="row">
@@ -41,7 +41,7 @@
                 <div class="form-floating mb-3">
                     <input type="number" name="gestion" value="{{$model->gestion}}" list="list_gestiones" class="form-control @error('gestion') is-invalid @enderror" placeholder="gestion">
                     <label class="form-label" for="gestion">Gestion</label>
-                    @include('acreditacion._list_gestiones')
+                    @include('aporte._list_gestiones')
                     @error('gestion')
                     <div class="invalid-feedback"> {{ $message }} </div>
                     @enderror
@@ -51,7 +51,7 @@
                 <div class="form-floating mb-3">
                     <select class="form-select select-search @error('mes') is-invalid @enderror" id="mes" name="mes" aria-label="Afiliado">
                         <option value="" {{$model->mes == null?'selected':''}}>{{__('Todos')}}</option>
-                        @include('acreditacion._options_meses')
+                        @include('aporte._options_meses')
                     </select>
                     <label for="mes">Mes</label>
                     @error('mes')
@@ -80,7 +80,7 @@
             </div>
         </div>
     </form>
-    @include('acreditacion._grid_acreditaciones')
+    @include('aporte._grid_aportes')
 
     
 
@@ -93,7 +93,7 @@
             $('#btnPreparar').on('click', function(e) {
                 e.preventDefault();
                 let myArray = [];
-                $('input[name^="acreditaciones"]').each(function() {
+                $('input[name^="aportes"]').each(function() {
                     if ($(this).prop("checked") === true) {
                         let id = $(this).val();
                         myArray.push(id);
@@ -105,19 +105,19 @@
                         window.location.href = '/pagos/create?seleccionados=' + arrStr;
                     }
                 } else {
-                    alert('No hay acreditaciones seleccionadas');
+                    alert('No hay aportes seleccionadas');
                 }
             });
 
             function checkAll() {
-                $('input[name^="acreditaciones"]').prop("checked", true);
+                $('input[name^="aportes"]').prop("checked", true);
             }
             $('#select_meses').on('click', function() {
                 if (!allChecked) {
                     checkAll();
                     allChecked = true;
                 } else {
-                    $('input[name^="acreditaciones"]').prop("checked", false);
+                    $('input[name^="aportes"]').prop("checked", false);
                     allChecked = false;
                 }
             });

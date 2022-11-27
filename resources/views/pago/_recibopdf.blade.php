@@ -70,21 +70,21 @@
             <tr>
                 <td>Recibido de: </td>
                 <td colspan="3" style="font-weight: bold;">
-                    {{$model->detalle[0]->acreditacion->afiliado->nombre_completo}}
+                    {{$model->detalle[0]->aporte->afiliado->nombre_completo}}
                 </td>
             </tr>
             <tr>
                 <td>La suma de: </td>
                 <td colspan="3" style="font-weight: bold;">
-                    {{$model->total + $model->detalle[0]->acreditacion->afiliado->costo_matricula}}
+                    {{$model->total + $model->detalle[0]->aporte->afiliado->costo_matricula}}
                 </td>
             </tr>
             <tr>
                 <td>Por concepto de : </td>
                 <td colspan="3" style="font-weight: bold;">
                     @foreach ($model->detalle as $item)
-                        {{$item->acreditacion->mes}}  
-                        {{$item->acreditacion->gestion}}, 
+                        {{$item->aporte->mes}}  
+                        {{$item->aporte->gestion}}, 
                     @endforeach
                 </td>
             </tr>

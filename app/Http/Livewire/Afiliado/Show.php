@@ -8,7 +8,7 @@ use App\Models\Afiliado;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Requisito;
 use App\Models\MisRequisitos;
-use App\Models\Acreditacion;
+use App\Models\Aporte;
 use App\Traits\ProgressTrait;
 use Illuminate\Support\Carbon;
 
@@ -20,7 +20,7 @@ class Show extends Component
     public $requisitos;
     public $misRequisitos;
     public $porcentaje;
-    public $acreditacionMd;
+    public $aporteMd;
     public $selected;
     public $porcentajeColor;
     public $paramId;
@@ -51,7 +51,7 @@ class Show extends Component
         $this->misRequisitos = [];
         $this->porcentaje = 0;
         $this->porcentajeColor = "";
-        $this->acreditacionMd = new Acreditacion();
+        $this->aporteMd = new Aporte();
         $this->selected = true;
     }
 
@@ -64,9 +64,9 @@ class Show extends Component
             $this->porcentaje = $this->porcentaje($this->misRequisitos, $this->requisitos);
             $this->porcentajeColor = $this->porcentajeColor($this->porcentaje);    
         
-            $data = Acreditacion::where('afiliado_id', '=', $this->model->id)
-                ->when($this->acreditacionMd->gestion, function($query) {
-                    $query->where('gestion', 'like', '%'.$this->acreditacionMd->gestion);
+            $data = Aporte::where('afiliado_id', '=', $this->model->id)
+                ->when($this->aporteMd->gestion, function($query) {
+                    $query->where('gestion', 'like', '%'.$this->aporteMd->gestion);
                 })
                 ->paginate(12);
         }

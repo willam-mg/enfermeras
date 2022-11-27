@@ -45,7 +45,7 @@
                                     </button>
                                 </li>
                                 <li class="nav-item">
-                                    <button wire:ignore.self class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-acreditaciones" type="button" role="tab"  aria-selected="false">
+                                    <button wire:ignore.self class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-aportes" type="button" role="tab"  aria-selected="false">
                                         Aportes
                                     </button>
                                 </li>
@@ -65,7 +65,7 @@
                                     <livewire:credencial.edit wire:key="credencial-edit" />
                                     <livewire:credencial.show wire:key="credencial-show" />
                                 </div>
-                                <div wire:ignore.self class="tab-pane fade" id="pills-acreditaciones" role="tabpanel" aria-labelledby="pills-acreditaciones-tab">
+                                <div wire:ignore.self class="tab-pane fade" id="pills-aportes" role="tabpanel" aria-labelledby="pills-aportes-tab">
                                     <div class="text-end">
                                         <button class="btn btn-primary" type="button" id="btnPreparar">
                                             <i class="bi bi-cash"></i>
@@ -78,9 +78,9 @@
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-12 col-md-3">
                                                 <div class="form-floating mb-3">
-                                                    <input type="number" name="gestion" value="{{$acreditacionMd->gestion}}" list="list_gestiones" class="form-control @error('gestion') is-invalid @enderror" placeholder="gestion">
+                                                    <input type="number" name="gestion" value="{{$aporteMd->gestion}}" list="list_gestiones" class="form-control @error('gestion') is-invalid @enderror" placeholder="gestion">
                                                     <label class="form-label" for="gestion">Gestion</label>
-                                                    @include('acreditacion._list_gestiones')
+                                                    @include('aporte._list_gestiones')
                                                     @error('gestion')
                                                         <div class="invalid-feedback"> {{ $message }} </div>
                                                     @enderror
@@ -94,7 +94,7 @@
                                             </div>
                                         </div>
                                     </form>
-                                    @include('acreditacion._grid_acreditaciones')
+                                    @include('aporte._grid_aportes')
                                 </div>
                                 <div wire:ignore.self class="tab-pane fade" id="pills-matricula" role="tabpanel" aria-labelledby="pills-matricula-tab">
                                     <livewire:pago-matriculas />
@@ -119,7 +119,7 @@
                 e.preventDefault();
                 if ( confirm("Pagar estas mensualidades ?") ) {
                     let myArray = [];
-                    $('input[name^="acreditaciones"]').each(function() {
+                    $('input[name^="aportes"]').each(function() {
                         if ($(this).prop("checked") === true) {
                             let id = $(this).val();
                             myArray.push(id);
@@ -131,14 +131,14 @@
             });
 
             function checkAll() {
-                $('input[name^="acreditaciones"]').prop("checked", true);
+                $('input[name^="aportes"]').prop("checked", true);
             }
             $('#select_meses').on('click', function() {
                 if (!allChecked) {
                     checkAll();
                     allChecked = true;
                 } else {
-                    $('input[name^="acreditaciones"]').prop("checked", false);
+                    $('input[name^="aportes"]').prop("checked", false);
                     allChecked = false;
                 }
             });

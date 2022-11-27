@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AfiliadoController;
-use App\Http\Controllers\AcreditacionController;
+use App\Http\Controllers\AporteController;
 use App\Http\Controllers\PagoController;
 use App\Http\Livewire\Afiliado\Index as AfiliadoIndex;
 use App\Models\Afiliado;
@@ -36,13 +36,13 @@ Route::middleware('auth')->group(function() {
 });
 
 Route::post('afiliados/requisitos/{id}', [AfiliadoController::class, 'requisitos'])->middleware(['auth']);
-Route::resource('acreditaciones', AcreditacionController::class)->middleware(['auth']);
+Route::resource('aportes', AporteController::class)->middleware(['auth']);
 Route::resource('pagos', PagoController::class)->middleware(['auth']);
 Route::get('pagos/create/{id}', [PagoController::class, 'store'])->middleware(['auth']);
 Route::get('pagos/recibo/{id}', [PagoController::class, 'recibo'])->middleware(['auth']);
 Route::get('pagos/recibopdf/{id}', [PagoController::class, 'recibopdf'])->middleware(['auth']);
 
-Route::post('acreditaciones/pagar', [AcreditacionController::class, 'pagar'])->middleware(['auth']);
+Route::post('aportes/pagar', [AporteController::class, 'pagar'])->middleware(['auth']);
 
 Route::get('/obsequios', function(){
     return view('obsequio.index');

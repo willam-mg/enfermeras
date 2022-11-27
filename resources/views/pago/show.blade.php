@@ -3,7 +3,7 @@
 @section('title', 'Modificar afiliado')
 
 @section('content')
-    {{ Breadcrumbs::render('acreditaciones.show', $model) }}
+    {{ Breadcrumbs::render('aportes.show', $model) }}
 
     <div class="row justify-content-center">
         <div class="col-xs-12 col-md-5">

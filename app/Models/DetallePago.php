@@ -13,7 +13,7 @@ class DetallePago extends Model
 
     protected $fillable = [
         'monto',
-        'acreditacion_id',
+        'aporte_id',
         'pago_id'
     ];
     /**
@@ -27,8 +27,8 @@ class DetallePago extends Model
     /**
      * Get the phone associated with the user.
      */
-    public function acreditacion()
+    public function aporte()
     {
-        return $this->hasOne(Acreditacion::class, 'id', 'acreditacion_id');
+        return $this->hasOne(Aporte::class, 'id', 'aporte_id');
     }
 }

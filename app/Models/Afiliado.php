@@ -100,8 +100,8 @@ class Afiliado extends Model
         return $this->hasMany(MisRequisitos::class, 'afiliado_id');
     }
     
-    public function acreditaciones() {
-        return $this->hasMany(Acreditacion::class, 'afiliado_id');
+    public function aportes() {
+        return $this->hasMany(Aporte::class, 'afiliado_id');
     }
 
     /**

@@ -42,7 +42,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="true" href="{{ url('acreditaciones') }}">
+                                <a class="nav-link active" aria-current="true" href="{{ url('aportes') }}">
                                     Aportes
                                 </a>
                             </li>

@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
-class Acreditacion extends Model
+class Aporte extends Model
 {
     use HasFactory, SoftDeletes;
 
     const PENDIENTE = 2;
     const PAGADO = 3;
     
-    protected $table = 'acreditaciones';
+    protected $table = 'aportes';
 
     /**
      * The attributes that are mass assignable.

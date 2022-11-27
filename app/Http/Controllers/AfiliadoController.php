@@ -8,7 +8,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Traits\ImageTrait;
 use App\Models\Requisito;
 use App\Models\MisRequisitos;
-use App\Models\Acreditacion;
+use App\Models\Aporte;
 use App\Models\Credencial;
 use App\Traits\ProgressTrait;
 use Illuminate\Support\Carbon;
@@ -97,21 +97,21 @@ class AfiliadoController extends Controller
         $misRequisitos = $model->misRequisitos->pluck('requisito_id')->toArray();
         $porcentaje = $this->porcentaje($misRequisitos, $requisitos);
 
-        // acreditaciones
-        $acreditacionMd = new Acreditacion();
+        // aportes
+        $aporteMd = new Aporte();
         
         $afiliados = Afiliado::all();
         if ( $request->afiliado_id ) {
-            $acreditacionMd->gestion = $request->gestion;
-            // $acreditacionMd->mes = $request->mes;
-            // $acreditacionMd->pendiente = $request->pendiente == "null"?null:$request->pendiente;
-            $data = Acreditacion::where('afiliado_id', '=', $model->id)
-                ->where('gestion', 'like', '%'.$acreditacionMd->gestion)
-                // ->where('mes', '=', $acreditacionMd->mes)
-                // ->where('pendiente', '=', $acreditacionMd->pendiente)
+            $aporteMd->gestion = $request->gestion;
+            // $aporteMd->mes = $request->mes;
+            // $aporteMd->pendiente = $request->pendiente == "null"?null:$request->pendiente;
+            $data = Aporte::where('afiliado_id', '=', $model->id)
+                ->where('gestion', 'like', '%'.$aporteMd->gestion)
+                // ->where('mes', '=', $aporteMd->mes)
+                // ->where('pendiente', '=', $aporteMd->pendiente)
                 ->paginate(5);
         } else {
-            $data = Acreditacion::where('afiliado_id', '=', $model->id)->paginate(5);
+            $data = Aporte::where('afiliado_id', '=', $model->id)->paginate(5);
         }
 
         $selected = true;
@@ -123,7 +123,7 @@ class AfiliadoController extends Controller
             'porcentaje'=>$porcentaje,
             'porcentajeColor'=>$this->porcentajeColor($porcentaje),
             'data'=>$data,
-            'acreditacionMd'=>$acreditacionMd,
+            'aporteMd'=>$aporteMd,
             'selected'=>$selected,
         ]);
     }

@@ -19,9 +19,9 @@
             @foreach ($data as $key => $item)
                 <tr>
                     <td class="align-middle" for="flexCheck-{{$item->id}}">
-                        @if ($item->estado == \App\Models\Acreditacion::PENDIENTE) 
+                        @if ($item->estado == \App\Models\Aporte::PENDIENTE) 
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" {{$selected === false?'disabled':''}} name="acreditaciones[]" value="{{$item->id}}" id="flexCheck-{{$item->id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{$model->afiliado_id === null?'Seleccione el afiliado':'Mes '.$item->mes.' '.$item->gestion}}">
+                                <input class="form-check-input" type="checkbox" {{$selected === false?'disabled':''}} name="aportes[]" value="{{$item->id}}" id="flexCheck-{{$item->id}}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{$model->afiliado_id === null?'Seleccione el afiliado':'Mes '.$item->mes.' '.$item->gestion}}">
                             </div>
                         @else
                             <i class="bi bi-check2-square"></i>
@@ -38,7 +38,7 @@
                     <td class="text-capitalize">{{$item->mes}}</td>
                     <td>{{$item->monto}}</td>
                     <td>
-                        @if ($item->estado == \App\Models\Acreditacion::PENDIENTE)
+                        @if ($item->estado == \App\Models\Aporte::PENDIENTE)
                             <span class="badge rounded-pill bg-danger">Pendiente</span>        
                         @else
                             <span class="badge rounded-pill bg-success">Pagado</span>        
@@ -51,7 +51,7 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="aportes_dropdownActions">
                                 <li>
-                                    <a href="{{ route('acreditaciones.show', $item->id) }}" class="dropdown-item" type="button">
+                                    <a href="{{ route('aportes.show', $item->id) }}" class="dropdown-item" type="button">
                                         <i class="bi bi-eye"></i> Ver
                                     </a>
                                 </li>
@@ -61,12 +61,12 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('acreditaciones.edit', $item->id) }}" class="dropdown-item" type="button">
+                                    <a href="{{ route('aportes.edit', $item->id) }}" class="dropdown-item" type="button">
                                         <i class="bi bi-pencil"></i> Editar
                                     </a>
                                 </li>
                                 <li>
-                                    <form class="d-inline" action="{{ route('acreditaciones.destroy',$item->id) }}" method="POST" data-confirm="Esta seguro de eliminar este elemnto">
+                                    <form class="d-inline" action="{{ route('aportes.destroy',$item->id) }}" method="POST" data-confirm="Esta seguro de eliminar este elemnto">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="dropdown-item"">

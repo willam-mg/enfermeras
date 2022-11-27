@@ -25,7 +25,7 @@
                                 <button class="nav-link" id="pills-step3-tab" data-bs-toggle="pill" data-bs-target="#pills-step3" type="button"
                                     role="tab" aria-controls="pills-step3" aria-selected="false">
                                     <span class="badge rounded-pill bg-primary">3</span>
-                                    <small>Matricula y aporte mensual</small>
+                                    <small>Matricula y aportes</small>
                                 </button>
                             </li>
                             {{-- <li class="nav-item" role="presentation">
@@ -285,11 +285,11 @@
                                     </div>
                                     <div class="col-xs-12 col-sm-6 col-md-9" style="border-left:0.5px solid #a6a6a6">
                                         <h5>Aportes</h5>
-                                        {{-- costo de acreditacion model acreditacion --}}
+                                        {{-- costo de aporte model aporte --}}
                                         <div class="row">
                                             <div class="col-xs-12 col-md-4">
                                                 <div class="form-floating mb-3">
-                                                    <input type="number" name="monto" wire:model.defer="acreditacion.monto"
+                                                    <input type="number" name="monto" wire:model.defer="aporte.monto" id="aporte-monto"
                                                         class="form-control @error('monto') is-invalid @enderror" placeholder="Monto" required>
                                                     <label class="form-label" for="monto">Costo por mes</label>
                                                     @error('monto')
@@ -376,7 +376,7 @@
                                                                                 <b class="text-capitalize">
                                                                                     {{\Carbon\Carbon::create()->month($i)->locale('es_ES')->monthName}}
                                                                                 </b> <br>
-                                                                                <input class="form-check-input-create" style="visibility: hidden" name="monthsselected-{{$item}}[]" type="checkbox"
+                                                                                <input class="form-check-input-create aporte-month" data-year="{{$item}}" data-month="{{$i}}" style="visibility: hidden" name="monthsselected-{{$item}}[]" type="checkbox"
                                                                                     wire:model.defer="misAportes.{{$item.$i}}" value="{{$item.'-'.$i}}"
                                                                                     id="afiliado-create-requisitos-{{$item.$i}}">
                                                                             </label>
@@ -496,6 +496,25 @@
                 $(`.span-text-year-${year}`).removeClass('fw-bold');
             }
         }
+
+        function calculateTotales() {
+            let totalMatricula = 0;
+            let totalAportes = 0;
+            $(`.aporte-month`).each(function() {
+                if ($(this).is(':checked')) {
+                    // let year = $(this).attr('data-year');
+                    // let month = $(this).attr('data-month');
+                    let monto = parseFloat($('#aporte-monto').val());
+                    // console.trace(year, month);
+                    totalAportes += monto;
+                }
+            });
+            let total = totalMatricula + totalAportes;
+            $('#afiliado-total-aportes').html("");
+            $('#afiliado-total-aportes').append(totalAportes);
+            $('#afiliado-total').html("");
+            $('#afiliado-total').append(total);
+        }
         document.addEventListener("DOMContentLoaded", function () {
             $(".label-month").on('click', function() {
                 let yearMonth = $(this).attr('data-value');
@@ -507,6 +526,7 @@
                 }
                 
                 isAllSelectedMonths(year);
+                calculateTotales();
             });
             $("#afiliado-aporte-months-tab").on('click', function() {
                 if ($("#checkbox-years-modo").is(':checked')) {
@@ -518,6 +538,10 @@
                     $("#checkbox-years-modo").click();
                 }
             });
+
+            $('#aporte-monto').on('input', function() {
+                calculateTotales();
+            } );
         });
     </script>
 @endpush

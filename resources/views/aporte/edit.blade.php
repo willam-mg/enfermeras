@@ -7,7 +7,7 @@
 
     <div class="row justify-content-center">
         <div class="col-xs-12 col-md-5">
-            <form action="{{ route('acreditaciones.update', $model->id) }}" method="POST" class="needs-validation disabled-onsubmit" novalidate>
+            <form action="{{ route('aportes.update', $model->id) }}" method="POST" class="needs-validation disabled-onsubmit" novalidate>
                 @csrf
                 @method('PUT')
                 <div class="form-floating  mb-3">
@@ -64,7 +64,7 @@
                 <div class="form-floating  mb-3">
                     <select class="form-select @error('mes') is-invalid @enderror" id="mes" name="mes" aria-label="Afiliado">
                         <option selected>{{__('Seleccione el Mes')}}</option>
-                        @include('acreditacion._options_meses')
+                        @include('aporte._options_meses')
                     </select>
                     <label for="mes">Mes</label>
                     @error('mes')
