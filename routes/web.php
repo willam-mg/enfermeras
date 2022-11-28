@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Livewire\Obsequio\Index as ObsequioIndex;
 use App\Http\Livewire\Dashboard\Index as DashboardIndex;
+use App\Http\Livewire\Reportes\ReporteAfiliado;
 use App\Http\Livewire\User\Index as UserIndex;
 
 /*
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function() {
     Route::get('imprimir-credencial/{id}/{side?}', [AfiliadoController::class, 'imprimirCredencial']);
     Route::get('afiliados', AfiliadoIndex::class);
     Route::get('users', UserIndex::class);
+    Route::get('reportes/afiliados', ReporteAfiliado::class);
 });
 
 Route::post('afiliados/requisitos/{id}', [AfiliadoController::class, 'requisitos'])->middleware(['auth']);

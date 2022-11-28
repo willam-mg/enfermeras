@@ -64,9 +64,6 @@
                         <td>{{$item->fecha_registro}}</td>
                         <td>
                             <div class="dropdown">
-{{--  --}}
-    
-
                                 <button class="btn dropdown-toggle" type="button" id="dropdownActions" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-three-dots-vertical"></i>
                                 </button>

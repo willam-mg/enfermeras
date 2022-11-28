@@ -211,7 +211,6 @@ class AfiliadoController extends Controller
         $pdf->setPaper($customPaper);
 
         return $pdf->stream();
-        // return $pdf->download('disney.pdf');
     }
 
     public function requisitos($id, Request $request) {
