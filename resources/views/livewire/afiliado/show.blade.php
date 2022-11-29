@@ -66,35 +66,7 @@
                                     <livewire:credencial.show wire:key="credencial-show" />
                                 </div>
                                 <div wire:ignore.self class="tab-pane fade" id="pills-aportes" role="tabpanel" aria-labelledby="pills-aportes-tab">
-                                    <div class="text-end">
-                                        <button class="btn btn-primary" type="button" id="btnPreparar">
-                                            <i class="bi bi-cash"></i>
-                                            Pagar
-                                        </button>
-                                    </div>
-                                    <form action="{{ url('afiliados', $model->id) }}" method="POST" class="needs-validation disabled-onsubmit" novalidate>
-                                        @csrf
-                                        @method('GET')
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-12 col-md-3">
-                                                <div class="form-floating mb-3">
-                                                    <input type="number" name="gestion" value="{{$aporteMd->gestion}}" list="list_gestiones" class="form-control @error('gestion') is-invalid @enderror" placeholder="gestion">
-                                                    <label class="form-label" for="gestion">Gestion</label>
-                                                    @include('aporte._list_gestiones')
-                                                    @error('gestion')
-                                                        <div class="invalid-feedback"> {{ $message }} </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-md-3 pt-2">
-                                                <button type="submit" class="btn btn-primary">
-                                                    <i class="bi bi-search"></i>
-                                                    {{ __('Buscar') }}
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    @include('aporte._grid_aportes')
+                                    <livewire:afiliado.mis-aportes key="afiliado-misaportes" />
                                 </div>
                                 <div wire:ignore.self class="tab-pane fade" id="pills-matricula" role="tabpanel" aria-labelledby="pills-matricula-tab">
                                     <livewire:pago-matriculas />

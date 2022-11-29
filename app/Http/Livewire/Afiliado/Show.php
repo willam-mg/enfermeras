@@ -80,6 +80,8 @@ class Show extends Component
         $this->paramId = $id;
         $this->emitTo('credencial.index', 'setAfiliado', $this->paramId);
         $this->emitTo('pago-matriculas', 'setParamId', $this->paramId);
+        $this->emitTo('pago-matriculas', 'setParamId', $this->paramId);
+        $this->emitTo('afiliado.mis-aportes', 'setParamId', $this->paramId);
         $this->dispatchBrowserEvent('modal', [
             'component' => 'afiliado-show',
             'event' => 'show'

@@ -28,16 +28,23 @@ class Aporte extends Model
         'estado',
         'afiliado_id',
     ];
+    
+    /**
+     * the appends attributes for accesors.
+     */
+    protected $appends = [
+        'mes_name',
+    ];
 
     /**
      * Get the Mes.
      *
      * @return string
      */
-    public function getMesAttribute($value)
+    public function getMesNameAttribute()
     {
-        if ($value)
-            return Carbon::create()->month($value)->locale('es_ES')->monthName;
+        if ($this->mes)
+            return Carbon::create()->month($this->mes)->locale('es_ES')->monthName;
     }
 
     /**
