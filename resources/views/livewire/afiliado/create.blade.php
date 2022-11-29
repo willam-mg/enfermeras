@@ -275,12 +275,24 @@
                                         <h5>Matricula</h5>
                                         {{-- costo de matricula model afiliado --}}
                                         <div class="form-floating mb-3">
-                                            <input type="number" name="costo_matricula" wire:model.defer="model.costo_matricula"
+                                            <input type="number"  id="costoMatricula" name="costo_matricula" wire:model.defer="model.costo_matricula"
                                                 class="form-control @error('model.costo_matricula') is-invalid @enderror" placeholder="costo_matricula">
                                             <label class="form-label" for="costo_matricula">{{__('Costo de matricula')}}</label>
                                             @error('model.costo_matricula')
                                             <div class="invalid-feedback"> {{ $message }} </div>
                                             @enderror
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="number" id="montoMatricula" name="monto_matricula" wire:model.defer="montoMatricula"
+                                                class="form-control @error('montoMatricula') is-invalid @enderror" placeholder="Monto matricula">
+                                            <label class="form-label" for="monto_matricula">{{__('Monto de matricula')}}</label>
+                                            @error('montoMatricula')
+                                                <div class="invalid-feedback"> {{ $message }} </div>
+                                            @enderror
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="saldo_matricula">{{__('Saldo de matricula')}}</label>
+                                            <h4 id="saldoMatricula">{{$saldoMatricula}}</h4>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-6 col-md-9" style="border-left:0.5px solid #a6a6a6">
@@ -304,7 +316,7 @@
                                                             <div class="col-xs-12 col-md-3">
                                                                 Total matricula: <br>
                                                                 <h4>
-                                                                    <span id="afiliado-total-matricula">0</span>
+                                                                    <span id="afiliado-total-matricula">{{$montoMatricula}}</span>
                                                                     Bs.
                                                                 </h4>
                                                             </div>
@@ -314,7 +326,7 @@
                                                             <div class="col-xs-12 col-md-3">
                                                                 Total Aportes: 
                                                                 <h4>
-                                                                    <span id="afiliado-total-aportes">0</span>
+                                                                    <span id="afiliado-total-aportes">{{$totalAportes}}</span>
                                                                     Bs.
                                                                 </h4>
                                                             </div>
@@ -324,7 +336,7 @@
                                                             <div class="col-xs-12 col-md-4">
                                                                 Total: <br>
                                                                 <h4>
-                                                                    <span id="afiliado-total">0</span>
+                                                                    <span id="afiliado-total">{{$montoMatricula + $totalAportes}}</span>
                                                                     Bs.
                                                                 </h4>
                                                             </div>
@@ -356,7 +368,7 @@
                                                             <button class="nav-link {{$item == $actualYear?'active':''}}" id="afiliado-aportes-pills-tab-{{$item}}"
                                                                 data-bs-toggle="pill" data-bs-target="#afiliado-aportes-pills-year-{{$item}}" type="button" role="tab"
                                                                 aria-controls="pills-step1" aria-selected="true">
-                                                                <span class="span-text-year-{{$item}}">
+                                                                <span class="span-text-year-{{$item}} {{preg_grep("/$item/i", $misAportes)?'text-success fw-bold':''}}">
                                                                     {{$item}}
                                                                     <i class="bi bi-check2-square icon-year-checked-{{$item}}" style="display:none"></i>
                                                                 </span>
@@ -371,12 +383,13 @@
                                                                 @for ($i = 1; $i <= 12; $i++) 
                                                                     <div class="col-xs-2 col-md-2 mb-3">
                                                                         <div class="form-check text-center">
-                                                                            <label class="form-check-label calendar-aporte label-month" data-year="{{$item}}" data-value="{{$item.$i}}"
+                                                                            <label class="form-check-label calendar-aporte label-month {{in_array($item.'-'.$i, $misAportes)?'calendar-aporte-checked':''}}" data-year="{{$item}}" data-value="{{$item.$i}}"
                                                                                 for="afiliado-create-requisitos-{{$item.$i}}">
                                                                                 <b class="text-capitalize">
                                                                                     {{\Carbon\Carbon::create()->month($i)->locale('es_ES')->monthName}}
                                                                                 </b> <br>
-                                                                                <input class="form-check-input-create aporte-month" data-year="{{$item}}" data-month="{{$i}}" style="visibility: hidden" name="monthsselected-{{$item}}[]" type="checkbox"
+                                                                                {{-- style="visibility: hidden" --}}
+                                                                                <input class="form-check-input-create aporte-month" data-year="{{$item}}" data-month="{{$i}}"  name="monthsselected-{{$item}}[]" type="checkbox"
                                                                                     wire:model.defer="misAportes.{{$item.$i}}" value="{{$item.'-'.$i}}"
                                                                                     id="afiliado-create-requisitos-{{$item.$i}}">
                                                                             </label>
@@ -405,7 +418,7 @@
                                                 <div class="row justify-content-center">
                                                     <div class="col-xs-12 col-md-4">
                                                         <div class="form-floating mb-3">
-                                                            <input type="number" name="yearStart" wire:model.defer="yearStart" min="1000" step="1" max="3000"
+                                                            <input type="number" id="inputDesde" name="yearStart" wire:model.defer="yearStart" min="1000" step="1" max="3000"
                                                                 class="form-control @error('yearStart') is-invalid @enderror" placeholder="{{__("Desde")}}">
                                                             <label class="form-label" for="yearStart">{{__("Desde")}}</label>
                                                             @error('yearStart')
@@ -415,7 +428,7 @@
                                                     </div>
                                                     <div class="col-xs-12 col-md-4">
                                                         <div class="form-floating mb-3">
-                                                            <input type="number" name="yearEnd" wire:model.defer="yearEnd" min="1000" step="1" max="3000"
+                                                            <input type="number" id="inputHasta" name="yearEnd" wire:model.defer="yearEnd" min="1000" step="1" max="3000"
                                                                 class="form-control @error('yearEnd') is-invalid @enderror" placeholder="{{__("Hasta")}}">
                                                             <label class="form-label" for="yearEnd">{{__("Hasta")}}</label>
                                                             @error('yearEnd')
@@ -498,23 +511,54 @@
         }
 
         function calculateTotales() {
-            let totalMatricula = 0;
+            let costoMatricula = parseFloat($("#costoMatricula").val());
+            let totalMatricula = parseFloat($("#montoMatricula").val());
             let totalAportes = 0;
-            $(`.aporte-month`).each(function() {
-                if ($(this).is(':checked')) {
-                    // let year = $(this).attr('data-year');
-                    // let month = $(this).attr('data-month');
-                    let monto = parseFloat($('#aporte-monto').val());
-                    // console.trace(year, month);
-                    totalAportes += monto;
+            let monto = parseFloat($('#aporte-monto').val());
+            if (!$("#checkbox-years-modo").is(':checked')) {
+                $(`.aporte-month`).each(function() {
+                    if ($(this).is(':checked')) {
+                        totalAportes += monto;
+                    }
+                });
+            } else {
+                let desde = parseFloat($("#inputDesde").val());
+                let hasta = parseFloat($("#inputHasta").val());
+                for (let indexYear = desde; indexYear <= hasta; indexYear++) {
+                    totalAportes += (monto * 12);
                 }
-            });
-            let total = totalMatricula + totalAportes;
+            }
+            let total = totalAportes;
+            if ( totalMatricula <= costoMatricula && totalMatricula >= 0) {
+                total = totalMatricula + totalAportes;
+            } else {
+                $('#afiliado-total-matricula').html("");
+                $('#afiliado-total-matricula').append(0);
+            }
             $('#afiliado-total-aportes').html("");
             $('#afiliado-total-aportes').append(totalAportes);
             $('#afiliado-total').html("");
             $('#afiliado-total').append(total);
         }
+
+        function calcularTotalMatricula() {
+            let costo = parseFloat($("#costoMatricula").val());
+            let monto = parseFloat($("#montoMatricula").val());
+            let saldo = costo;
+            
+            $("#saldoMatricula").html("");
+            $('#afiliado-total-matricula').html("");
+            
+            if (monto >= 0 && monto <= costo ) { 
+                saldo=costo - monto; 
+                $('#afiliado-total-matricula').append(monto); 
+            } else {
+                $('#afiliado-total-matricula').append(0); 
+            } 
+            $("#saldoMatricula").append(saldo); 
+            calculateTotales();
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
             $(".label-month").on('click', function() {
                 let yearMonth = $(this).attr('data-value');
@@ -531,15 +575,21 @@
             $("#afiliado-aporte-months-tab").on('click', function() {
                 if ($("#checkbox-years-modo").is(':checked')) {
                     $("#checkbox-years-modo").click();
+                    calculateTotales();
                 }
             });
             $("#afiliado-aporte-years-tab").on('click', function() {
                 if (!$("#checkbox-years-modo").is(':checked')) {
                     $("#checkbox-years-modo").click();
+                    calculateTotales();
                 }
             });
-
-            $('#aporte-monto').on('input', function() {
+            
+            $('#costoMatricula, #montoMatricula, #aporte-monto').on('input', function() {
+                calcularTotalMatricula();
+            } );
+            
+            $('#aporte-monto, #inputDesde, #inputHasta').on('input', function() {
                 calculateTotales();
             } );
         });
