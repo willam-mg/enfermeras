@@ -14,6 +14,7 @@ class Pago extends Model
         'hora',
         'user_id',
         'afiliado_id',
+        'pago_matricula_id',
     ];
 
     public function detalle() {
@@ -25,18 +26,37 @@ class Pago extends Model
      */
     protected $appends = [
         'total', 
-        'foto_thumbnail', 
-        'foto_thumbnail_sm', 
     ];
 
     /**
-     * Get accesor foto thumbnail.
+     * Get total detalle pagos
      */
     public function getTotalAttribute(){
         $total = 0;
         foreach ($this->detalle as $key => $item) {
             $total += $item->monto;
         }
-        return $total;
+        return $this->pagoMatricula?$total + $this->pagoMatricula->monto: $total;
+    }
+
+    /**
+     * Get Afiliado
+     */
+    public function afiliado() {
+        return $this->hasOne(Afiliado::class, 'id', 'afiliado_id');
+    }
+    
+    /**
+     * Get User
+     */
+    public function user() {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+    
+    /**
+     * Get PagoMatricula
+     */
+    public function pagoMatricula() {
+        return $this->hasOne(PagoMatricula::class, 'id', 'pago_matricula_id');
     }
 }

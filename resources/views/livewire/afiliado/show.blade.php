@@ -49,6 +49,12 @@
                                         Aportes
                                     </button>
                                 </li>
+                                <li class="nav-item">
+                                    <button wire:ignore.self class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-mis-pagos" type="button"
+                                        role="tab" aria-selected="false">
+                                        Pagos
+                                    </button>
+                                </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent-afiliado">
                                 <div wire:ignore.self class="tab-pane fade show active" id="pills-info-afiliado" role="tabpanel" aria-labelledby="pills-info-afiliado-tab">
@@ -70,6 +76,9 @@
                                 </div>
                                 <div wire:ignore.self class="tab-pane fade" id="pills-matricula" role="tabpanel" aria-labelledby="pills-matricula-tab">
                                     <livewire:pago-matriculas />
+                                </div>
+                                <div wire:ignore.self class="tab-pane fade" id="pills-mis-pagos" role="tabpanel" aria-labelledby="pills-mis-pagos-tab">
+                                    <livewire:afiliado.mis-pagos  key="afiliado-mispagos" />
                                 </div>
                             </div>
                         </div>

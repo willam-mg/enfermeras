@@ -30,5 +30,12 @@ class PagoMatricula extends Model
     {
         return $this->hasOne('App\Models\User', 'id', 'user_id');
     }
+
+    /**
+     * get has many pagos
+     */
+    public function pagos() {
+        return $this->hasMany(Pago::class, 'afiliado_id');
+    }
     
 }

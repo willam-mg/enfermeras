@@ -154,6 +154,7 @@ class Create extends Component
                 'hora' => date('H:i:s'),
                 'user_id' => Auth::user()->id,
                 'afiliado_id' => $afiliado->id,
+                'pago_matricula_id' => $pagoMatricula->id,
             ]);
             if ($this->yearsModo) {
                 if (!$this->yearStart) {
@@ -203,11 +204,14 @@ class Create extends Component
             }
             
             DB::commit();
-            $this->emit('afiliadoAdded',$pago->id);
-            $this->initProperties();
+            $this->emitTo('afiliado.index', 'search');
             $this->dispatchBrowserEvent('modal', [
                 'component' => 'afiliado-create',
                 'event' => 'hide'
+            ]);
+            $this->initProperties();
+            $this->dispatchBrowserEvent('browserPrint', [
+                'url' => url('pagos/recibopdf/'.$pago->id)
             ]);
             $this->dispatchBrowserEvent('switalert', [
                 'type' => 'success',

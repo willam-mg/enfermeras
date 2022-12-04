@@ -183,18 +183,14 @@ class PagoController extends Controller
     } 
     public function recibopdf($id) {
         $model = Pago::find($id);
-        // return view('pago._recibo', [
-        //     'model'=>$model
-        // ]);
+        return view('pago._recibopdf', [
+            'model'=>$model
+        ]);
+        // $pdf = Pdf::loadView('pago._recibopdf', compact('model'));
+                // $pdf->set_option('defaultFont', 'Helvetica');
+                // $pdf->set_option('enable_php', true);    
+                // $pdf->set_option('enable_remote', true);
 
-
-
-        $pdf = Pdf::loadView('pago._recibopdf', compact('model'));
-        // $customPaper = array(0,0,360,360);
-        // $customPaper = array(0,0,5.5,3.5);
-        $pdf->set_option('defaultFont', 'Helvetica');
-        $pdf->set_option('enable_php', true);    
-        $pdf->set_option('enable_remote', true);
         // 8.5 x 5.3 cm => 240.945 (240.944882) x 150.236 (150.23622) points => 321.25984266666666 x 200.31496 px
         // 8.5 x 5.3 cm =>
         // $customPaper = array(0,0, 207.87401575, 132.28346457);
@@ -202,9 +198,9 @@ class PagoController extends Controller
         // $pdf->setPaper($customPaper);
         
         // $customPaper = array(0,0, 612, 396);
-        $customPaper = array(0,0, 595.276, 420.94488);
-        $pdf->setPaper($customPaper);
+                // $customPaper = array(0,0, 595.276, 420.94488);
+                // $pdf->setPaper($customPaper);
 
-        return $pdf->stream();
+                // return $pdf->stream();
     } 
 }

@@ -19,6 +19,7 @@ class CreatePagosTable extends Migration
             $table->time('hora');
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('afiliado_id')->constrained('afiliados');
+            $table->foreignId('pago_matricula_id')->nullable()->constrained('pago_matriculas');
             $table->timestamps();
             $table->softDeletes();
         });

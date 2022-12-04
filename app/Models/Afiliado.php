@@ -43,6 +43,7 @@ class Afiliado extends Model
         'foto', 
         'foto_thumbnail', 
         'foto_thumbnail_sm', 
+        'total_pagos', 
     ];
 
     // /**
@@ -116,5 +117,24 @@ class Afiliado extends Model
      */
     public function pagoMatriculas() {
         return $this->hasMany(PagoMatricula::class, 'afiliado_id');
+    }
+    
+    /**
+     * get has many pagos
+     */
+    public function pagos() {
+        return $this->hasMany(Pago::class, 'afiliado_id');
+    }
+
+    /**
+     * get Total pagos
+     */
+    public function getTotalPagosAttribute()
+    {
+        $sum = 0;
+        foreach ($this->pagos as $key => $pago) {
+            $sum += $pago->total;
+        }
+        return $sum;
     }
 }

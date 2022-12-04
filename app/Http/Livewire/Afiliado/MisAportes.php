@@ -19,7 +19,7 @@ class MisAportes extends Component
 
     protected $paginationTheme = 'bootstrap';
     
-    protected $listeners = ['setParamId'];
+    protected $listeners = ['setParamId', 'search'];
 
     public function mount() {
         $this->model = new Afiliado();
@@ -40,13 +40,17 @@ class MisAportes extends Component
                     $this->focusYear = in_array($this->actualYear, $this->years)?$this->actualYear:$this->years[count($this->years) - 1];
                 }
             }
-            $data = Aporte::where('afiliado_id', '=', $this->model->id)
-                ->where('gestion', $this->focusYear)
-                ->take(12)->get();
+            $data = $this->search();
         }
         return view('livewire.afiliado.mis-aportes', [
             'data' => $data
         ]);
+    }
+
+    public function search() {
+        return Aporte::where('afiliado_id', '=', $this->model->id)
+            ->where('gestion', $this->focusYear)
+            ->take(12)->get();
     }
 
     public function setParamId($id = null)

@@ -1,6 +1,6 @@
 <div>
 
-    <div wire:ignore.self class="modal" id="modal-credencial-create" tabindex="-1">
+    <div wire:ignore.self class="modal" id="modal-credencial-create" tabindex="3">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">

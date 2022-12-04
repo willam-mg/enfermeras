@@ -31,7 +31,6 @@ class Index extends Component
     ];
 
     protected $listeners = [
-        'afiliadoAdded' => 'search',
         'search' => 'search',
     ];
 

@@ -31,19 +31,17 @@
         </main>
     </div>
 
-    <div id="print-content" class="d-none d-print-block"></div>
-
     @livewireScripts
 
     <script>
         function printInWindow(url) {
             $.get( url, function( data ) {
-                $( "#print-content" ).html( data );
-                w=window.open();
-                // w.document.write($('#print-content').html());
+                var w = window.open("", "Imprimir", "width=800,scrollbars=yes,resizable=yes,status=yes");
                 w.document.write(data);
-                // w.print();
-                // w.close();
+                setTimeout(() => {
+                    w.print();
+                    w.close();
+                }, 1000);
             });
         }
         document.addEventListener("DOMContentLoaded", function() {
@@ -57,6 +55,9 @@
                     title: data.title,
                     text: data.message
                 })
+            });
+            window.addEventListener('browserPrint', event => {
+                printInWindow(event.detail.url);
             });
         });
     </script>
