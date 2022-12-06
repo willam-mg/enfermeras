@@ -176,7 +176,7 @@
         function destroyAfiliado(id) {
             Swal.fire({
                 title: "Afiliado",
-                text: "¿ Esta seguro de eliminar este elemnto ?",
+                text: "¿ Esta seguro de eliminar este elemento ?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#dc3545',

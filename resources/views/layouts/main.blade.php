@@ -17,14 +17,14 @@
 <body>
     <div id="app">
         @auth
-        <x-layout.navbar />
-        @endauth
-        <div class="d-none d-sm-block">
-            <div
-                class="d-flex flex-column flex-shrink-0 bg-light float-start shadow min-vh-100 d-inline-block content-left fixed-top">
-                <x-layout.sidenavbar />
+            <x-layout.navbar />
+            <div class="d-none d-sm-block">
+                <div
+                    class="d-flex flex-column flex-shrink-0 bg-light float-start shadow min-vh-100 d-inline-block content-left fixed-top">
+                    <x-layout.sidenavbar orientation="vertical" />
+                </div>
             </div>
-        </div>
+        @endauth
         <main class="container content-right float-end">
             <div class="container-luid pt-3 bg-light">
                 @include('layouts.flash-message')

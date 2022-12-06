@@ -103,16 +103,22 @@
                 <tr>
                     <td>La suma de: </td>
                     <td colspan="3" style="font-weight: bold;">
-                        {{$model->total + $model->detalle[0]->aporte->afiliado->costo_matricula}}
+                        {{$model->total}}
                     </td>
                 </tr>
                 <tr>
                     <td>Por concepto de : </td>
                     <td colspan="3" style="font-weight: bold;">
-                        @foreach ($model->detalle as $item)
-                            {{$item->aporte->mes}}  
-                            {{$item->aporte->gestion}}, 
-                        @endforeach
+                        @if ($model->pagoMatricula)
+                            Pago matricula por: {{$model->pagoMatricula}} Bs. <br>
+                        @endif
+                        @if (count($model->detalle) > 0)
+                            Por pago de aportes:
+                            @foreach ($model->detalle as $item)
+                                {{$item->aporte->mes}}  
+                                {{$item->aporte->gestion}}, 
+                            @endforeach
+                        @endif 
                     </td>
                 </tr>
                 <tr>

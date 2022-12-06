@@ -102,7 +102,7 @@
 			function destroyPagoMatricula(id) {
 				Swal.fire({
 					title: "Pago matricula",
-					text: "¿ Esta seguro de eliminar este elemnto ?",
+					text: "¿ Esta seguro de eliminar este elemento ?",
 					icon: 'warning',
 					showCancelButton: true,
 					confirmButtonColor: '#dc3545',

@@ -50,7 +50,7 @@
                             <span class="badge rounded-pill bg-success">Pagado</span> <br>
                         </a>
                     @else
-                        <label onclick="checkMonthToPay(this)" class="form-check-label calendar-aporte {{in_array($itemAporte->gestion.'-'.$itemAporte->mes, $aportesToPay)?'calendar-aporte-checked':'calendar-aporte-pendiente'}}" data-year="{{$itemAporte->gestion}}" data-value="{{$itemAporte->id}}" for="misaportes-monthcheck-{{$itemAporte->id}}" style="padding-top:22px">
+                        <label onclick="checkMonthToPay(this)" wire:click="updateTotalAportes()" class="form-check-label calendar-aporte {{in_array($itemAporte->gestion.'-'.$itemAporte->mes.'-'.$itemAporte->monto, $aportesToPay)?'calendar-aporte-checked':'calendar-aporte-pendiente'}}" data-year="{{$itemAporte->gestion}}" data-value="{{$itemAporte->id}}" for="misaportes-monthcheck-{{$itemAporte->id}}" style="padding-top:22px">
                             <b class="text-capitalize">
                                 {{$itemAporte->mes_name}}
                             </b> <br>
@@ -67,13 +67,11 @@
                                     Pagado
                                 </span>
                             @endif  <br>
-                            {{-- style="visibility: hidden" --}}
-                            <input class="misaporte-month" data-monto="{{$itemAporte->monto}}" data-year="{{$itemAporte->gestion}}" data-month="{{$itemAporte->mes}}"
+                            <input style="visibility: hidden" class="misaporte-month" data-monto="{{$itemAporte->monto}}" data-year="{{$itemAporte->gestion}}" data-month="{{$itemAporte->mes}}"
                                 name="misaportesmonthsselected-{{$itemAporte->gestion}}[]" type="checkbox"
                                 wire:model.defer="aportesToPay.{{$itemAporte->id}}"
                                 value="{{$itemAporte->gestion.'-'.$itemAporte->mes.'-'.$itemAporte->monto}}"
                                 id="misaportes-monthcheck-{{$itemAporte->id}}">
-                            
                         </label>
                     @endif
                 </div>
@@ -93,8 +91,8 @@
 
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-6"></div>
-        <div class="col-xs-12 col-sm-12 col-md-6">
-            <button class="btn btn-success">
+        <div class="col-xs-12 col-sm-12 col-md-6 text-end">
+            <button class="btn btn-lg btn-success" onclick="registrarMisAportes()">
                 <i class="bi bi-cash"></i>
                 Registrar pago
             </button>
@@ -149,6 +147,31 @@
                 });
                 $('#misaportes-total-aportes').html("");
                 $('#misaportes-total-aportes').append(totalAportes);
+            }
+
+            function registrarMisAportes() {
+                var itemsToPay = @this.aportesToPay;
+                console.log(itemsToPay);
+                if (itemsToPay.length == 0) {
+                    Swal.fire({
+                        icon: 'info',
+                        title: '',
+                        text: 'Seleccione los meses a pagar'
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Afiliado",
+                        text: "¿ Esta seguro de regsitrar los aportes seleccionados ?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#1c8854',
+                        confirmButtonText: 'Si registrar'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                @this.store();
+                            }
+                        });
+                }
             }
         </script>    
     @endpush

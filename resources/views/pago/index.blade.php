@@ -40,7 +40,7 @@
                                         </a>
                                     </li> --}}
                                     <li>
-                                        <form class="d-inline" action="{{ route('pagos.destroy',$item->id) }}" method="POST" data-confirm="Esta seguro de eliminar este elemnto">
+                                        <form class="d-inline" action="{{ route('pagos.destroy',$item->id) }}" method="POST" data-confirm="Esta seguro de eliminar este elemento">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="dropdown-item"">
