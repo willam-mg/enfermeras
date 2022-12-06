@@ -53,7 +53,7 @@
                     {{__('Rochavel Bloque 1 Piso 1 Oficina 6 ')}}
                 </td>
                 <td class="text-center" style="width: 80px">
-                    <img src="{{public_path('img/logo-v2.svg')}}" alt="foto" width="70" height="auto">
+                    <img src="{{public_path('images/logo-v2.svg')}}" alt="foto" width="70" height="auto">
                 </td>
             </tr>
         </tbody>
@@ -61,5 +61,5 @@
     <div class="border-styled-back">
     </div>
     <div class="marca-agua">
-        <img src="{{public_path('img/logo-redondo-marcaagua.png')}}" alt="foto" width="120" height="auto">
+        <img src="{{public_path('images/logo-redondo-marcaagua.png')}}" alt="foto" width="120" height="auto">
     </div>

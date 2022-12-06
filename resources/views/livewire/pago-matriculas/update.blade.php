@@ -18,8 +18,14 @@
                     </div>
 
                     <div class="text-end">
-                        <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-warning">Guardar</button>
+                        <button type="button" wire:click.prevent="cancel()" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            <i class="bi bi-x"></i>
+                            Cerrar
+                        </button>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="bi bi-pencil"></i>
+                            Guardar
+                        </button>
                     </div>
                 </form>
             </div>

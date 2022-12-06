@@ -1,6 +1,9 @@
+// table pointer
 .table-row-pointer tbody tr {
     cursor:pointer;
 }
+
+// calendar icons
 .calendar-aporte {
     display: block;
     padding-top: 45px;
@@ -12,6 +15,36 @@
 }
 
 .calendar-aporte-checked {
-    color:white;
     background-image: url(../img/calendar-success.svg);
+}
+.calendar-aporte-pendiente {
+    background-image: url(../img/calendar-danger.svg);
+}
+
+
+// layout content
+$widthSideBar: 250px;
+$ptContentRight: 3.6rem;
+.content-right {
+    width: calc(100% - $widthSideBar);
+    height: 85vh;
+    padding-top: $ptContentRight;
+    ;
+}
+
+.content-left {
+    padding: calc($ptContentRight + 2rem) 1rem 1rem 1rem;
+    width: $widthSideBar;
+    z-index: 0;
+}
+
+@media only screen and (max-width: 600px) {
+    .content-right {
+        width: 100%;
+    }
+}
+
+// modals
+.bg-modal-over {
+    background: #00000082 !important;
 }

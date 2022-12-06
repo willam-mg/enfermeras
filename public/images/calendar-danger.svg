@@ -2,8 +2,8 @@
 <!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
-<path fill="#1C8854" d="M3.5,0C3.8,0,4,0.2,4,0.5V1h8V0.5C12,0.2,12.2,0,12.5,0S13,0.2,13,0.5V1h1c1.1,0,2,0.9,2,2v11
-	c0,1.1-0.9,2-2,2H2c-1.1,0-2-0.9-2-2V3c0-1.1,0.9-2,2-2h1V0.5C3,0.2,3.2,0,3.5,0z M1,4v10c0,0.6,0.4,1,1,1h12c0.6,0,1-0.4,1-1V4H1z"
-	/>
+	 viewBox="0 0 960 960" enable-background="new 0 0 960 960" xml:space="preserve">
+<path fill="#DC3545" d="M210,0c18,0,30,12,30,30v30h480V30c0-18,12-30,30-30s30,12,30,30v30h60c66,0,120,54,120,120v660
+	c0,66-54,120-120,120H120C54,960,0,906,0,840V180C0,114,54,60,120,60h60V30C180,12,192,0,210,0z M60,240v600c0,36,24,60,60,60h720
+	c36,0,60-24,60-60V240H60z"/>
 </svg>

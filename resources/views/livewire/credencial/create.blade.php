@@ -1,6 +1,6 @@
 <div>
-
-    <div wire:ignore.self class="modal" id="modal-credencial-create" tabindex="3">
+    <x-page.loading />
+    <div wire:ignore.self class="modal bg-modal-over" id="modal-credencial-create" tabindex="3">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
@@ -50,6 +50,10 @@
                             <label class="form-label" for="costo_renovacion">{{__("Costo de renovacion")}}</label>
                         </div>
                         <div class="text-end">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                <i class="bi bi-x"></i>
+                                Cerrar
+                            </button>
                             <button type="submit" class="btn btn-success" wire:loading.attr="disabled">
                                 <i class="bi bi-plus"></i>
                                 {{ __('Registrar') }}

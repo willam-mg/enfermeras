@@ -1,5 +1,6 @@
 <div>
-    <div wire:ignore.self class="modal" id="modal-afiliado-edit" tabindex="-1">
+    <x-page.loading />
+    <div wire:ignore.self class="modal bg-modal-over" id="modal-afiliado-edit" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

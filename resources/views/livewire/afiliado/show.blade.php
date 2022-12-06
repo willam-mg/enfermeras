@@ -13,7 +13,7 @@
                             @if ($model->foto)
                                 <img src="{{$model->foto_thumbnail}}" alt="foto" width="100%">
                             @else
-                                <img src="/img/no-image-user.png" alt="foto" width="100%">
+                                <img src="{{asset('images/no-image-user.png')}}" alt="foto" width="100%">
                             @endif
                             <h4 class="mt-3">{{$model->nombre_completo}}</h4>
                             <div class="d-grid gap-2 mb-3">

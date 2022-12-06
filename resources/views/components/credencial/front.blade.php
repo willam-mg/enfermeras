@@ -15,7 +15,7 @@
                 @if ($model->foto)
                     <img src="{{storage_path('app/public/uploads/'.$model->src_foto)}}" alt="Foto" >
                 @else
-                    <img src="{{public_path('img/img_user_none.png')}}" alt="foto">
+                    <img src="{{public_path('images/img_user_none.svg')}}" alt="foto">
                 @endif
             </td>
             <td rowspan="7" style="width: 18px;">
@@ -67,7 +67,7 @@
         <tbody>
             <tr>
                 <td rowspan="2" class="text-center text-uppercase" style="width: 150px">
-                    <img src="{{public_path('img/isotipo.svg')}}" alt="foto" width="45" height="auto">
+                    <img src="{{public_path('images/isotipo.svg')}}" alt="foto" width="45" height="auto">
                     <br>
                     <b>
                         {{__('A.D.E.A. CBBA.')}}
@@ -99,5 +99,5 @@
     <div class="border-styled-white"></div>
 </div>
 <div class="marca-agua-front">
-    <img src="{{public_path('img/isotipo-marcaagua.png')}}" alt="foto" width="255" height="auto">
+    <img src="{{public_path('images/isotipo-marcaagua.png')}}" alt="foto" width="255" height="auto">
 </div>

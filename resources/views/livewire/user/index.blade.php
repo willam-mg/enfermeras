@@ -1,6 +1,7 @@
 <div>
     @section('title', 'Usuarios')
-    {{ Breadcrumbs::render('users') }}
+    @section('breadcrumbs', Breadcrumbs::render('users') )
+    
     <div class="text-end">
         <button wire:click="$emitTo('user.create', 'openModal')" class="btn btn-success">
             <i class="bi bi-plus"></i>

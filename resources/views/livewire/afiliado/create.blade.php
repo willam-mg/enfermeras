@@ -6,36 +6,38 @@
                 <div class="modal-header">
                     <h5 class="modal-title text-center">Nuevo Afiliado</h5>
                     <div class="text-center" style="width: 70%; height: 100px; position: absolute; top:5px; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%)">
-                        <ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="pills-step1-tab" data-bs-toggle="pill" data-bs-target="#pills-step1"
-                                    type="button" role="tab" aria-controls="pills-step1" aria-selected="true">
-                                    <span class="badge rounded-pill bg-primary">1</span>
-                                    <small>Datos personales</small>
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link position-relative" id="pills-step2-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-step2" type="button" role="tab" aria-controls="pills-step2" aria-selected="false">
-                                    <span class="badge rounded-pill bg-primary">2</span>
-                                    <small>Requisitos</small>
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-step3-tab" data-bs-toggle="pill" data-bs-target="#pills-step3" type="button"
-                                    role="tab" aria-controls="pills-step3" aria-selected="false">
-                                    <span class="badge rounded-pill bg-primary">3</span>
-                                    <small>Matricula y aportes</small>
-                                </button>
-                            </li>
-                            {{-- <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-step4-tab" data-bs-toggle="pill" data-bs-target="#pills-step4" type="button"
-                                    role="tab" aria-controls="pills-step4" aria-selected="false">
-                                    Paso 4<br>
-                                    <small>Vista Previa</small>
-                                </button>
-                            </li> --}}
-                        </ul>
+                        <div class="d-none d-sm-block">
+                            <ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="pills-step1-tab" data-bs-toggle="pill" data-bs-target="#pills-step1"
+                                        type="button" role="tab" aria-controls="pills-step1" aria-selected="true">
+                                        <span class="badge rounded-pill bg-primary">1</span>
+                                        <small>Datos personales</small>
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link position-relative" id="pills-step2-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-step2" type="button" role="tab" aria-controls="pills-step2" aria-selected="false">
+                                        <span class="badge rounded-pill bg-primary">2</span>
+                                        <small>Requisitos</small>
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-step3-tab" data-bs-toggle="pill" data-bs-target="#pills-step3" type="button"
+                                        role="tab" aria-controls="pills-step3" aria-selected="false">
+                                        <span class="badge rounded-pill bg-primary">3</span>
+                                        <small>Matricula y aportes</small>
+                                    </button>
+                                </li>
+                                {{-- <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-step4-tab" data-bs-toggle="pill" data-bs-target="#pills-step4" type="button"
+                                        role="tab" aria-controls="pills-step4" aria-selected="false">
+                                        Paso 4<br>
+                                        <small>Vista Previa</small>
+                                    </button>
+                                </li> --}}
+                            </ul>
+                        </div>
                     </div>
                     
                     
@@ -253,19 +255,23 @@
                                     </div>
                                 </div>
                                 
-                                <div class="col-xs-12 col-sm-12 col-md-12 text-end">
-                                    <button class="btn btn-link" onclick="selectAllRequisitos()" type="button">
-                                        <i class="bi bi-check-all"></i>
-                                        Seleccionar todo
-                                    </button>
-                                    <button class="btn btn-secondary" type="button" onclick="goToStep(1)">
-                                        <i class="bi bi-chevron-left"></i>
-                                        Atras
-                                    </button>
-                                    <button class="btn btn-primary" type="button" onclick="goToStep(3)">
-                                        <i class="bi bi-chevron-right"></i>
-                                        Siguiente
-                                    </button>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-9 col-md-9 text-end">
+                                        <button class="btn btn-link" onclick="selectAllRequisitos()" type="button">
+                                            <i class="bi bi-check-all"></i>
+                                            Seleccionar todo
+                                        </button>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-3 col-md-3 text-end">
+                                        <button class="btn btn-secondary" type="button" onclick="goToStep(1)">
+                                            <i class="bi bi-chevron-left"></i>
+                                            Atras
+                                        </button>
+                                        <button class="btn btn-primary" type="button" onclick="goToStep(3)">
+                                            <i class="bi bi-chevron-right"></i>
+                                            Siguiente
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -368,7 +374,7 @@
                                                             <button class="nav-link {{$item == $actualYear?'active':''}}" id="afiliado-aportes-pills-tab-{{$item}}"
                                                                 data-bs-toggle="pill" data-bs-target="#afiliado-aportes-pills-year-{{$item}}" type="button" role="tab"
                                                                 aria-controls="pills-step1" aria-selected="true">
-                                                                <span class="span-text-year-{{$item}} {{preg_grep("/$item/i", $misAportes)?'text-success fw-bold':''}}">
+                                                                <span class="span-text-year-{{$item}} {{preg_grep("/$item/i", $misAportes)?'text-warning fw-bold':''}}">
                                                                     {{$item}}
                                                                     <i class="bi bi-check2-square icon-year-checked-{{$item}}" style="display:none"></i>
                                                                 </span>
@@ -381,17 +387,16 @@
                                                         <div class="tab-pane fade show {{$item == $actualYear?'active':''}}" id="afiliado-aportes-pills-year-{{$item}}" role="tabpanel" aria-labelledby="afiliado-aportes-pills-tab-{{$item}}">
                                                             <div class="row">
                                                                 @for ($i = 1; $i <= 12; $i++) 
-                                                                    <div class="col-xs-2 col-md-2 mb-3">
+                                                                    <div class="col-xs-6 col-sm-6 col-md-2 mb-3 float-start">
                                                                         <div class="form-check text-center">
                                                                             <label class="form-check-label calendar-aporte label-month {{in_array($item.'-'.$i, $misAportes)?'calendar-aporte-checked':''}}" data-year="{{$item}}" data-value="{{$item.$i}}"
-                                                                                for="afiliado-create-requisitos-{{$item.$i}}">
+                                                                                for="afiliado-create-monthcheck-{{$item.$i}}">
                                                                                 <b class="text-capitalize">
                                                                                     {{\Carbon\Carbon::create()->month($i)->locale('es_ES')->monthName}}
                                                                                 </b> <br>
-                                                                                {{-- style="visibility: hidden" --}}
                                                                                 <input class="form-check-input-create aporte-month" data-year="{{$item}}" data-month="{{$i}}"  name="monthsselected-{{$item}}[]" type="checkbox"
                                                                                     wire:model.defer="misAportes.{{$item.$i}}" value="{{$item.'-'.$i}}"
-                                                                                    id="afiliado-create-requisitos-{{$item.$i}}">
+                                                                                    id="afiliado-create-monthcheck-{{$item.$i}}">
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -470,128 +475,129 @@
             </div>
         </div>
     </div>
-</div>
-@push('scripts')
-    <script>
-        function goToStep(step) {
-            $(`#pills-step${step}-tab`).trigger("click");
-        }
-        function selectAllRequisitos() {
-            $("input[name='seleccionados[]']").each(function() {
-                if (!$(this).is(':checked')) {
-                    this.click();
-                }
-            }).get();
-        }
-        function checkAllMonths(year, unchecked = false) {
-            $(`input[name='monthsselected-${year}[]']`).each(function() {
-                if ($(this).is(':checked') == unchecked) {
-                    this.click();
-                }
-            });
-            isAllSelectedMonths(year);
-        }
 
-        function isAllSelectedMonths(year) {
-            let count = 0;
-            $(`input[name='monthsselected-${year}[]']`).each(function() {
-                if ($(this).is(':checked')) {
-                    count++;
-                }
-            });
-            if (count > 0) {
-                $(`.icon-year-checked-${year}`).attr('style', 'display:inline');
-                $(`.span-text-year-${year}`).addClass('text-success');
-                $(`.span-text-year-${year}`).addClass('fw-bold');
-            } else {
-                $(`.icon-year-checked-${year}`).attr('style', 'display:none');
-                $(`.span-text-year-${year}`).removeClass('text-success');
-                $(`.span-text-year-${year}`).removeClass('fw-bold');
+    @push('scripts')
+        <script>
+            function goToStep(step) {
+                $(`#pills-step${step}-tab`).trigger("click");
             }
-        }
-
-        function calculateTotales() {
-            let costoMatricula = parseFloat($("#costoMatricula").val());
-            let totalMatricula = parseFloat($("#montoMatricula").val());
-            let totalAportes = 0;
-            let monto = parseFloat($('#aporte-monto').val());
-            if (!$("#checkbox-years-modo").is(':checked')) {
-                $(`.aporte-month`).each(function() {
-                    if ($(this).is(':checked')) {
-                        totalAportes += monto;
+            function selectAllRequisitos() {
+                $("input[name='seleccionados[]']").each(function() {
+                    if (!$(this).is(':checked')) {
+                        this.click();
+                    }
+                }).get();
+            }
+            function checkAllMonths(year, unchecked = false) {
+                $(`input[name='monthsselected-${year}[]']`).each(function() {
+                    if ($(this).is(':checked') == unchecked) {
+                        this.click();
                     }
                 });
-            } else {
-                let desde = parseFloat($("#inputDesde").val());
-                let hasta = parseFloat($("#inputHasta").val());
-                for (let indexYear = desde; indexYear <= hasta; indexYear++) {
-                    totalAportes += (monto * 12);
-                }
-            }
-            let total = totalAportes;
-            if ( totalMatricula <= costoMatricula && totalMatricula >= 0) {
-                total = totalMatricula + totalAportes;
-            } else {
-                $('#afiliado-total-matricula').html("");
-                $('#afiliado-total-matricula').append(0);
-            }
-            $('#afiliado-total-aportes').html("");
-            $('#afiliado-total-aportes').append(totalAportes);
-            $('#afiliado-total').html("");
-            $('#afiliado-total').append(total);
-        }
-
-        function calcularTotalMatricula() {
-            let costo = parseFloat($("#costoMatricula").val());
-            let monto = parseFloat($("#montoMatricula").val());
-            let saldo = costo;
-            
-            $("#saldoMatricula").html("");
-            $('#afiliado-total-matricula').html("");
-            
-            if (monto >= 0 && monto <= costo ) { 
-                saldo=costo - monto; 
-                $('#afiliado-total-matricula').append(monto); 
-            } else {
-                $('#afiliado-total-matricula').append(0); 
-            } 
-            $("#saldoMatricula").append(saldo); 
-            calculateTotales();
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-            $(".label-month").on('click', function() {
-                let yearMonth = $(this).attr('data-value');
-                let year = $(this).attr('data-year');
-                if ($('#afiliado-create-requisitos-'+yearMonth).is(':checked')) {
-                    $(this).addClass('calendar-aporte-checked');
-                }else {
-                    $(this).removeClass('calendar-aporte-checked');
-                }
-                
                 isAllSelectedMonths(year);
-                calculateTotales();
-            });
-            $("#afiliado-aporte-months-tab").on('click', function() {
-                if ($("#checkbox-years-modo").is(':checked')) {
-                    $("#checkbox-years-modo").click();
-                    calculateTotales();
+            }
+
+            function isAllSelectedMonths(year) {
+                let count = 0;
+                $(`input[name='monthsselected-${year}[]']`).each(function() {
+                    if ($(this).is(':checked')) {
+                        count++;
+                    }
+                });
+                if (count > 0) {
+                    $(`.icon-year-checked-${year}`).attr('style', 'display:inline');
+                    $(`.span-text-year-${year}`).addClass('text-warning');
+                    $(`.span-text-year-${year}`).addClass('fw-bold');
+                } else {
+                    $(`.icon-year-checked-${year}`).attr('style', 'display:none');
+                    $(`.span-text-year-${year}`).removeClass('text-warning');
+                    $(`.span-text-year-${year}`).removeClass('fw-bold');
                 }
-            });
-            $("#afiliado-aporte-years-tab").on('click', function() {
+            }
+
+            function calculateTotales() {
+                let costoMatricula = parseFloat($("#costoMatricula").val());
+                let totalMatricula = parseFloat($("#montoMatricula").val());
+                let totalAportes = 0;
+                let monto = parseFloat($('#aporte-monto').val());
                 if (!$("#checkbox-years-modo").is(':checked')) {
-                    $("#checkbox-years-modo").click();
-                    calculateTotales();
+                    $(`.aporte-month`).each(function() {
+                        if ($(this).is(':checked')) {
+                            totalAportes += monto;
+                        }
+                    });
+                } else {
+                    let desde = parseFloat($("#inputDesde").val());
+                    let hasta = parseFloat($("#inputHasta").val());
+                    for (let indexYear = desde; indexYear <= hasta; indexYear++) {
+                        totalAportes += (monto * 12);
+                    }
                 }
-            });
-            
-            $('#costoMatricula, #montoMatricula, #aporte-monto').on('input', function() {
-                calcularTotalMatricula();
-            } );
-            
-            $('#aporte-monto, #inputDesde, #inputHasta').on('input', function() {
+                let total = totalAportes;
+                if ( totalMatricula <= costoMatricula && totalMatricula >= 0) {
+                    total = totalMatricula + totalAportes;
+                } else {
+                    $('#afiliado-total-matricula').html("");
+                    $('#afiliado-total-matricula').append(0);
+                }
+                $('#afiliado-total-aportes').html("");
+                $('#afiliado-total-aportes').append(totalAportes);
+                $('#afiliado-total').html("");
+                $('#afiliado-total').append(total);
+            }
+
+            function calcularTotalMatricula() {
+                let costo = parseFloat($("#costoMatricula").val());
+                let monto = parseFloat($("#montoMatricula").val());
+                let saldo = costo;
+                
+                $("#saldoMatricula").html("");
+                $('#afiliado-total-matricula').html("");
+                
+                if (monto >= 0 && monto <= costo ) { 
+                    saldo=costo - monto; 
+                    $('#afiliado-total-matricula').append(monto); 
+                } else {
+                    $('#afiliado-total-matricula').append(0); 
+                } 
+                $("#saldoMatricula").append(saldo); 
                 calculateTotales();
-            } );
-        });
-    </script>
-@endpush
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                $(".label-month").on('click', function() {
+                    let yearMonth = $(this).attr('data-value');
+                    let year = $(this).attr('data-year');
+                    if ($('#afiliado-create-monthcheck-'+yearMonth).is(':checked')) {
+                        $(this).addClass('calendar-aporte-checked');
+                    }else {
+                        $(this).removeClass('calendar-aporte-checked');
+                    }
+                    
+                    isAllSelectedMonths(year);
+                    calculateTotales();
+                });
+                $("#afiliado-aporte-months-tab").on('click', function() {
+                    if ($("#checkbox-years-modo").is(':checked')) {
+                        $("#checkbox-years-modo").click();
+                        calculateTotales();
+                    }
+                });
+                $("#afiliado-aporte-years-tab").on('click', function() {
+                    if (!$("#checkbox-years-modo").is(':checked')) {
+                        $("#checkbox-years-modo").click();
+                        calculateTotales();
+                    }
+                });
+                
+                $('#costoMatricula, #montoMatricula, #aporte-monto').on('input', function() {
+                    calcularTotalMatricula();
+                } );
+                
+                $('#aporte-monto, #inputDesde, #inputHasta').on('input', function() {
+                    calculateTotales();
+                } );
+            });
+        </script>
+    @endpush
+</div>

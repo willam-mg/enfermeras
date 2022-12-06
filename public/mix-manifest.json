@@ -1,4 +1,23 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/images/anteriorlogo-v2.svg": "/images/anteriorlogo-v2.svg",
+    "/images/calendar-danger.svg": "/images/calendar-danger.svg",
+    "/images/calendar-success.svg": "/images/calendar-success.svg",
+    "/images/calendar.svg": "/images/calendar.svg",
+    "/images/img_user_none.png": "/images/img_user_none.png",
+    "/images/img_user_none.svg": "/images/img_user_none.svg",
+    "/images/isotipo-marcaagua.png": "/images/isotipo-marcaagua.png",
+    "/images/isotipo.png": "/images/isotipo.png",
+    "/images/isotipo.svg": "/images/isotipo.svg",
+    "/images/logo-colorv2.svg": "/images/logo-colorv2.svg",
+    "/images/logo-dashboard.svg": "/images/logo-dashboard.svg",
+    "/images/logo-landscape.png": "/images/logo-landscape.png",
+    "/images/logo-redondo-marcaagua.png": "/images/logo-redondo-marcaagua.png",
+    "/images/logo-redondo.png": "/images/logo-redondo.png",
+    "/images/logo-redondo.svg": "/images/logo-redondo.svg",
+    "/images/logo-v2.png": "/images/logo-v2.png",
+    "/images/logo-v2.svg": "/images/logo-v2.svg",
+    "/images/logo.png": "/images/logo.png",
+    "/images/no-image-user.png": "/images/no-image-user.png"
 }

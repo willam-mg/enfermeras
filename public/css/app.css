@@ -19483,6 +19483,30 @@ select + .select2-container--bootstrap-5 {
 }
 
 .calendar-aporte-checked {
-  color: white;
-  background-image: url(/images/calendar-success.svg?965940758203385370b38467278b30ac);
+  background-image: url(/images/calendar-success.svg?9d4a6a99ae84c0742a42d56d466deea1);
+}
+
+.calendar-aporte-pendiente {
+  background-image: url(/images/calendar-danger.svg?b405a7d5d104cfab3d262afc2bdc5e60);
+}
+
+.content-right {
+  width: calc(100% - 250px);
+  height: 85vh;
+  padding-top: 3.6rem;
+}
+
+.content-left {
+  padding: 5.6rem 1rem 1rem 1rem;
+  width: 250px;
+  z-index: 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .content-right {
+    width: 100%;
+  }
+}
+.bg-modal-over {
+  background: rgba(0, 0, 0, 0.5098039216) !important;
 }

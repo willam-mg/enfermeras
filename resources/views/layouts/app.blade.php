@@ -3,65 +3,36 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name', 'Laravel') }}</title>
-
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    {{-- @livewireStyles --}}
+    @livewireStyles
 </head>
 <body>
     <div id="app">
         @auth
-            <x-layout.navbar/>
+            <x-layout.navbar />
         @endauth
-        
-        @include('layouts.flash-message')
-        <main class="container">
-            <div class="container-luid pt-3">
+        <div class="d-none d-sm-block">
+            <div class="d-flex flex-column flex-shrink-0 bg-light float-start shadow min-vh-100 d-inline-block content-left fixed-top">
+                <x-layout.sidenavbar />
+            </div>
+        </div>
+        <main class="container content-right float-end">
+            <div class="container-luid pt-3 bg-light">
+                @include('layouts.flash-message')
                 <h3 class="text-uppercase">@yield('title')</h3>
+                @yield('breadcrumbs')
                 {{ $slot }}
             </div>
         </main>
     </div>
 
     @livewireScripts
-
-    <script>
-        function printInWindow(url) {
-            $.get( url, function( data ) {
-                var w = window.open("", "Imprimir", "width=800,scrollbars=yes,resizable=yes,status=yes");
-                w.document.write(data);
-                setTimeout(() => {
-                    w.print();
-                    w.close();
-                }, 1000);
-            });
-        }
-        document.addEventListener("DOMContentLoaded", function() {
-            window.addEventListener('modal', (event) => {
-                $(`#modal-${event.detail.component}`).modal(event.detail.event);
-            });
-            window.addEventListener('switalert', (event) => {
-                let data = event.detail;
-                Swal.fire({
-                    icon: data.type,
-                    title: data.title,
-                    text: data.message
-                })
-            });
-            window.addEventListener('browserPrint', event => {
-                printInWindow(event.detail.url);
-            });
-        });
-    </script>
-
     @stack('scripts')
 </body>
 </html>

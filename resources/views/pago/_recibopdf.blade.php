@@ -19,8 +19,8 @@
                 padding: 5mm;
                 position: absolute;
         
-                background-image: url( {{ asset('img/isotipo-marcaagua.png')}} );
-                /* background-image: url( {{ public_path('img/isotipo-marcaagua.png') }} ); */
+                background-image: url( {{ asset('images/isotipo-marcaagua.png')}} );
+                /* background-image: url( {{ public_path('images/isotipo-marcaagua.png') }} ); */
                 background-size:100%;
                 background-repeat: repeat-x;
             }
@@ -64,8 +64,8 @@
         
             body {
                 margin: 0;
-                /* background-image: url( {{ asset('img/isotipo-marcaagua.png') }} ); */
-                /* background-image: url( {{ public_path('img/isotipo-marcaagua.png') }} ); */
+                /* background-image: url( {{ asset('images/isotipo-marcaagua.png') }} ); */
+                /* background-image: url( {{ public_path('images/isotipo-marcaagua.png') }} ); */
                 /* background-size:100%;
                     background-repeat: repeat-x; */
                 /* background-position: left; */
@@ -79,8 +79,8 @@
             <tbody>
                 <tr>
                     <td class="text-center" style="width:50mm;">
-                        {{-- <img src="{{public_path('img/logo-landscape.png')}}" alt="foto" width="150" height="auto"> --}}
-                        <img src="{{asset('img/logo-landscape.png')}}" alt="foto" width="150" height="auto">
+                        {{-- <img src="{{public_path('images/logo-landscape.png')}}" alt="foto" width="150" height="auto"> --}}
+                        <img src="{{asset('images/logo-landscape.png')}}" alt="foto" width="150" height="auto">
                     </td>
                     <td colspan="2" class="text-center">
                         <h1>

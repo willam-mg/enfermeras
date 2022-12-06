@@ -1,4 +1,4 @@
-<div wire:ignore.self class="modal fade" id="modal-pagomatricula-create">
+<div wire:ignore.self class="modal fade bg-modal-over" id="modal-pagomatricula-create">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -26,7 +26,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-4 col-md-4">
                             <div class="form-floating mb-3">
-                                <input wire:model="monto" type="text" class="form-control" id="monto" placeholder="Monto">
+                                <input wire:model="monto" type="text" class="form-control @error('monto') is-invalid @enderror" id="monto" placeholder="Monto">
                                 <label class="form-label" for="monto">{{__("Monto")}}</label>
                                 @error('monto') 
                                     <div class="invalid-feedback"> {{ $message }} </div> 
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <div class="text-end">
-                        <button type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">
+                        <button type="button" class="btn btn-outline-secondary close-btn" data-bs-dismiss="modal">
                             <i class="bi bi-x"></i>
                             Cerrar
                         </button>

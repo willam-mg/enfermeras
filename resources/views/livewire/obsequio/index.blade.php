@@ -45,7 +45,7 @@
                             @if ($item->afiliado->src_foto)
                             <img src="{{asset('storage/uploads/thumbnail-small/' . $item->afiliado->src_foto)}}" alt="foto" width="50">
                             @else
-                            <img src="/img/img_user_none.svg" alt="foto" width="50">
+                            <img src="{{asset('images/img_user_none.svg')}}" alt="foto" width="50">
                             @endif
                         @else
                             <x-page.noexists :value="$item->afiliado_id" />

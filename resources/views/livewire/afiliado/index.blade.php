@@ -1,9 +1,8 @@
 <div>
     @section('title', 'Afiliados')
-    {{ Breadcrumbs::render('afiliados') }}
-
+    @section('breadcrumbs', Breadcrumbs::render('afiliados') )
     <div class="row">
-        <div class="col-xs-12 col-md-7">
+        <div class="col-xs-12 col-md-5">
             <div class="input-group mb-3">
                 <input type="text" autofocus class="form-control" wire:model="fieldSearch" placeholder="{{__("Nombre completo, N° afiliado, C.I.")}}" aria-label="Recipient's username" aria-describedby="button-addon2">
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">
@@ -14,7 +13,7 @@
                 </button> --}}
             </div>
         </div>
-        <div class="col-xs-12 col-md-5">
+        <div class="col-xs-12 col-md-7">
             <div class="mb-3 text-end">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-afiliado-create">
                     <i class="bi bi-plus"></i>
@@ -50,7 +49,7 @@
                             @if ($item->src_foto)
                                 <img src="{{asset('storage/uploads/thumbnail-small/' . $item->src_foto)}}" alt="foto" width="50">
                             @else
-                                <img src="/img/img_user_none.svg" alt="foto" width="50">
+                                <img src="{{asset('images/img_user_none.svg')}}" alt="foto" width="50">
                             @endif
                         </td>
                         <td>{{$item->numero_afiliado}}</td>

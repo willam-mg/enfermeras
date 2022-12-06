@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div wire:ignore.self class="modal fade" id="modal-mispagos-show" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="misPagosShowModalLabel" aria-hidden="true">
+<div wire:ignore.self class="modal fade bg-modal-over" id="modal-mispagos-show" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="misPagosShowModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
        <div class="modal-content">
             <div class="modal-header">
@@ -78,6 +78,13 @@
                                 @endforeach
                         </tbody>
                     </table>
+                </div>
+
+                <div class="text-end">
+                    <button type="button" class="btn btn-outline-secondary close-btn" data-bs-dismiss="modal">
+                        <i class="bi bi-x"></i>
+                        Cerrar
+                    </button>
                 </div>
             </div>
        </div>
