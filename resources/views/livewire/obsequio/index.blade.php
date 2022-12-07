@@ -26,11 +26,12 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col" class="text-nowrap">{{__("Foto")}}</th>
+                    <th scope="col" class="text-nowrap">{{__("Gestion")}}</th>
                     <th scope="col" class="text-nowrap">{{__("N° afiliado")}}</th>
                     <th scope="col" class="text-nowrap">{{__("Nombre completo")}}</th>
                     <th scope="col" class="text-nowrap">{{__("Fecha_entrega")}}</th>
                     <th scope="col" class="text-nowrap">{{__("Hora entrega")}}</th>
-                    <th scope="col" class="text-nowrap">{{__("usuario")}}</th>
+                    <th scope="col" class="text-nowrap">{{__("Registrado por")}}</th>
                     <th scope="col" class="text-nowrap">{{__("Observacion")}}</th>
                     <th scope="col" class="text-nowrap">{{__("Estado")}}</th>
                     <th scope="col" class="text-nowrap">{{__("Acciones")}}</th>
@@ -50,6 +51,9 @@
                         @else
                             <x-page.noexists :value="$item->afiliado_id" />
                         @endif
+                    </td>
+                    <td>
+                        {{$item->gestion}}
                     </td>
                     <td>
                         @if ($item->afiliado)

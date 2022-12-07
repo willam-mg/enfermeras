@@ -9,11 +9,15 @@ class Obsequio extends Model
 {
     use HasFactory;
 
+    const PENDIENTE = 2;
+    const ENTREGADO = 3;
+
     protected $fillable = [
         'fecha_entrega',
         'hora_entrega',
         'user_id',
         'afiliado_id',
+        'gestion',
         'observacion',
         'estado',
     ];

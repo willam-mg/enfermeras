@@ -11,6 +11,7 @@ use App\Models\Pago;
 use App\Models\PagoMatricula;
 use App\Models\Requisito;
 use App\Traits\AporteTrait;
+use App\Traits\ObsequioTrait;
 use Livewire\WithFileUploads;
 use App\Traits\ImageTrait;
 use App\Traits\ProgressTrait;
@@ -22,7 +23,7 @@ use Illuminate\Support\Str;
 
 class Create extends Component
 {
-    use WithFileUploads, ImageTrait, ProgressTrait, AporteTrait;
+    use WithFileUploads, ImageTrait, ProgressTrait, AporteTrait, ObsequioTrait;
     public Afiliado $model;
     public $file;
     public $requisitos;
@@ -202,6 +203,10 @@ class Create extends Component
                     }
                 }
             }
+
+            // verificar aportes al dia para obsequio
+            $gestionesPagadas = $this->findYears($this->misAportes, 0);
+            $this->giveGiftByYears($afiliado->id, $gestionesPagadas);
             
             DB::commit();
             $this->emitTo('afiliado.index', 'search');

@@ -110,7 +110,7 @@
                     <td>Por concepto de : </td>
                     <td colspan="3" style="font-weight: bold;">
                         @if ($model->pagoMatricula)
-                            Pago matricula por: {{$model->pagoMatricula}} Bs. <br>
+                            Pago matricula por: {{$model->pagoMatricula->monto}} Bs. <br>
                         @endif
                         @if (count($model->detalle) > 0)
                             Por pago de aportes:

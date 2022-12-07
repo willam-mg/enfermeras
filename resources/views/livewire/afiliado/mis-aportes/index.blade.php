@@ -24,7 +24,7 @@
     <ul class="nav nav-pills nav-fill mb-3">
         @foreach ($years as $year)
             <li class="nav-item">
-                <button class="nav-link {{$focusYear == $year?'active':''}}" id="misaportes-pills-tab-{{$year}}"
+                <button class="nav-link border border-secondary rounded {{$focusYear == $year?'active':''}}" id="misaportes-pills-tab-{{$year}}"
                         type="button" wire:click="updateFocusYear({{$year}})">
                     <span class="misaportesspan-text-year-{{$year}} {{preg_grep("/$year/i", $aportesToPay)?'text-warning fw-bold':''}}">
                         {{$year}}
@@ -32,7 +32,15 @@
                 </button>
             </li>
         @endforeach
+        <li class="nav-item">
+            <button class="btn btn-outline-success" type="button" onclick="openModalAddGestion()">
+                <i class="bi bi-plus"></i>
+                Agregar Gestion
+            </button>
+        </li>
     </ul>
+
+    @include('livewire.afiliado.mis-aportes._modal_add_gestion')
 
     <div class="row">
         <h4 class="text-center mb-3">
@@ -42,13 +50,16 @@
             <div class="col-xs-2 col-md-2 mb-3">
                 <div class="form-check text-center">
                     @if( $itemAporte->estado == \App\Models\Aporte::PAGADO )
-                        <a href="#" type="button" onclick="alert('hello')" class="link-dark calendar-aporte" style="padding-top:22px">
+                        <a href="#" type="button" onclick="openModalEditAporte('modal-misaportes-{{$itemAporte->id}}')" class="link-dark calendar-aporte" style="padding-top:22px">
                             <b class="text-capitalize">
                                 {{$itemAporte->mes_name}}
                             </b> <br>
                             {{$itemAporte->monto}} <br>
                             <span class="badge rounded-pill bg-success">Pagado</span> <br>
                         </a>
+
+                        @include('livewire.afiliado.mis-aportes._modal_edit_aporte')
+
                     @else
                         <label onclick="checkMonthToPay(this)" wire:click="updateTotalAportes()" class="form-check-label calendar-aporte {{in_array($itemAporte->gestion.'-'.$itemAporte->mes.'-'.$itemAporte->monto, $aportesToPay)?'calendar-aporte-checked':'calendar-aporte-pendiente'}}" data-year="{{$itemAporte->gestion}}" data-value="{{$itemAporte->id}}" for="misaportes-monthcheck-{{$itemAporte->id}}" style="padding-top:22px">
                             <b class="text-capitalize">
@@ -172,6 +183,14 @@
                             }
                         });
                 }
+            }
+
+            function openModalEditAporte(idModal) {
+                $('#'+idModal).modal('show');
+            }
+
+            function openModalAddGestion() {
+                $('#modal-misaportes-add-gestion').modal('show');
             }
         </script>    
     @endpush

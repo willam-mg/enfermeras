@@ -19,8 +19,9 @@ class CreateObsequiosTable extends Migration
             $table->time('hora_entrega')->nullable();
             $table->foreignId('user_id')->constrained('users')->nullable();
             $table->foreignId('afiliado_id')->constrained('afiliados');
+            $table->integer('gestion')->nullable();
             $table->string('observacion', 300)->nullable();
-            $table->tinyInteger('estado')->default(2)->comment('2 = pendiente, 1 = entregado');
+            $table->tinyInteger('estado')->default(2)->comment('2 = pendiente, 3 = entregado');
             $table->timestamps();
             $table->softDeletes();
         });

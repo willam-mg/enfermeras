@@ -10,10 +10,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Traits\AporteTrait;
+use App\Traits\ObsequioTrait;
 
 class MisAportes extends Component
 {
-    use WithPagination;
+    use WithPagination, AporteTrait, ObsequioTrait;
 
     public $model;
     public $aporteMd;
@@ -22,6 +24,10 @@ class MisAportes extends Component
     public $focusYear;
     public $aportesToPay;
     public $totalAportes;
+    public $miAporteSelected_id;
+    public $miAporteMonto;
+    public $gestionToAdd;
+    public $montoToAddGestion;
 
     protected $paginationTheme = 'bootstrap';
     
@@ -48,7 +54,7 @@ class MisAportes extends Component
             }
             $misaportes = $this->search();
         }
-        return view('livewire.afiliado.mis-aportes', [
+        return view('livewire.afiliado.mis-aportes.index', [
             'misaportes' => $misaportes
         ]);
     }
@@ -76,6 +82,8 @@ class MisAportes extends Component
         $this->focusYear = null;
         $this->aportesToPay = [];
         $this->totalAportes = 0;
+        $this->gestionToAdd = null;
+        $this->montoToAddGestion = 30;
     }
 
     public function updateFocusYear($year) {
@@ -135,6 +143,11 @@ class MisAportes extends Component
                     ]);
                 }
             }
+
+            // verificar aportes al dia para obsequio
+            $gestionesPagadas = $this->findYears($this->aportesToPay, 0);
+            $this->giveGiftByYears($this->model->id, $gestionesPagadas);
+
             DB::commit();
             $this->aportesToPay = [];
             $this->search();
@@ -150,6 +163,40 @@ class MisAportes extends Component
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
+            $this->dispatchBrowserEvent('switalert', [
+                'type' => 'warning',
+                'title' => '',
+                'message' => $th->getMessage()
+            ]);
+        }
+    }
+
+    public function updateAporte($id) {
+        try {
+            $aporte = Aporte::findOrFail($id);
+            $aporte->monto = $this->miAporteMonto;
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
+    }
+
+    public function addGestion() {
+        try {
+            $this->createAportes($this->model->id, $this->gestionToAdd, $this->montoToAddGestion);
+            $this->gestionToAdd = null;
+            $this->montoToAddGestion = 30;
+            $this->search();
+            $this->dispatchBrowserEvent('modal', [
+                'component' => 'misaportes-add-gestion',
+                'event' => 'hide'
+            ]);
+            $this->dispatchBrowserEvent('switalert', [
+                'type' => 'success',
+                'title' => 'Aporte',
+                'message' => 'Se registro correctamente'
+            ]);
+        } catch (\Throwable $th) {
             $this->dispatchBrowserEvent('switalert', [
                 'type' => 'warning',
                 'title' => '',
