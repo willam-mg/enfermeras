@@ -54,6 +54,8 @@
 									<td>
 										@if($row->pagoMatricula)
 											{{ $row->pagoMatricula->monto }}
+										@else
+											<span class="badge bg-secondary">No</span>
 										@endif
 									</td>
 									<td>

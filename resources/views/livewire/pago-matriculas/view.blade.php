@@ -37,8 +37,6 @@
 				</button>
 				
 			</div>
-			@include('livewire.pago-matriculas.create')
-			@include('livewire.pago-matriculas.update')
 			<div class="table-responsive">
 				<table class="table table-bordered table-sm">
 					<thead class="thead">
@@ -97,6 +95,8 @@
 			</div>
 		</div>
 	</div>
+	@include('livewire.pago-matriculas.create')
+	@include('livewire.pago-matriculas.update')
 	@push('scripts')
 		<script>
 			function destroyPagoMatricula(id) {

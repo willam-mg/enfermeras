@@ -35,7 +35,7 @@
         <li class="nav-item">
             <button class="btn btn-outline-success" type="button" onclick="openModalAddGestion()">
                 <i class="bi bi-plus"></i>
-                Agregar Gestion
+                {{__('Agregar año')}}
             </button>
         </li>
     </ul>
@@ -46,20 +46,18 @@
         <h4 class="text-center mb-3">
             Gestion {{$focusYear}}
         </h4>
+        @include('livewire.afiliado.mis-aportes._modal_edit_aporte')
         @foreach ($misaportes as $key=>$itemAporte)
             <div class="col-xs-2 col-md-2 mb-3">
                 <div class="form-check text-center">
                     @if( $itemAporte->estado == \App\Models\Aporte::PAGADO )
-                        <a href="#" type="button" onclick="openModalEditAporte('modal-misaportes-{{$itemAporte->id}}')" class="link-dark calendar-aporte" style="padding-top:22px">
+                        <a href="#" type="button" wire:click="edit({{$itemAporte->id}})" class="link-dark calendar-aporte" style="padding-top:22px">
                             <b class="text-capitalize">
                                 {{$itemAporte->mes_name}}
                             </b> <br>
                             {{$itemAporte->monto}} <br>
                             <span class="badge rounded-pill bg-success">Pagado</span> <br>
                         </a>
-
-                        @include('livewire.afiliado.mis-aportes._modal_edit_aporte')
-
                     @else
                         <label onclick="checkMonthToPay(this)" wire:click="updateTotalAportes()" class="form-check-label calendar-aporte {{in_array($itemAporte->gestion.'-'.$itemAporte->mes.'-'.$itemAporte->monto, $aportesToPay)?'calendar-aporte-checked':'calendar-aporte-pendiente'}}" data-year="{{$itemAporte->gestion}}" data-value="{{$itemAporte->id}}" for="misaportes-monthcheck-{{$itemAporte->id}}" style="padding-top:22px">
                             <b class="text-capitalize">
@@ -89,21 +87,24 @@
             </div>
         @endforeach
     </div>
-    <div class="text-center mb-2">
-        <button class="btn btn-outline-secondary" onclick="misaportescheckAllMonths({{$focusYear}}, true)" type="button">
-            <i class="bi bi-x"></i>
-            Ningun mes
-        </button>
-        <button class="btn btn-outline-success" onclick="misaportescheckAllMonths({{$focusYear}})" type="button">
-            <i class="bi bi-check-all"></i>
-            Todos los meses
-        </button>
-    </div>
 
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-6"></div>
-        <div class="col-xs-12 col-sm-12 col-md-6 text-end">
-            <button class="btn btn-lg btn-success" onclick="registrarMisAportes()">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 col-xl-9 mb-3 text-end">
+            <button class="btn btn-outline-danger" @if( $totalAportes == 0 ) disabled @endif  onclick="misaportesDeleteAllMonths({{$focusYear}}, true)" type="button">
+                <i class="bi bi-trash"></i>
+                Eliminar
+            </button>
+            <button class="btn btn-outline-secondary" @if( $totalAportes == 0 ) disabled @endif onclick="misaportescheckAllMonths({{$focusYear}}, true)" type="button">
+                <i class="bi bi-x"></i>
+                Ningun mes
+            </button>
+            <button class="btn btn-outline-success" onclick="misaportescheckAllMonths({{$focusYear}})" type="button">
+                <i class="bi bi-check-all"></i>
+                Todos los meses
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-end">
+            <button class="btn btn-success" @if( $totalAportes == 0 ) disabled @endif onclick="registrarMisAportes()">
                 <i class="bi bi-cash"></i>
                 Registrar pago
             </button>
@@ -134,6 +135,41 @@
                 });
                 misaportesIsAllSelectedMonths(year);
             }
+            
+            function misaportesDeleteAllMonths(year) {
+                var itemsToPay = @this.aportesToPay;
+                if (itemsToPay.length == 0) {
+                    Swal.fire({
+                        icon: 'info',
+                        title: '',
+                        text: 'No hay meses seleccionados'
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Aportes",
+                        text: "¿ Esta seguro de eliminar estos aportes ?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#dc3545',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Si, eliminalo !'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            @this.destroyAportes();
+                        }
+                    });
+                    
+                }
+
+                $(`input[name='misaportesmonthsselected-${year}[]']`).each(function() {
+                    if ($(this).is(':checked')) {
+                        let id = $(this).attr('data-value');
+                        
+                        // this.click();
+                    }
+                });
+                
+            }
 
             function misaportesIsAllSelectedMonths(year) {
                 let count = 0;
@@ -162,7 +198,6 @@
 
             function registrarMisAportes() {
                 var itemsToPay = @this.aportesToPay;
-                console.log(itemsToPay);
                 if (itemsToPay.length == 0) {
                     Swal.fire({
                         icon: 'info',
@@ -171,9 +206,9 @@
                     });
                 } else {
                     Swal.fire({
-                        title: "Afiliado",
+                        title: "Aportes",
                         text: "¿ Esta seguro de regsitrar los aportes seleccionados ?",
-                        icon: 'warning',
+                        icon: 'question',
                         showCancelButton: true,
                         confirmButtonColor: '#1c8854',
                         confirmButtonText: 'Si registrar'
@@ -183,10 +218,6 @@
                             }
                         });
                 }
-            }
-
-            function openModalEditAporte(idModal) {
-                $('#'+idModal).modal('show');
             }
 
             function openModalAddGestion() {

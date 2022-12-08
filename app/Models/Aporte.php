@@ -54,4 +54,12 @@ class Aporte extends Model
     {
         return $this->hasOne(Afiliado::class, 'id', 'afiliado_id');
     }
+
+    /**
+     * get has many pagos
+     */
+    public function detallePagos()
+    {
+        return $this->hasMany(DetallePago::class, 'aporte_id');
+    }
 }

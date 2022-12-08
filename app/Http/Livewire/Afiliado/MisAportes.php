@@ -25,9 +25,16 @@ class MisAportes extends Component
     public $aportesToPay;
     public $totalAportes;
     public $miAporteSelected_id;
-    public $miAporteMonto;
     public $gestionToAdd;
     public $montoToAddGestion;
+    public $updateMode = false;
+    public $selected_id;
+    public $attrMonto;
+    public $attrGestion;
+    public $attrMes;
+    public $attrEstado;
+    public $attrAfiliado_id;
+    public $attrPagos;
 
     protected $paginationTheme = 'bootstrap';
     
@@ -84,13 +91,25 @@ class MisAportes extends Component
         $this->totalAportes = 0;
         $this->gestionToAdd = null;
         $this->montoToAddGestion = 30;
+        $this->initPropertiesAporte();
+    }
+
+    private function initPropertiesAporte() {
+        $this->updateMode = false;
+        $this->selected_id = null;
+        $this->attrMonto = null;
+        $this->attrGestion = null;
+        $this->attrMes = null;
+        $this->attrEstado = null;
+        $this->attrAfiliado_id = null;
+        $this->attrPagos = [];
     }
 
     public function updateFocusYear($year) {
         $this->focusYear = $year;
         $this->updateTotalAportes();
     }
-
+    
     public function updateTotalAportes()
     {
         $sumaAportes = 0;
@@ -155,7 +174,7 @@ class MisAportes extends Component
             $this->emitTo('afiliado.mis-pagos', 'search');
             $this->dispatchBrowserEvent('switalert', [
                 'type' => 'success',
-                'title' => 'Aporte',
+                'title' => 'Aportes',
                 'message' => 'Se registro correctamente'
             ]);
             $this->dispatchBrowserEvent('browserPrint', [
@@ -171,14 +190,58 @@ class MisAportes extends Component
         }
     }
 
-    public function updateAporte($id) {
+    public function edit($id) {
         try {
-            $aporte = Aporte::findOrFail($id);
-            $aporte->monto = $this->miAporteMonto;
+            $this->selected_id = $id;
+            $aporte = Aporte::findOrFail($this->selected_id);
+            $this->attrMonto = $aporte->monto;
+            $this->attrGestion = $aporte->gestion;
+            $this->attrMes = $aporte->mes_name;
+            $this->attrEstado = $aporte->estado;
+            $this->attrAfiliado_id = $aporte->afiliado_id;
+            $this->attrPagos = $aporte->detallePagos;
+            $this->updateMode = true;
+            $this->dispatchBrowserEvent('modal', [
+                'component' => 'misaportes-edit',
+                'event' => 'show'
+            ]);
         } catch (\Throwable $th) {
-            //throw $th;
+            $this->dispatchBrowserEvent('switalert', [
+                'type' => 'warning',
+                'title' => '',
+                'message' => $th->getMessage()
+            ]);
         }
-
+    }
+    public function update() {
+        if ($this->updateMode) {
+            try {
+                DB::beginTransaction();
+                $aporte = Aporte::findOrFail($this->selected_id);
+                $aporte->monto = $this->attrMonto;
+                if (!$aporte->save()) {
+                    throw new \Exception($aporte->errors->all());
+                }
+                DB::commit();
+                $this->initPropertiesAporte();
+                $this->dispatchBrowserEvent('modal', [
+                    'component' => 'misaportes-edit',
+                    'event' => 'hide'
+                ]);
+                $this->dispatchBrowserEvent('switalert', [
+                    'type' => 'success',
+                    'title' => 'Aportes',
+                    'message' => 'Se guardo correctamente'
+                ]);
+            } catch (\Throwable $th) {
+                DB::rollBack();
+                $this->dispatchBrowserEvent('switalert', [
+                    'type' => 'warning',
+                    'title' => '',
+                    'message' => $th->getMessage()
+                ]);
+            }
+        }
     }
 
     public function addGestion() {
@@ -193,10 +256,41 @@ class MisAportes extends Component
             ]);
             $this->dispatchBrowserEvent('switalert', [
                 'type' => 'success',
-                'title' => 'Aporte',
+                'title' => 'Aportes',
                 'message' => 'Se registro correctamente'
             ]);
         } catch (\Throwable $th) {
+            $this->dispatchBrowserEvent('switalert', [
+                'type' => 'warning',
+                'title' => '',
+                'message' => $th->getMessage()
+            ]);
+        }
+    }
+
+    /**
+     * Elimina los aportes seleccionados
+     */
+    public function destroyAportes() {
+        try {
+            DB::beginTransaction();
+
+            foreach ($this->aportesToPay as $key => $value) {
+                if ($value) {
+                    $aporte = Aporte::find($key);
+                    $aporte->delete();
+                }
+            }
+            DB::commit();
+            $this->aportesToPay = [];
+            $this->search();
+            $this->dispatchBrowserEvent('switalert', [
+                'type' => 'success',
+                'title' => 'Aportes',
+                'message' => 'Se elimino correctamente'
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
             $this->dispatchBrowserEvent('switalert', [
                 'type' => 'warning',
                 'title' => '',

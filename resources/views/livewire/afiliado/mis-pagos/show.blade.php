@@ -17,7 +17,13 @@
                         Fecha: 
                         <b> {{$model->fecha}} </b> <br>
                         Hora: 
-                        <b> {{$model->hora}} </b> 
+                        <b> {{$model->hora}} </b>  <br>
+                        Con Matricula: 
+                        @if($model->pagoMatricula)
+                            <b> {{$model->pagoMatricula->monto}} </b> 
+                        @else
+                            <span class="badge bg-secondary">No</span>                            
+                        @endif
                     </div>
                     <div class="col-xs-12 col-md-6 align-middle">
                         <h3>Total: {{$model->total}} Bs. </h3>
