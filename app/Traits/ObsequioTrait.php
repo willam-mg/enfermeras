@@ -16,7 +16,6 @@ trait ObsequioTrait
      */
     public function giveGift($idAfiliado, $gestion) {
         try {
-            DB::beginTransaction();
             // verificar si teine la gestion completa
             $numeroAportesPagados = Aporte::where('afiliado_id', $idAfiliado)
                 ->where('gestion', $gestion)
@@ -28,16 +27,12 @@ trait ObsequioTrait
                 $obsequio->afiliado_id = $idAfiliado;
                 $obsequio->gestion = $gestion;
                 $obsequio->estado = Obsequio::PENDIENTE;
-                $obsequio->save();
-                DB::commit();
+                if (!$obsequio->save() ) {
+                    throw new \Exception($obsequio->errors()->all());
+                }
             }
         } catch (\Throwable $th) {
-            DB::rollBack();
-            $this->dispatchBrowserEvent('switalert', [
-                'type' => 'warning',
-                'title' => '',
-                'message' => $th->getMessage()
-            ]);
+            return $th->getMessage();
         }
     }
 
@@ -53,11 +48,7 @@ trait ObsequioTrait
                 $this->giveGift($idAfiliado, $gestion);
             }
         } catch (\Throwable $th) {
-            $this->dispatchBrowserEvent('switalert', [
-                'type' => 'warning',
-                'title' => '',
-                'message' => $th->getMessage()
-            ]);
+            return $th->getMessage();
         }
     }
 

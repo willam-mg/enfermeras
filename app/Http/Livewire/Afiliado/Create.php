@@ -173,12 +173,18 @@ class Create extends Component
                             'afiliado_id' => $afiliado->id,
                             'estado' => Aporte::PAGADO,
                         ]);
+                        if (!$aporte) {
+                            throw new \Exception("Aporte no se pudo registrar");
+                        }
 
                         $detalle = DetallePago::create([
                             'aporte_id' => $aporte->id,
                             'monto' => $aporte->monto,
                             'pago_id' => $pago->id,
                         ]);
+                        if (!$detalle) {
+                            throw new \Exception("Aporte no se pudo registrar");
+                        }
                     }
                 }
             } else {
@@ -194,12 +200,18 @@ class Create extends Component
                             'afiliado_id' => $afiliado->id,
                             'estado' => Aporte::PAGADO,
                         ]);
+                        if (!$aporte) {
+                            throw new \Exception("Aporte no se pudo registrar");
+                        }
 
                         $detalle = DetallePago::create([
                             'aporte_id' => $aporte->id,
                             'monto' => $aporte->monto,
                             'pago_id' => $pago->id,
                         ]);
+                        if (!$detalle) {
+                            throw new \Exception("Aporte no se pudo registrar");
+                        }
                     }
                 }
             }
