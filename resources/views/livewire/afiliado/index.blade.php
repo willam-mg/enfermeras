@@ -159,9 +159,9 @@
     {{-- create afiliado modal --}}
     <livewire:afiliado.create />
     {{-- show afiliado modal --}}
-    <livewire:afiliado.show/>
+    <livewire:afiliado.show />
     {{-- edit afiliado modal --}}
-    <livewire:afiliado.edit/>
+    <livewire:afiliado.edit />
 </div>
 @push('scripts')
     <script>

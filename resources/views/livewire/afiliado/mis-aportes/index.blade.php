@@ -123,7 +123,7 @@
                     $(element).removeClass('calendar-aporte-checked');
                     $(element).addClass('calendar-aporte-pendiente');
                 }
-                calculateTotales();
+                misaportesCalculateTotales();
             }
 
             function misaportescheckAllMonths(year, unchecked = false) {
@@ -132,10 +132,10 @@
                         this.click();
                     }
                 });
-                isAllSelectedMonths(year);
+                misaportesIsAllSelectedMonths(year);
             }
 
-            function isAllSelectedMonths(year) {
+            function misaportesIsAllSelectedMonths(year) {
                 let count = 0;
                     $(`input[name='misaportesmonthsselected-${year}[]']`).each(function() {
                     if ($(this).is(':checked')) {
@@ -149,7 +149,7 @@
                 }
             }
 
-            function calculateTotales() {
+            function misaportesCalculateTotales() {
                 let totalAportes = 0;
                 $(`.misaporte-month`).each(function() {
                     if ($(this).is(':checked')) {

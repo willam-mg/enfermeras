@@ -19,7 +19,7 @@
         </thead>
         <tbody>
             @foreach ($data as $key => $item)
-            <tr onclick="onSelectAfiliado({{$item->id}}, this, event)" title="Seleccionar Afiliado">
+            <tr>
                 <th scope="row">{{$item->id}}</th>
                 <td>{{$item->numero_afiliado}}</td>
                 <td>{{$item->cargo}}</td>

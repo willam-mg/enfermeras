@@ -242,7 +242,7 @@ class Create extends Component
         $this->porcentajeColor = "";
         $this->aporte->gestion = date("Y");
         $this->mesActual = Carbon::create()->month(date("m"))->locale('es_ES')->monthName;
-        $this->model->costo_matricula = 100;
+        $this->model->costo_matricula = 130;
         $this->aporte->monto = 30;
         $this->model->expedido = "CBBA";
         // generate years for aportes in type meses
