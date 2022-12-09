@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Obsequio;
+namespace App\Http\Livewire\Afiliado;
 
 use App\Models\Afiliado;
 use App\Models\Obsequio;
@@ -9,11 +9,15 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Index extends Component
+class MisObsequios extends Component
 {
     use WithPagination;
-    public $fieldSearch;
+
+    protected $paginationTheme = 'bootstrap';
+    
+    public $afiliado;
     public $selected_id;
+    public $afiliado_id;
     public $fecha_entrega;
     public $hora_entrega;
     public $user_id;
@@ -21,44 +25,34 @@ class Index extends Component
     public $observacion;
     public $estado;
 
-    protected $paginationTheme = 'bootstrap';
+    protected $listeners = ['setParamId', 'search'];
     
     public function mount() {
+        $this->afiliado_id = null;
         $this->initPropertiesObsequios();
     }
 
-    public function render()
-    {
-        return view('livewire.obsequio.index', [
-            'data' => $this->search(),
+    public function render() {
+        $data = $this->search();
+        return view('livewire.afiliado.mis-obsequios.view', [
+            'data'=> $data
         ]);
     }
 
-    public function search()
-    {
-        $data = Obsequio::whereNull('deleted_at')
-            ->orderBy('id', 'DESC')
-            ->paginate(5);
-        $this->resetPage();
-        return $data;
+    public function setParamId($id) {
+        $this->afiliado_id = $id;
+        $this->afiliado = Afiliado::find($this->afiliado_id);
+        $this->search();
+        $this->initPropertiesObsequios();
     }
 
-    // public function agregar() {
-    //     if (Afiliado::latest()->first())  {
-    //         $model = new Obsequio();
-    //         $model->fecha_entrega = date("Y-m-d");
-    //         $model->hora_entrega = date("H:i:s");
-    //         $model->user_id = Auth::user()->id;
-    //         $model->afiliado_id = Afiliado::latest()->first()->id;
-    //         $model->observacion = 'Ninguna';
-    //         $model->estado = 2;
-    //         $model->save();
-    //         $this->search();
-    //     }
-    // }
+    public function search() {
+        return Obsequio::latest()
+            ->where('afiliado_id', $this->afiliado_id)
+            ->paginate(5);
+    }
 
-    private function initPropertiesObsequios()
-    {
+    private function initPropertiesObsequios() {
         $this->fecha_entrega = date("Y-m-d");
         $this->hora_entrega = date("H:i:s");
         $this->user_id = null;
@@ -67,8 +61,7 @@ class Index extends Component
         $this->estado = null;
     }
 
-    public function selectObsequio($id, $toUpdate = false)
-    {
+    public function selectObsequio($id, $toUpdate = false) {
         try {
             $this->selected_id = $id;
             $obsequio = Obsequio::findOrFail($id);
@@ -82,7 +75,7 @@ class Index extends Component
             }
             $this->observacion = $obsequio->observacion;
             $this->dispatchBrowserEvent('modal', [
-                'component' => $toUpdate ? 'misobsequios-entrega-edit' : 'misobsequios-entrega-create',
+                'component' => $toUpdate?'misobsequios-entrega-edit':'misobsequios-entrega-create',
                 'event' => 'show'
             ]);
         } catch (\Throwable $th) {
@@ -94,8 +87,7 @@ class Index extends Component
         }
     }
 
-    public function entregar()
-    {
+    public function entregar()  {
         try {
             DB::beginTransaction();
             $obsequio = Obsequio::find($this->selected_id);

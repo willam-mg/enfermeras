@@ -60,11 +60,11 @@
 									</td>
 									<td>
 										<div class="dropstart">
-											<button class="btn dropdown-toggle" type="button" id="pago_dropdownActions" data-bs-toggle="dropdown"
+											<button class="btn dropdown-toggle" type="button" id="pago_dropdownActions{{$row->id}}" data-bs-toggle="dropdown"
 												aria-expanded="false">
 												<i class="bi bi-three-dots-vertical"></i>
 											</button>
-											<ul class="dropdown-menu" aria-labelledby="pago_dropdownActions">
+											<ul class="dropdown-menu" aria-labelledby="pago_dropdownActions{{$row->id}}">
 												<li>
 													<button type="button" wire:click="browserPrint({{$row->id}})" class="dropdown-item">
 														<i class="bi bi-printer"></i> 

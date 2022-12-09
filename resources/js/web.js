@@ -5,7 +5,7 @@ function printInWindow(url) {
         setTimeout(() => {
             w.print();
             w.close();
-        }, 1000);
+        }, 2000);
     });
 }
 document.addEventListener("DOMContentLoaded", function () {

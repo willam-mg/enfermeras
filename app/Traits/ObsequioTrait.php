@@ -23,7 +23,6 @@ trait ObsequioTrait
             // agregando a la lista
             if ($numeroAportesPagados >= 12) {
                 $obsequio = new Obsequio();
-                $obsequio->user_id = Auth::user()->id;
                 $obsequio->afiliado_id = $idAfiliado;
                 $obsequio->gestion = $gestion;
                 $obsequio->estado = Obsequio::PENDIENTE;

@@ -60,7 +60,6 @@ class MisPagos extends Component
         return Pago::latest()
             ->where('afiliado_id', $this->afiliado_id)
             ->paginate(5);
-        echo('im here');
     }
 
     public function show($id)

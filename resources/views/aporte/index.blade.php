@@ -15,7 +15,7 @@
             Pagar
         </button>
     </div>
-    <form action="{{ url('aportes') }}" method="POST" class="needs-validation disabled-onsubmit" novalidate>
+    <form action="{{ url('aportes') }}" method="GET" class="needs-validation disabled-onsubmit" novalidate>
         @csrf
         @method('GET')
         <div class="row">

@@ -1,14 +1,14 @@
-<div class="row">
+<div class="row mb-3">
     <div class="col-xs-12 col-md-4">
-        <div class="input-group mb-3">
+        {{-- <div class="input-group mb-3">
             <input type="text" class="form-control" wire:model="nombreCompleto" placeholder="{{__(" Nombre completo")}}" aria-label="Nombre completo" aria-describedby="button-addon2">
             <button class="btn btn-outline-secondary" type="button" id="button-addon2">
                 <i class="bi bi-search"></i>
             </button>
-        </div>
+        </div> --}}
     </div>
     <div class="col-xs-12 col-md-8 text-end">
-        <button class="btn btn-dark" onclick="printInWindow('{{url('api/reportes/print/afiliados')}}')">
+        <button class="btn btn-dark" wire:click="imprimir('{{url('api/reportes/print/afiliados')}}')">
             <i class="bi bi-printer"></i>
             Imprimir
         </button>
@@ -16,7 +16,7 @@
 </div>
 
 <div class="table-responsive mb-3">
-    <table class="table table-sm align-middle table-bordered table-hover table-row-pointer">
+    <table class="table table-sm align-middle table-bordered">
         <thead class="table-light">
             <tr>
                 <th scope="col">ID</th>

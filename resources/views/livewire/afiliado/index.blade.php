@@ -63,10 +63,10 @@
                         <td>{{$item->fecha_registro}}</td>
                         <td>
                             <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownActions" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn dropdown-toggle" type="button" id="afiliadodropdownActions{{$item->id}}" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-three-dots-vertical"></i>
                                 </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownActions">
+                                <ul class="dropdown-menu" aria-labelledby="afiliadodropdownActions{{$item->id}}">
                                     <li>
                                         <button type="button" wire:click="$emitTo('afiliado.show', 'display-show', {{$item->id}})" class="dropdown-item" type="button">
                                             <i class="bi bi-eye"></i> Ver

@@ -17,7 +17,7 @@ class CreateObsequiosTable extends Migration
             $table->id();
             $table->date('fecha_entrega')->nullable();
             $table->time('hora_entrega')->nullable();
-            $table->foreignId('user_id')->constrained('users')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users');
             $table->foreignId('afiliado_id')->constrained('afiliados');
             $table->integer('gestion')->nullable();
             $table->string('observacion', 300)->nullable();

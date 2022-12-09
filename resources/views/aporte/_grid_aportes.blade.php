@@ -46,10 +46,10 @@
                     </td>
                     <td>
                         <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="aportes_dropdownActions" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn dropdown-toggle" type="button" id="aportes_dropdownActions{{$item->id}}" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-three-dots-vertical"></i>
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="aportes_dropdownActions">
+                            <ul class="dropdown-menu" aria-labelledby="aportes_dropdownActions{{$item->id}}">
                                 <li>
                                     <a href="{{ route('aportes.show', $item->id) }}" class="dropdown-item" type="button">
                                         <i class="bi bi-eye"></i> Ver

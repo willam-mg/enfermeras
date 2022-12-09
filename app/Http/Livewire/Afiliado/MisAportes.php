@@ -172,6 +172,7 @@ class MisAportes extends Component
             $this->search();
             $this->updateTotalAportes();
             $this->emitTo('afiliado.mis-pagos', 'search');
+            $this->emitTo('afiliado.mis-obsequios', 'search');
             $this->dispatchBrowserEvent('switalert', [
                 'type' => 'success',
                 'title' => 'Aportes',

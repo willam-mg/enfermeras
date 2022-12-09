@@ -25,10 +25,10 @@
                     <tr>
                         <td>
                             <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="pago_aportes_dropdownActions" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn dropdown-toggle" type="button" id="pago_aportes_dropdownActions{{$item->id}}" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-pencil-fill"></i>
                                 </button>
-                                <ul class="dropdown-menu" aria-labelledby="pago_aportes_dropdownActions">
+                                <ul class="dropdown-menu" aria-labelledby="pago_aportes_dropdownActions{{$item->id}}">
                                     <li>
                                         <a href="{{ route('pagos.show', $item->id) }}" class="dropdown-item" type="button">
                                             <i class="bi bi-eye"></i> Ver

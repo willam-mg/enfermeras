@@ -30,4 +30,11 @@ class ReporteAfiliado extends Component
         $data = Afiliado::paginate(20);
         return view('livewire.reportes.reporte-afiliado-print')->with('data', $data);
     }
+
+    public function imprimir($url)
+    {
+        $this->dispatchBrowserEvent('browserPrint', [
+            'url' => url($url)
+        ]);
+    }
 }

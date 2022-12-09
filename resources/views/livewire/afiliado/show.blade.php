@@ -15,7 +15,7 @@
                             @else
                                 <img src="{{asset('images/no-image-user.png')}}" alt="foto" width="100%">
                             @endif
-                            <h4 class="mt-3">{{$model->nombre_completo}}</h4>
+                            <h4 class="mt-3 text-uppercase text-center">{{$model->nombre_completo}}</h4>
                             <div class="d-grid gap-2 mb-3">
                                 <button wire:click="$emitTo('afiliado.edit', 'display-edit', {{$model->id}})" class="btn btn-warning" type="button">
                                     <i class="bi bi-pencil"></i> Editar
@@ -55,6 +55,12 @@
                                         Pagos
                                     </button>
                                 </li>
+                                <li class="nav-item">
+                                    <button wire:ignore.self class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-mis-obsequios" type="button"
+                                        role="tab" aria-selected="false">
+                                        Obsequios
+                                    </button>
+                                </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent-afiliado">
                                 <div wire:ignore.self class="tab-pane fade show active" id="pills-info-afiliado" role="tabpanel" aria-labelledby="pills-info-afiliado-tab">
@@ -79,6 +85,9 @@
                                 </div>
                                 <div wire:ignore.self class="tab-pane fade" id="pills-mis-pagos" role="tabpanel" aria-labelledby="pills-mis-pagos-tab">
                                     <livewire:afiliado.mis-pagos  key="afiliado-mispagos" />
+                                </div>
+                                <div wire:ignore.self class="tab-pane fade" id="pills-mis-obsequios" role="tabpanel" aria-labelledby="pills-mis-pagos-tab">
+                                    <livewire:afiliado.mis-obsequios  key="afiliado-misobsequios" />
                                 </div>
                             </div>
                         </div>
