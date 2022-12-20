@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\v1\AfiliadoController;
 use App\Http\Livewire\Reportes\ReporteAfiliado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,4 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('reportes/print/afiliados', [ReporteAfiliado::class, 'print']);
+Route::get('afiliados/identity/{id}', [AfiliadoController::class, 'show']);
 

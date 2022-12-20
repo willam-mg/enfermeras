@@ -21,12 +21,17 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td rowspan="4" style="padding:0 10px 0 10px; height:29mm;">
+                    <?=DNS2D::getBarcodeHTML( env("WEBSITE_URL", "localhost").'/afiliados/indentity?id='.$model->id, 'QRCODE', 3.5, 3.5)?>
+                </td>
+                <td colspan="2" style="padding-top: 0">
                     {{__('Años de servicio: ')}}
                     <b>
                         {{$model->anos_servicio}}
                     </b>
                 </td>
+            </tr>
+            <tr>
                 <td colspan="2">
                     {{__('Grupo sanguíneo: ')}}
                     <b>
@@ -35,14 +40,11 @@
                 </td>
             </tr>
             <tr>
-                <td rowspan="2" style="padding: 2px 0 5px 10px ">
-                    <?=DNS2D::getBarcodeHTML($model->numero_afiliado, 'QRCODE', 3.5, 3.5)?>
-                </td>
-                <td colspan="2" rowspan="2">
+                <td colspan="2">
                 </td>
             </tr>
             <tr>
-                <td>
+                <td colspan="2">
                 </td>
             </tr>
             <tr>
