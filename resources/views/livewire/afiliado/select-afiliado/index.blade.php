@@ -12,20 +12,17 @@
                             <div class="row">
                                 <div class="col-xs-12 col-md-3">
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" wire:model.defer="afiliadoNumeroAfiliado" placeholder="{{__(" Numero
-                                            de afiliado")}}" title="Numero de afiliado" data-bs-toggle="tooltip" data-bs-placement="top">
+                                        <input type="text" class="form-control" wire:model.defer="afiliadoNumeroAfiliado" placeholder="{{__(" Numero de afiliado")}}" title="Numero de afiliado" data-bs-toggle="tooltip" data-bs-placement="top">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" wire:model.defer="afiliadoNombreCompleto" placeholder="{{__(" Nombre
-                                            completo")}}" title="Nombre completo" data-bs-toggle="tooltip" data-bs-placement="top">
+                                        <input type="text" class="form-control" wire:model.defer="afiliadoNombreCompleto" placeholder="{{__(" Nombre completo")}}" title="Nombre completo" data-bs-toggle="tooltip" data-bs-placement="top">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" wire:model.defer="afiliadoCi" placeholder="{{__(" C.I.")}}"
-                                            title="C.I." data-bs-toggle="tooltip" data-bs-placement="top">
+                                        <input type="text" class="form-control" wire:model.defer="afiliadoCi" placeholder="{{__(" C.I.")}}" title="C.I." data-bs-toggle="tooltip" data-bs-placement="top">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">

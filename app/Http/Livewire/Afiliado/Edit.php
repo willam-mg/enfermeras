@@ -72,6 +72,7 @@ class Edit extends Component
 
             DB::commit();
             $this->emitTo('afiliado.index', 'search');
+            $this->emitTo('afiliado.show', 'display-show', $this->model->id);
             $this->dispatchBrowserEvent('modal', [
                 'component' => 'afiliado-edit',
                 'event' => 'hide'
