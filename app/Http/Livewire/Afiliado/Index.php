@@ -21,6 +21,14 @@ class Index extends Component
     public $modelFilter;
     public $advancedFilter = false;
     public $fieldSearch;
+
+    public $afiliadoNumeroAfiliado;
+    public $afiliadoNombreCompleto;
+    public $afiliadoCi;
+    public $afiliadoNumeroMatricula;
+    public $afiliadoTelefono;
+    public $afiliadoFechaRegistro;
+    public $afiliadoFechaNacimiento;
  
     protected $paginationTheme = 'bootstrap';
 
@@ -53,23 +61,46 @@ class Index extends Component
         ]);
     }
 
+    public function initPropertiesSearch() {
+        $this->afiliadoNumeroAfiliado = null;
+        $this->afiliadoNombreCompleto = null;
+        $this->afiliadoCi = null;
+        $this->afiliadoNumeroMatricula = null;
+        $this->afiliadoTelefono = null;
+        $this->afiliadoFechaRegistro = null;
+        $this->afiliadoFechaNacimiento = null;
+    }
+
     public function search() {
+        if ($this->advancedFilter) {
+            $this->fieldSearch = null;
+        } else {
+            $this->initPropertiesSearch();
+        }
         $data = DB::table('afiliados')
             ->when($this->fieldSearch, function($query) {
-                if (!$this->advancedFilter)
                     $query->where(DB::Raw("CONCAT(nombre_completo, ' ', numero_afiliado,' ',ci)"), 'like', '%'.$this->fieldSearch.'%');
             })
-            ->when($this->modelFilter->nombre_completo, function($query) {
-                if ($this->advancedFilter)
-                    $query->where('nombre_completo', 'like', '%'.$this->modelFilter->nombre_completo.'%');
+            ->when($this->afiliadoNumeroAfiliado, function($query) {
+                $query->where('numero_afiliado', 'like', '%'.$this->afiliadoNumeroAfiliado.'%');
             })
-            ->when($this->modelFilter->numero_afiliado, function($query) {
-                if ($this->advancedFilter)
-                    $query->where('numero_afiliado', 'like', '%'.$this->modelFilter->numero_afiliado.'%');
+            ->when($this->afiliadoNombreCompleto, function($query) {
+                $query->where('nombre_completo', 'like', '%'.$this->afiliadoNombreCompleto.'%');
             })
-            ->when($this->modelFilter->ci, function($query) {
-                if ($this->advancedFilter)
-                    $query->where('ci', 'like', '%'.$this->modelFilter->ci.'%');
+            ->when($this->afiliadoCi, function($query) {
+                $query->where('ci', 'like', '%'.$this->afiliadoCi.'%');
+            })
+            ->when($this->afiliadoNumeroMatricula, function($query) {
+                $query->where('numero_matricula', 'like', '%'.$this->afiliadoNumeroMatricula.'%');
+            })
+            ->when($this->afiliadoTelefono, function($query) {
+                $query->where('telefono', 'like', '%'.$this->afiliadoTelefono.'%');
+            })
+            ->when($this->afiliadoFechaNacimiento, function($query) {
+                $query->where('fecha_nacimiento', $this->afiliadoFechaNacimiento);
+            })
+            ->when($this->afiliadoFechaRegistro, function($query) {
+                $query->where('fecha_registro', $this->afiliadoFechaRegistro);
             })
             ->whereNull('deleted_at')
             ->orderBy('id', 'DESC')

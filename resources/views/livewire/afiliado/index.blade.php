@@ -2,18 +2,87 @@
     @section('title', 'Afiliados')
     @section('breadcrumbs', Breadcrumbs::render('afiliados') )
     <div class="row">
-        <div class="col-xs-12 col-md-5">
-            <div class="input-group mb-3">
-                <input type="text" autofocus class="form-control" wire:model="fieldSearch" placeholder="{{__("Nombre completo, N° afiliado, C.I.")}}" aria-label="Recipient's username" aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">
-                    <i class="bi bi-search"></i>
-                </button>
-                {{-- <button type="button" class="btn btn-outline-primary" wire:click="$set('advancedFilter', true)" data-bs-toggle="modal" data-bs-target="#modal-search">
-                    Busqueda avanzada
-                </button> --}}
-            </div>
+        <div class="col-xs-12 col-md-10">
+            @if ($advancedFilter)
+                <form wire:submit.prevent="search">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" wire:model.defer="afiliadoNumeroAfiliado"  placeholder="{{__("Numero de afiliado")}}" title="Numero de afiliado" data-bs-toggle="tooltip" data-bs-placement="top">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" wire:model.defer="afiliadoNombreCompleto"  placeholder="{{__("Nombre completo")}}" title="Nombre completo" data-bs-toggle="tooltip" data-bs-placement="top">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-2">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" wire:model.defer="afiliadoCi"  placeholder="{{__(" C.I.")}}" title="C.I." data-bs-toggle="tooltip" data-bs-placement="top">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" wire:model.defer="afiliadoNumeroMatricula"  placeholder="{{__("Numero de matricula")}}" title="Numero matricula" data-bs-toggle="tooltip" data-bs-placement="top">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-2">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" wire:model.defer="afiliadoTelefono"  placeholder="{{__("Telefono")}}" title="Telefono" data-bs-toggle="tooltip" data-bs-placement="top">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="input-group mb-3">
+                                <input type="date" class="form-control" wire:model.defer="afiliadoFechaRegistro" placeholder="Fecha de registro" aria-label="Fecha de registro"
+                                aria-describedby="addonAfiliadoSearchFechaRegistro" title="Fecha de registro" data-bs-toggle="tooltip" data-bs-placement="top">
+                                <button class="btn btn-outline-secondary" type="button" wire:click="$set('afiliadoFechaRegistro', null)" id="addonAfiliadoSearchFechaRegistro">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="input-group mb-3">
+                                <input type="date" class="form-control" wire:model.defer="afiliadoFechaNacimiento" placeholder="Fecha de nacimiento" aria-label="Fecha de nacimiento"
+                                aria-describedby="afiliadoIndexBtnaddonsearch" title="Fecha nacimiento" data-bs-toggle="tooltip" data-bs-placement="top">
+                                <button class="btn btn-outline-secondary" type="button" wire:click="$set('afiliadoFechaNacimiento', null)" id="afiliadoIndexBtnaddonsearch">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="mb-3">
+                                <button class="btn btn-outline-secondary" type="submit">
+                                    <i class="bi bi-search"></i>
+                                    Buscar
+                                </button>
+                                <button class="btn btn-outline-secondary" wire:click="$set('advancedFilter', false)" title="Busqueda simple" data-bs-toggle="tooltip" data-bs-placement="top">
+                                    <i class="bi bi-filter"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            @else
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <div class="input-group mb-3">
+                            <input type="text" autofocus class="form-control" wire:model="fieldSearch" placeholder="{{__("Nombre completo, N° afiliado, C.I.")}}" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                                <i class="bi bi-search"></i>
+                            </button>
+                            <button class="btn btn-outline-secondary" wire:click="$set('advancedFilter', true)" title="Busqueda avanzada"
+                                data-bs-toggle="tooltip" data-bs-placement="top">
+                                <i class="bi bi-filter"></i>
+                            </button>
+                            {{-- <button type="button" class="btn btn-outline-primary" wire:click="$set('advancedFilter', true)" data-bs-toggle="modal" data-bs-target="#modal-search">
+                                Busqueda avanzada
+                            </button> --}}
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
-        <div class="col-xs-12 col-md-7">
+        <div class="col-xs-12 col-md-2">
             <div class="mb-3 text-end">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-afiliado-create">
                     <i class="bi bi-plus"></i>
