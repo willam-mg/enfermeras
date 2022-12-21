@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Obsequio;
 
 use App\Models\Afiliado;
 use App\Models\Obsequio;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -20,8 +21,16 @@ class Index extends Component
     public $gestion;
     public $observacion;
     public $estado;
+    public $searchAfiliadoId;
+    public $searchGestion;
+    public $searchUserId;
+    public $searchEstado;
 
     protected $paginationTheme = 'bootstrap';
+
+    protected $listeners = [
+        'setSearchIdAfiliado',
+    ];
     
     public function mount() {
         $this->initPropertiesObsequios();
@@ -31,17 +40,29 @@ class Index extends Component
     {
         return view('livewire.obsequio.index', [
             'data' => $this->search(),
+            'users' => User::all(),
         ]);
     }
 
     public function search()
     {
-        $data = Obsequio::whereNull('deleted_at')
-            ->orderBy('id', 'DESC')
+        $data = Obsequio::when($this->searchAfiliadoId, function($query) {
+                $query->where('afiliado_id', $this->searchAfiliadoId);
+            })
+            ->when($this->searchGestion, function($query) {
+                $query->where('gestion', $this->searchGestion);
+            })->when($this->searchUserId, function($query) {
+                $query->where('user_id', $this->searchUserId);
+            })->when($this->searchEstado, function($query) {
+                $query->where('estado', $this->searchEstado);
+            })->orderBy('id', 'DESC')
             ->paginate(5);
+
         $this->resetPage();
         return $data;
     }
+    
+    
 
     // public function agregar() {
     //     if (Afiliado::latest()->first())  {
@@ -65,6 +86,13 @@ class Index extends Component
         $this->gestion = null;
         $this->observacion = null;
         $this->estado = null;
+    }
+
+    private function initPropertiesSearch() {
+        $this->searchAfiliadoId = null;
+        $this->searchGestion = null;
+        $this->searchUserId = null;
+        $this->searchEstado = null;
     }
 
     public function selectObsequio($id, $toUpdate = false)
@@ -125,5 +153,13 @@ class Index extends Component
                 'message' => $th->getMessage()
             ]);
         }
+    }
+
+    public function openSelectAfiliado() {
+        $this->emitTo('afiliado.select-afiliado', 'openSelectAfiliado', 'obsequio.index');
+    }
+
+    public function setSearchIdAfiliado($id) {
+        $this->searchAfiliadoId = $id;
     }
 }

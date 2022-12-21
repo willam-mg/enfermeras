@@ -1,25 +1,53 @@
 
 <div>
-    <div class="row">
-        <div class="col-xs-12 col-md-7">
-            <div class="input-group mb-3">
-                <input type="text" autofocus class="form-control" wire:model="fieldSearch" placeholder="{{__(" Nombre
-                    completo, N° afiliado, C.I.")}}" aria-label="Recipient's username" aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">
-                    <i class="bi bi-search"></i>
-                </button>
+    <form wire:submit.prevent="search">
+        <div class="row">
+            <div class="col-xs-6 col-md-2">
+                <div class="input-group mb-3" wire:click="openSelectAfiliado()">
+                    <input type="text" class="form-control pe-auto" style="cursor:pointer" wire:model.defer="searchAfiliadoId" placeholder="{{__("Afiliado")}}" aria-label="Afiliado" aria-describedby="button-addon2" readonly 
+                        title="Afiliado" data-bs-toggle="tooltip" data-bs-placement="top">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                        <i class="bi bi-hand-index"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-2">
+                <div class="mb-3">
+                    <input type="number" class="form-control" wire:model.defer="searchGestion" placeholder="{{__("Gestion")}}" 
+                        title="Gestion" data-bs-toggle="tooltip" data-bs-placement="top">
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-2">
+                <div class="mb-3">
+                    <select type="text" class="form-select" wire:model.defer="searchUserId" placeholder="{{__("Registrado por")}}" 
+                        title="Registrado por" data-bs-toggle="tooltip" data-bs-placement="top">
+                        <option value="" selected>Registrado por</option>
+                        @foreach ($users as $item)
+                            <option value="{{$item->id}}">{{$item->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-2">
+                <div class="mb-3">
+                    <select type="text" class="form-select" wire:model.defer="searchEstado" placeholder="{{__("Estado")}}" 
+                        title="Estado" data-bs-toggle="tooltip" data-bs-placement="top">
+                        <option value="" selected>Estado</option>
+                        <option value="2">Pendiente</option>
+                        <option value="1">Entregado</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-2">
+                <div class="mb-3">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <i class="bi bi-search"></i>
+                        Buscar
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="col-xs-12 col-md-5">
-            <div class="mb-3 text-end">
-                {{-- <button type="button" class="btn btn-success" wire:click="agregar()">
-                    <i class="bi bi-plus"></i>
-                    Agregar
-                </button> --}}
-            </div>
-        </div>
-    </div>
-    
+    </form>
     <div class="table-responsive mb-3">
         <table class="table align-middle table-bordered table-hover table-row-pointer">
             <thead class="table-light">
@@ -39,7 +67,7 @@
             </thead>
             <tbody>
                 @foreach ($data as $key => $item)
-                <tr onclick="onSelectObsequio({{$item->id}}, {{$item->estado}}, this, event)" title="Entregar obsequio" @if($item->estado==1) style="cursor:default;" @endif>
+                <tr onclick="onSelectObsequio({{$item->id}}, {{$item->estado}}, this, event)"  @if($item->estado==1) style="cursor:default;" @else title="Entregar obsequio" data-bs-toggle="tooltip" data-bs-placement="top" @endif>
                     <th scope="row">{{$item->id}}</th>
                     <td>
                         @if ($item->afiliado)
@@ -131,6 +159,7 @@
     </div>
     
     @include('livewire.obsequio.create')
+    <livewire:afiliado.select-afiliado key="obsequio-index">
 
     <x-page.loading />
     @push('scripts')

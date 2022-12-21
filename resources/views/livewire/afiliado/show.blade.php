@@ -26,38 +26,45 @@
                             <ul class="nav nav-tabs mb-3">
                                 <li class="nav-item">
                                     <button wire:ignore.self class="nav-link active" data-bs-toggle="pill" data-bs-target="#pills-info-afiliado" type="button" role="tab"  aria-selected="true">
-                                        Datos personales
+                                        <i class="bi bi-person me-2"></i>
+                                        Datos
                                     </button>
                                 </li>
                                 <li class="nav-item">
                                     <button wire:ignore.self class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-requisitos" type="button" role="tab" aria-selected="false">
+                                        <i class="bi bi-list-check me-2"></i>
                                         Requisitos
                                     </button>
                                 </li>
                                 <li class="nav-item">
                                     <button wire:ignore.self class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-credencial" type="button" role="tab"  aria-selected="false">
+                                        <i class="bi bi-credit-card-2-front me-2"></i>
                                         Credencial
                                     </button>
                                 </li>
                                 <li class="nav-item">
                                     <button wire:ignore.self class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-matricula" type="button" role="tab"  aria-selected="false">
+                                        <i class="bi bi-calendar me-2"></i>
                                         Matricula
                                     </button>
                                 </li>
                                 <li class="nav-item">
                                     <button wire:ignore.self class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-aportes" type="button" role="tab"  aria-selected="false">
+                                        <i class="bi bi-calendar-check me-2"></i>
                                         Aportes
                                     </button>
                                 </li>
                                 <li class="nav-item">
                                     <button wire:ignore.self class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-mis-pagos" type="button"
                                         role="tab" aria-selected="false">
+                                        <i class="bi bi-cash me-2"></i>
                                         Pagos
                                     </button>
                                 </li>
                                 <li class="nav-item">
                                     <button wire:ignore.self class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-mis-obsequios" type="button"
                                         role="tab" aria-selected="false">
+                                        <i class="bi bi-gift me-2"></i>
                                         Obsequios
                                     </button>
                                 </li>

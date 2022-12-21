@@ -13,7 +13,7 @@
     </li>
     <li class="nav-item">
         <x-layout.navlink :href="url('aportes')" :active="Request::is('aportes*')">
-            <i class="bi bi-credit-card-2-front me-2"></i>
+            <i class="bi bi-calendar-check me-2"></i>
             {{ __('Aportes') }}
         </x-layout.navlink>
     </li>

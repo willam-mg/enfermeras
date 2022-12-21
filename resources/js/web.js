@@ -27,4 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('browserPrint', event => {
         printInWindow(event.detail.url);
     });
+
+    $(document).ready(function () {
+        // $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    });
 });
