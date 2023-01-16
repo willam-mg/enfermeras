@@ -25,6 +25,8 @@ class Index extends Component
     public $searchGestion;
     public $searchUserId;
     public $searchEstado;
+    public $afiliado_id;
+    public $updateMode;
 
     protected $paginationTheme = 'bootstrap';
 
@@ -86,6 +88,7 @@ class Index extends Component
         $this->gestion = null;
         $this->observacion = null;
         $this->estado = null;
+        $this->updateMode = false;
     }
 
     private function initPropertiesSearch() {
@@ -161,5 +164,88 @@ class Index extends Component
 
     public function setSearchIdAfiliado($id) {
         $this->searchAfiliadoId = $id;
+    }
+
+    public function edit($id)
+    {
+        try {
+            $this->selected_id = $id;
+            $obsequio = Obsequio::findOrFail($this->selected_id);
+            $this->fecha_entrega = $obsequio->fecha_entrega;
+            $this->hora_entrega = $obsequio->hora_entrega;
+            $this->gestion = $obsequio->gestion;
+            $this->observacion = $obsequio->observacion;
+            $this->estado = $obsequio->estado;
+            $this->updateMode = true;
+            $this->dispatchBrowserEvent('modal', [
+                'component' => 'obsequio-edit',
+                'event' => 'show'
+            ]);
+        } catch (\Throwable $th) {
+            $this->dispatchBrowserEvent('switalert', [
+                'type' => 'warning',
+                'title' => '',
+                'message' => $th->getMessage()
+            ]);
+        }
+    }
+
+    public function update()
+    {
+        if ($this->updateMode) {
+            try {
+                DB::beginTransaction();
+                $obsequio = Obsequio::findOrFail($this->selected_id);
+                $obsequio->fecha_entrega = $this->fecha_entrega;
+                $obsequio->hora_entrega = $this->hora_entrega;
+                $obsequio->gestion = $this->gestion;
+                $obsequio->observacion = $this->observacion;
+                $obsequio->estado = $this->estado;
+                if (!$obsequio->save()) {
+                    throw new \Exception($obsequio->errors->all());
+                }
+                DB::commit();
+                $this->initPropertiesObsequios();
+                $this->dispatchBrowserEvent('modal', [
+                    'component' => 'obsequio-edit',
+                    'event' => 'hide'
+                ]);
+                $this->dispatchBrowserEvent('switalert', [
+                    'type' => 'success',
+                    'title' => 'Obseqios',
+                    'message' => 'Se guardo correctamente'
+                ]);
+            } catch (\Throwable $th) {
+                DB::rollBack();
+                $this->dispatchBrowserEvent('switalert', [
+                    'type' => 'warning',
+                    'title' => '',
+                    'message' => $th->getMessage()
+                ]);
+            }
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            DB::beginTransaction();
+            $obsequio = Obsequio::findOrFail($id);
+            $obsequio->delete();
+            DB::commit();
+            $this->search();
+            $this->dispatchBrowserEvent('switalert', [
+                'type' => 'success',
+                'title' => 'Obsequios',
+                'message' => 'Se elimino correctamente'
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $this->dispatchBrowserEvent('switalert', [
+                'type' => 'warning',
+                'title' => '',
+                'message' => $th->getMessage()
+            ]);
+        }
     }
 }

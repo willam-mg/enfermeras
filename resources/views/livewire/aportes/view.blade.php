@@ -149,7 +149,6 @@
                                                         <i class="bi bi-trash"></i> Eliminar
                                                     </a>
                                                 </li>
-            
                                             </ul>
                                         </div>
                                     </td>

@@ -128,15 +128,14 @@
                                     </button>
                                 </li>
                                 <li>
-                                    <button type="button" wire:click="selectObsequio({{$item->id}}, true)" class="dropdown-item"
-                                        type="button">
+                                    <a class="dropdown-item" wire:click="edit({{$item->id}})" type="button">
                                         <i class="bi bi-pencil"></i> Editar
-                                    </button>
+                                    </a>
                                 </li>
                                 <li>
-                                    <button type="button" onclick="destroyObsequio({{$item->id}})" class="dropdown-item" type="button">
+                                    <a class="dropdown-item" onclick="deleteObsequio({{$item->id}})" type="button">
                                         <i class="bi bi-trash"></i> Eliminar
-                                    </button>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -161,6 +160,7 @@
     </div>
     
     @include('livewire.obsequio.create')
+    @include('livewire.obsequio.edit')
     <livewire:afiliado.select-afiliado key="obsequio-index">
 
     <x-page.loading />
@@ -197,6 +197,22 @@
                     // else {
                     //     return false;
                     // }
+                });
+            }
+
+            function deleteObsequio(id){
+                Swal.fire({
+                    title: "Aportes",
+                    text: "¿ Esta seguro de eliminar el obsequio ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#dc3545',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Si, eliminalo !'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        @this.destroy(id);
+                    }
                 });
             }
         </script>

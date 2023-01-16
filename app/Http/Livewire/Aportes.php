@@ -276,7 +276,6 @@ class Aportes extends Component
             $aporte = Aporte::findOrFail($id);
             $aporte->delete();
             DB::commit();
-            $this->aportesToPay = [];
             $this->search();
             $this->dispatchBrowserEvent('switalert', [
                 'type' => 'success',
