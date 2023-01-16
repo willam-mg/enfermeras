@@ -135,33 +135,19 @@
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="aportes_dropdownActions{{$item->id}}">
                                                 <li>
-                                                    {{-- href="{{ route('aportes.show', $item->id) }}" --}}
-                                                    <a class="dropdown-item" type="button">
+                                                    <a class="dropdown-item" wire:click="show({{$item->id}})" type="button">
                                                         <i class="bi bi-eye"></i> Ver
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    {{-- href="{{ url('pagos/create', $item->id) }}" --}}
-                                                    <a class="dropdown-item" type="button">
-                                                        <i class="bi bi-cash"></i> Pagar
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    {{-- href="{{ route('aportes.edit', $item->id) }}" --}}
-                                                    <a class="dropdown-item" type="button">
+                                                    <a class="dropdown-item" wire:click="edit({{$item->id}})" type="button">
                                                         <i class="bi bi-pencil"></i> Editar
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    {{-- action="{{ route('aportes.destroy',$item->id) }}" --}}
-                                                    <form class="d-inline" method="POST"
-                                                        data-confirm="Esta seguro de eliminar este elemento">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="dropdown-item"">
-                                                                <i class=" bi bi-trash"></i> Eliminar
-                                                        </button>
-                                                    </form>
+                                                    <a class="dropdown-item" onclick="deleteAporte({{$item->id}})" type="button">
+                                                        <i class="bi bi-trash"></i> Eliminar
+                                                    </a>
                                                 </li>
             
                                             </ul>
@@ -242,6 +228,8 @@
     </div>
 
     <livewire:afiliado.select-afiliado key="aportes-index">
+    @include('livewire.aportes.show')
+    @include('livewire.aportes.edit')
 
     <x-page.loading />
 
@@ -303,6 +291,22 @@
                             }
                         });
                 }
+            }
+
+            function deleteAporte(id){
+                Swal.fire({
+                    title: "Aportes",
+                    text: "¿ Esta seguro de eliminar el aporte ?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#dc3545',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Si, eliminalo !'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        @this.destroy(id);
+                    }
+                });
             }
             
             document.addEventListener("DOMContentLoaded", function(){

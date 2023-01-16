@@ -26,6 +26,15 @@ class Aportes extends Component
     public $totalAportes;
     public $countAportesToPay;
 
+    public $updateMode = false;
+    public $selected_id;
+    public $attrMonto;
+    public $attrGestion;
+    public $attrMes;
+    public $attrEstado;
+    public $attrAfiliado_id;
+    public $attrPagos;
+
     protected $paginationTheme = 'bootstrap';
 
     protected $listeners = [
@@ -167,6 +176,112 @@ class Aportes extends Component
             ]);
             $this->dispatchBrowserEvent('browserPrint', [
                 'url' => url('pagos/recibopdf/' . $pago->id)
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $this->dispatchBrowserEvent('switalert', [
+                'type' => 'warning',
+                'title' => '',
+                'message' => $th->getMessage()
+            ]);
+        }
+    }
+
+    public function edit($id)
+    {
+        try {
+            $this->selected_id = $id;
+            $aporte = Aporte::findOrFail($this->selected_id);
+            $this->attrMonto = $aporte->monto;
+            $this->attrGestion = $aporte->gestion;
+            $this->attrMes = $aporte->mes_name;
+            $this->attrEstado = $aporte->estado;
+            $this->attrAfiliado_id = $aporte->afiliado_id;
+            $this->attrPagos = $aporte->detallePagos;
+            $this->updateMode = true;
+            $this->dispatchBrowserEvent('modal', [
+                'component' => 'aporte-edit',
+                'event' => 'show'
+            ]);
+        } catch (\Throwable $th) {
+            $this->dispatchBrowserEvent('switalert', [
+                'type' => 'warning',
+                'title' => '',
+                'message' => $th->getMessage()
+            ]);
+        }
+    }
+    
+    public function show($id)
+    {
+        try {
+            $this->selected_id = $id;
+            $aporte = Aporte::findOrFail($this->selected_id);
+            $this->attrMonto = $aporte->monto;
+            $this->attrGestion = $aporte->gestion;
+            $this->attrMes = $aporte->mes_name;
+            $this->attrEstado = $aporte->estado;
+            $this->attrAfiliado_id = $aporte->afiliado_id;
+            $this->attrPagos = $aporte->detallePagos;
+            // $this->updateMode = true;
+            $this->dispatchBrowserEvent('modal', [
+                'component' => 'aporte-show',
+                'event' => 'show'
+            ]);
+        } catch (\Throwable $th) {
+            $this->dispatchBrowserEvent('switalert', [
+                'type' => 'warning',
+                'title' => '',
+                'message' => $th->getMessage()
+            ]);
+        }
+    }
+
+    public function update()
+    {
+        if ($this->updateMode) {
+            try {
+                DB::beginTransaction();
+                $aporte = Aporte::findOrFail($this->selected_id);
+                $aporte->monto = $this->attrMonto;
+                if (!$aporte->save()) {
+                    throw new \Exception($aporte->errors->all());
+                }
+                DB::commit();
+                $this->initPropertiesAporte();
+                $this->dispatchBrowserEvent('modal', [
+                    'component' => 'aporte-edit',
+                    'event' => 'hide'
+                ]);
+                $this->dispatchBrowserEvent('switalert', [
+                    'type' => 'success',
+                    'title' => 'Aportes',
+                    'message' => 'Se guardo correctamente'
+                ]);
+            } catch (\Throwable $th) {
+                DB::rollBack();
+                $this->dispatchBrowserEvent('switalert', [
+                    'type' => 'warning',
+                    'title' => '',
+                    'message' => $th->getMessage()
+                ]);
+            }
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            DB::beginTransaction();
+            $aporte = Aporte::findOrFail($id);
+            $aporte->delete();
+            DB::commit();
+            $this->aportesToPay = [];
+            $this->search();
+            $this->dispatchBrowserEvent('switalert', [
+                'type' => 'success',
+                'title' => 'Aportes',
+                'message' => 'Se elimino correctamente'
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
