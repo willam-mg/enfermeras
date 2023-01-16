@@ -14,35 +14,7 @@ class AporteController extends Controller
      */
     public function index(Request $request)
     {
-        $model = new Aporte();
         
-        $afiliados = Afiliado::all();
-        $data = Aporte::select("*")
-            ->when($request->input('afiliado_id') , function ($query) use ($request, $model) {
-                $model->afiliado_id = $request->afiliado_id;
-                $query->where('afiliado_id', $request->afiliado_id);
-            })
-            ->when($request->input('gestion'), function ($query) use ($request, $model) {
-                $model->gestion = $request->gestion;
-                $query->where('gestion', $request->gestion);
-            })
-            ->when($request->input('mes'), function ($query) use ($request, $model) {
-                $model->mes = $request->mes;
-                $query->where('mes', $request->mes);
-            })
-            ->when($request->input('estado'), function ($query) use ($request, $model) {
-                $model->estado = $request->estado;
-                $query->where('estado', $request->estado);
-            })
-            ->paginate(12);
-
-        $selected = $request->input('afiliado_id')?true: false;
-        return view('aporte.index', [
-            'model'=>$model,
-            'data'=>$data,
-            'afiliados'=>$afiliados,
-            'selected'=>$selected,
-        ]);
     }
 
     /**

@@ -104,7 +104,7 @@
             </button>
         </div>
         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-end">
-            <button class="btn btn-success" @if( $totalAportes == 0 ) disabled @endif onclick="registrarMisAportes()">
+            <button class="btn btn-success" @if( $totalAportes == 0 ) disabled @endif wire:loading.attr="disabled" onclick="registrarMisAportes()">
                 <i class="bi bi-cash"></i>
                 Registrar pago
             </button>

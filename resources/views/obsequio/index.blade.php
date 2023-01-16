@@ -3,6 +3,6 @@
 @section('title', 'Obsequios')
 
 @section('content')
-{{ Breadcrumbs::render('obsequios') }}
+@section('breadcrumbs', Breadcrumbs::render('obsequios') )
 <livewire:obsequio.index />
 @endsection

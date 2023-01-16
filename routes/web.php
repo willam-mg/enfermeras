@@ -13,6 +13,7 @@ use App\Http\Livewire\Obsequio\Index as ObsequioIndex;
 use App\Http\Livewire\Dashboard\Index as DashboardIndex;
 use App\Http\Livewire\Reportes\ReporteAfiliado;
 use App\Http\Livewire\User\Index as UserIndex;
+use App\Http\Livewire\Aportes;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +39,7 @@ Route::middleware('auth')->group(function() {
 });
 
 Route::post('afiliados/requisitos/{id}', [AfiliadoController::class, 'requisitos'])->middleware(['auth']);
-Route::resource('aportes', AporteController::class)->middleware(['auth']);
+Route::get('aportes', Aportes::class)->middleware(['auth']);
 Route::resource('pagos', PagoController::class)->middleware(['auth']);
 Route::get('pagos/create/{id}', [PagoController::class, 'store'])->middleware(['auth']);
 Route::get('pagos/recibo/{id}', [PagoController::class, 'recibo'])->middleware(['auth']);
