@@ -14,12 +14,14 @@ class Edit extends Component
 
     public $paramId;
     public $file;
+    public $model;
 
     protected $rules = [];
 
     public function rules() {
         return [
-            'model.numero_afiliado' => 'required|string|max:50',
+            // 'model.numero_afiliado' => 'required|string|max:50',
+            'model.numero_afiliado' => 'required|max:50',
             'model.cargo' => 'required|string|max:50',
             'model.nombre_completo' => 'required|string|max:50',
             'model.numero_matricula' => 'required|string|max:50',

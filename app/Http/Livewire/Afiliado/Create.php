@@ -44,7 +44,8 @@ class Create extends Component
     public $totalAportes;
 
     protected $rules = [
-        'model.numero_afiliado' => 'required|string|max:50|unique:afiliados,numero_afiliado',
+        // 'model.numero_afiliado' => 'required|string|max:50|unique:afiliados,numero_afiliado',
+        'model.numero_afiliado' => 'required|max:50|unique:afiliados,numero_afiliado',
         'model.cargo' => 'required|string|max:50',
         'model.nombre_completo' => 'required|string|max:50',
         'model.numero_matricula' => 'required|string|max:50',
