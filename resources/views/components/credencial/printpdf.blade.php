@@ -31,7 +31,8 @@
     .wrapper-card-top {
         position: absolute;
         top: 10.6mm;
-        left: 32.2mm;
+        /* left: 32.2mm; */
+        left: 32mm;
     }
     .wrapper-card-bottom {
         position: absolute;
@@ -45,6 +46,7 @@
         position: absolute;
         top: 70px;
         right: -64px;
+        /* right: -62px; */
         letter-spacing: 3px;
         text-transform: uppercase;
         background: #137a45;
