@@ -103,7 +103,7 @@ class Index extends Component
                 $query->where('fecha_registro', $this->afiliadoFechaRegistro);
             })
             ->whereNull('deleted_at')
-            ->orderBy('id', 'DESC')
+            ->orderBy('numero_afiliado', 'DESC')
             ->paginate(5);
         $this->resetPage();
         return $data;

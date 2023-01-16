@@ -97,8 +97,8 @@
             <thead class="table-light">
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col" class="text-nowrap">{{__("Foto")}}</th>
                     <th scope="col" class="text-nowrap">{{__("N° afiliado")}}</th>
+                    <th scope="col" class="text-nowrap">{{__("Foto")}}</th>
                     <th scope="col" class="text-nowrap">{{__("Cargo")}}</th>
                     <th scope="col" class="text-nowrap">{{__("Nombre completo")}}</th>
                     <th scope="col" class="text-nowrap">{{__("N° matricula")}}</th>
@@ -114,6 +114,7 @@
                 @foreach ($data as $key => $item)
                     <tr onclick="onSelectAfiliado({{$item->id}}, this, event)" title="Seleccionar Afiliado" >
                         <th scope="row">{{$item->id}}</th>
+                        <td>{{$item->numero_afiliado}}</td>
                         <td>
                             @if ($item->src_foto)
                                 <img src="{{asset('storage/uploads/thumbnail-small/' . $item->src_foto)}}" alt="foto" width="50">
@@ -121,7 +122,6 @@
                                 <img src="{{asset('images/img_user_none.svg')}}" alt="foto" width="50">
                             @endif
                         </td>
-                        <td>{{$item->numero_afiliado}}</td>
                         <td>{{$item->cargo}}</td>
                         <td>{{$item->nombre_completo}}</td>
                         <td>{{$item->numero_matricula}}</td>
