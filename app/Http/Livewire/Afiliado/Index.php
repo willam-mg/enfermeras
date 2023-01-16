@@ -103,7 +103,8 @@ class Index extends Component
                 $query->where('fecha_registro', $this->afiliadoFechaRegistro);
             })
             ->whereNull('deleted_at')
-            ->orderByRaw('CONVERT(numero_afiliado, SIGNED) desc')
+            ->orderByRaw('CONVERT(numero_afiliado, SIGNED) ASC')
+            ->orderByRaw('nombre_completo ASC')
             ->paginate(5);
         $this->resetPage();
         return $data;
